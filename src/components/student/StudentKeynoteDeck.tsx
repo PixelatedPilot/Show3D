@@ -180,28 +180,28 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
   ];
 
   return (
-    <div className="flex-1 flex flex-row h-full overflow-hidden bg-background text-on-surface select-none">
+    <div className="flex-1 flex flex-row h-full overflow-hidden bg-[#131314] text-[#E3E3E3] select-none">
       
       {/* 1. Left Sidebar: Module Title & Report Stages List */}
-      <aside className="w-64 shrink-0 bg-surface-container-lowest border-r border-outline-variant flex flex-col justify-between p-md select-none overflow-y-auto">
+      <aside className="w-64 shrink-0 bg-[#1A1B1E] border-r border-white/[0.07] flex flex-col justify-between p-4 select-none overflow-y-auto">
         <div className="space-y-4">
           {/* Header: Module Title + Subtitle */}
-          <div className="border-b border-outline-variant pb-3">
-            <div className="text-[11px] text-blue-400 font-semibold tracking-wide uppercase">
+          <div className="border-b border-white/[0.07] pb-3.5">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#162238] border border-[#A8C7FA]/25 text-[10px] text-[#A8C7FA] font-mono font-semibold tracking-wider uppercase">
               {currentModule.code}
             </div>
-            <h3 className="font-h3 text-base sm:text-lg font-display font-semibold text-white tracking-tight mt-1">
+            <h3 className="font-h3 text-base sm:text-lg font-display font-medium text-white tracking-tight mt-2">
               {currentModule.title}
             </h3>
-            <p className="font-body-md text-xs text-on-surface-variant text-[#9A9DA3] mt-1 leading-relaxed">
+            <p className="font-body-md text-xs text-[#9AA0A6] mt-1 leading-relaxed">
               Turn spatial concepts into calm architectural precision.
             </p>
           </div>
 
           {/* Module stages list */}
-          <div className="space-y-1">
-            <div className="text-[10px] uppercase tracking-widest text-[#9A9DA3] px-1 mb-1 font-semibold">
-              LESSON STAGES
+          <div className="space-y-1.5">
+            <div className="text-[10px] font-mono uppercase tracking-widest text-[#9AA0A6] px-1 mb-1 font-semibold">
+              EXPERIMENT STAGES
             </div>
             {STAGES.map((stage) => {
               const isActive = slideIndex === stage.id;
@@ -210,26 +210,26 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
                 <button
                   key={stage.id}
                   onClick={() => setSlideIndex(stage.id)}
-                  className={`w-full text-left p-sm rounded-lg transition-all duration-150 flex items-start gap-2.5 ${
+                  className={`w-full text-left p-2.5 rounded-2xl transition-all duration-150 flex items-start gap-2.5 ${
                     isActive
-                      ? 'bg-surface-container-high border border-outline-variant shadow-sm'
-                      : 'border border-transparent hover:bg-surface-container-high/40 hover:border-outline-variant/30 text-on-surface-variant hover:text-on-surface'
+                      ? 'bg-[#282A2E] border border-white/[0.12] shadow-sm'
+                      : 'border border-transparent hover:bg-[#1E1F22] text-[#9AA0A6] hover:text-[#E3E3E3]'
                   }`}
                 >
                   <div className="pt-1.5 shrink-0">
                     {isActive ? (
-                      <span className="block w-1.5 h-1.5 rounded-full bg-secondary shadow-[0_0_8px_#50d8e9] animate-pulse" />
+                      <span className="block w-2 h-2 rounded-full bg-[#6DD58C]" />
                     ) : isPast ? (
-                      <span className="block w-1.5 h-1.5 rounded-full bg-primary/60" />
+                      <span className="block w-2 h-2 rounded-full bg-[#A8C7FA]/70" />
                     ) : (
-                      <span className="block w-1.5 h-1.5 rounded-full bg-white/20" />
+                      <span className="block w-2 h-2 rounded-full bg-white/20" />
                     )}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className={`font-label-sm truncate leading-tight ${isActive ? 'text-white font-medium' : 'text-[#c8c7cb]'}`}>
+                    <div className={`font-label-sm truncate leading-tight ${isActive ? 'text-white font-semibold' : 'text-[#C4C7C5]'}`}>
                       {stage.title}
                     </div>
-                    <div className="text-[11px] text-[#9A9DA3] truncate mt-0.5">
+                    <div className="text-[11px] text-[#9AA0A6] truncate mt-0.5">
                       Stage {stage.id + 1}
                     </div>
                   </div>
@@ -239,19 +239,19 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
           </div>
         </div>
 
-        {/* Bottom CTA: Launch 3D Canvas button in #5E6BFF */}
-        <div className="pt-4 border-t border-outline-variant shrink-0 space-y-2">
+        {/* Bottom CTA: Launch 3D Canvas button in Google Labs Sky Blue #A8C7FA */}
+        <div className="pt-4 border-t border-white/[0.07] shrink-0 space-y-2.5">
           <button
             onClick={onLaunchCanvasModal}
-            className="w-full bg-[#5E6BFF] hover:bg-[#4a57f5] text-white py-2.5 px-3 rounded font-label-sm font-semibold flex items-center justify-center gap-2 shadow-[0_0_12px_rgba(94,107,255,0.35)] transition-all active:scale-[0.98]"
+            className="w-full bg-[#A8C7FA] hover:bg-[#BBD4FB] text-[#062E6F] py-2.5 px-4 rounded-full font-label-sm font-semibold flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
           >
             <ExternalLink className="size-3.5" />
             <span>Launch 3D Canvas</span>
           </button>
-          <div className="flex items-center justify-between text-[11px] text-slate-500 px-1">
-            <span>Show3D Studio</span>
-            <span className="text-emerald-400 flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+          <div className="flex items-center justify-between text-[11px] text-[#9AA0A6] px-1">
+            <span>Show3D Labs Studio</span>
+            <span className="text-[#6DD58C] flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#6DD58C]" />
               Connected
             </span>
           </div>
@@ -260,44 +260,44 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
 
       {/* 2. Center Viewport: Document/Stage Toolbar + Main Stage Sheet */}
       <section 
-        className="flex-1 bg-background p-gutter flex flex-col min-w-0 overflow-y-auto"
+        className="flex-1 bg-[#131314] p-6 flex flex-col min-w-0 overflow-y-auto"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
         {/* Document/Stage Toolbar */}
-        <div className="bg-[#151617] p-sm rounded border border-[#1B1C1E] flex items-center justify-between mb-4 shrink-0 shadow-sm">
+        <div className="bg-[#1E1F22] px-4 py-2.5 rounded-full border border-white/[0.07] flex items-center justify-between mb-4 shrink-0">
           <div className="flex items-center gap-2 min-w-0">
             <span className="text-xs text-white font-semibold tracking-tight truncate">
               {currentModule.title}
             </span>
             <span className="text-white/20">/</span>
-            <span className="text-xs text-slate-400 hidden sm:inline truncate">
+            <span className="text-xs text-[#9AA0A6] hidden sm:inline truncate">
               Stage {slideIndex + 1}: {STAGES[slideIndex]?.title}
             </span>
           </div>
 
           {/* Center keyboard hints */}
-          <div className="hidden md:flex items-center gap-1.5 text-[11px] font-mono-data text-[#9A9DA3]">
+          <div className="hidden md:flex items-center gap-1.5 text-[11px] font-mono-data text-[#9AA0A6]">
             <span>NAV:</span>
-            <kbd className="px-1.5 py-0.5 rounded bg-[#101112] border border-[#232426] text-[10px] text-zinc-300">←</kbd>
-            <kbd className="px-1.5 py-0.5 rounded bg-[#101112] border border-[#232426] text-[10px] text-zinc-300">→</kbd>
-            <span className="mx-1 text-[#232426]">or</span>
-            <kbd className="px-1.5 py-0.5 rounded bg-[#101112] border border-[#232426] text-[10px] text-zinc-300">SPACE</kbd>
+            <kbd className="px-2 py-0.5 rounded-full bg-[#131314] border border-white/[0.08] text-[10px] text-[#E3E3E3]">←</kbd>
+            <kbd className="px-2 py-0.5 rounded-full bg-[#131314] border border-white/[0.08] text-[10px] text-[#E3E3E3]">→</kbd>
+            <span className="mx-1 text-white/20">or</span>
+            <kbd className="px-2 py-0.5 rounded-full bg-[#131314] border border-white/[0.08] text-[10px] text-[#E3E3E3]">SPACE</kbd>
           </div>
 
           {/* Divider and Stage Counter */}
           <div className="flex items-center gap-3 shrink-0">
-            <div className="w-[1px] h-4 bg-[#1B1C1E]" />
-            <span className="font-mono-data text-xs text-secondary font-medium">
+            <div className="w-[1px] h-4 bg-white/[0.08]" />
+            <span className="font-mono-data text-xs text-[#A8C7FA] font-medium">
               Stage {slideIndex + 1} / 6
             </span>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1.5">
               <button
                 disabled={slideIndex === 0}
                 onClick={handlePrev}
                 aria-label="Previous Stage"
-                className={`p-1 rounded border border-[#232426] transition-colors ${
-                  slideIndex > 0 ? 'bg-[#101112] text-white hover:border-[#454655]' : 'opacity-30 cursor-not-allowed text-[#9A9DA3]'
+                className={`p-1.5 rounded-full border border-white/[0.08] transition-colors ${
+                  slideIndex > 0 ? 'bg-[#131314] text-white hover:bg-[#282A2E]' : 'opacity-30 cursor-not-allowed text-[#9AA0A6]'
                 }`}
               >
                 <ArrowLeft className="size-3.5" />
@@ -305,7 +305,7 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
               <button
                 onClick={handleNext}
                 aria-label="Next Stage"
-                className="p-1 rounded bg-[#5E6BFF] hover:bg-[#4a57f5] text-white border border-[#5E6BFF] transition-colors"
+                className="p-1.5 rounded-full bg-[#A8C7FA] hover:bg-[#BBD4FB] text-[#062E6F] transition-colors"
               >
                 <ArrowRight className="size-3.5" />
               </button>
@@ -314,37 +314,34 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
         </div>
 
         {/* Main Stage Sheet */}
-        <div className="bg-[#101112] border border-[#232426] rounded-lg p-xl relative shadow-[0_4px_24px_rgba(0,0,0,0.4)] flex-1 flex flex-col justify-between overflow-y-auto">
-          {/* Signature top shimmer line */}
-          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none z-10" />
-
+        <div className="bg-[#1E1F22] border border-white/[0.07] rounded-3xl p-6 sm:p-8 relative shadow-[0_14px_40px_rgba(0,0,0,0.45)] flex-1 flex flex-col justify-between overflow-y-auto">
           {/* Stages 0-2: Visual Concept Slides */}
           {slideIndex < 3 && currentConceptSlide && (
             <div className="w-full flex-1 flex flex-col justify-between space-y-6">
               {/* Header split */}
-              <div className="border-b border-[#1B1C1E] pb-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                  <div className="inline-flex items-center gap-2">
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 font-semibold uppercase tracking-wider">
+              <div className="border-b border-white/[0.07] pb-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2.5">
+                  <div className="inline-flex items-center gap-2.5">
+                    <span className="text-[10px] px-3 py-1 rounded-full bg-[#162238] border border-[#A8C7FA]/25 text-[#A8C7FA] font-mono font-semibold uppercase tracking-wider">
                       {currentConceptSlide.badge}
                     </span>
-                    <span className="text-xs text-slate-400">
+                    <span className="text-xs text-[#9AA0A6]">
                       Concept {slideIndex + 1} of 3
                     </span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-xs text-slate-400">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                    <span>Self-Guided Study</span>
+                  <div className="flex items-center gap-1.5 text-xs text-[#9AA0A6]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#6DD58C]" />
+                    <span>Self-Guided Experiment</span>
                   </div>
                 </div>
                 <h1 className="font-h1 text-2xl sm:text-3xl lg:text-4xl font-display font-medium text-white tracking-tight">
                   {currentConceptSlide.title}
                 </h1>
 
-                {/* Plain-language abstract with cyan indicator dot */}
-                <div className="mt-3 flex items-start gap-2 text-on-surface font-body-lg text-sm sm:text-base">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 shrink-0 shadow-[0_0_8px_rgba(96,165,250,0.5)]" />
-                  <p className="leading-relaxed text-[#d1d0d4]">
+                {/* Plain-language abstract with Sky Blue indicator dot */}
+                <div className="mt-3 flex items-start gap-2.5 text-[#E3E3E3] font-body-lg text-sm sm:text-base">
+                  <span className="w-2 h-2 rounded-full bg-[#A8C7FA] mt-2 shrink-0" />
+                  <p className="leading-relaxed text-[#C4C7C5]">
                     {currentConceptSlide.subtitle}
                   </p>
                 </div>
@@ -353,7 +350,7 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
               {/* Body Grid: Reading text + 2-Column Cards */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start my-auto">
                 {/* Reading text */}
-                <div className="lg:col-span-7 space-y-3.5 font-body-md text-sm text-[#c8c7cb] leading-relaxed">
+                <div className="lg:col-span-7 space-y-3.5 font-body-md text-sm text-[#C4C7C5] leading-relaxed">
                   {currentConceptSlide.paragraphs.map((p, idx) => (
                     <p key={idx} className="whitespace-pre-line">
                       {p}
@@ -364,30 +361,30 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
                 {/* Key Concept & Pro Tip Cards */}
                 <div className="lg:col-span-5 space-y-4">
                   {/* Key Concept Card */}
-                  <div className="p-5 rounded-2xl bg-[#151617] border border-white/[0.08] shadow-sm">
-                    <div className="flex items-center justify-between text-slate-400 mb-1">
-                      <span className="text-[11px] font-semibold uppercase tracking-wider text-blue-400">
+                  <div className="p-5 rounded-3xl bg-[#131314] border border-white/[0.07]">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-[#A8C7FA]">
                         KEY CONCEPT
                       </span>
-                      <Lightbulb className="size-4 text-blue-400" />
+                      <Lightbulb className="size-4 text-[#A8C7FA]" />
                     </div>
-                    <h3 className="text-base font-semibold text-white mt-1">
+                    <h3 className="text-base font-display font-medium text-white mt-1">
                       {currentConceptSlide.keyConcept.term}
                     </h3>
-                    <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+                    <p className="text-xs text-[#9AA0A6] mt-2 leading-relaxed">
                       {currentConceptSlide.keyConcept.definition}
                     </p>
                   </div>
 
                   {/* Pro Tip Card */}
-                  <div className="p-5 rounded-2xl bg-[#151617] border border-white/[0.08] shadow-sm">
-                    <div className="flex items-center justify-between text-slate-400 mb-1">
-                      <span className="text-[11px] font-semibold uppercase tracking-wider text-amber-400">
-                        STUDIO TIP
+                  <div className="p-5 rounded-3xl bg-[#131314] border border-white/[0.07]">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-[#FDD663]">
+                        LABS TIP
                       </span>
-                      <Sparkles className="size-4 text-amber-400" />
+                      <Sparkles className="size-4 text-[#FDD663]" />
                     </div>
-                    <p className="text-xs text-slate-300 leading-relaxed mt-2">
+                    <p className="text-xs text-[#C4C7C5] leading-relaxed mt-2">
                       {currentConceptSlide.proTip}
                     </p>
                   </div>
@@ -508,25 +505,25 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
                       <path
                         d={`M 200 ${50 + (1 - curvature) * 20} Q ${290} ${75 + curvature * 20} 330 135 Q 260 170 200 145 Q 140 170 70 135 Q 110 ${75 + curvature * 20} 200 ${50 + (1 - curvature) * 20} Z`}
                         fill="url(#deckCanopyGradRomer)"
-                        stroke="#bec2ff"
+                        stroke="#A8C7FA"
                         strokeWidth="1.5"
                         opacity="0.95"
                       />
 
                       {/* Solar Array on Roof */}
                       {hasSolar && (
-                        <path d="M 175 62 L 225 62 L 240 88 L 160 88 Z" fill="url(#deckSolarGradRomer)" stroke="#50d8e9" strokeWidth="1" />
+                        <path d="M 175 62 L 225 62 L 240 88 L 160 88 Z" fill="url(#deckSolarGradRomer)" stroke="#6DD58C" strokeWidth="1" />
                       )}
 
                       {/* Center Pivot Reticle */}
-                      <circle cx="200" cy="145" r="3" fill="#50d8e9" />
-                      <circle cx="200" cy="145" r="7" fill="none" stroke="#50d8e9" strokeWidth="0.5" strokeDasharray="2 2" />
+                      <circle cx="200" cy="145" r="3" fill="#6DD58C" />
+                      <circle cx="200" cy="145" r="7" fill="none" stroke="#6DD58C" strokeWidth="0.5" strokeDasharray="2 2" />
                     </svg>
                   </div>
                 </div>
 
                 {/* Viewport Bottom Status Bar */}
-                <div className="relative z-10 flex items-center justify-between font-mono-data text-[11px] border-t border-[#1B1C1E] pt-2 text-[#9A9DA3]">
+                <div className="relative z-10 flex items-center justify-between font-mono-data text-[11px] border-t border-white/[0.08] pt-2 text-[#9AA0A6]">
                   <div className="flex items-center gap-3">
                     <span>KERNEL: WebGL2</span>
                     <span>·</span>
@@ -536,7 +533,7 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
                   </div>
                   <button
                     onClick={onLaunchCanvasModal}
-                    className="text-primary hover:text-white flex items-center gap-1 transition-colors"
+                    className="text-[#A8C7FA] hover:text-white flex items-center gap-1 transition-colors"
                   >
                     <span>Open in 3D Viewport</span>
                     <ExternalLink className="size-3" />
@@ -549,12 +546,12 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
           {/* Stage 4: Formative Diagnostic Check */}
           {slideIndex === 4 && currentQuizQuestion && (
             <div className="w-full flex-1 flex flex-col justify-center max-w-3xl mx-auto space-y-6">
-              <div className="border-b border-[#1B1C1E] pb-3">
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="font-mono-data text-[10px] px-2 py-0.5 rounded bg-tertiary/15 text-tertiary border border-tertiary/30 uppercase tracking-widest">
-                    CONTROL QUEUE // FORMATIVE_DIAGNOSTIC
+              <div className="border-b border-white/[0.08] pb-3.5">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-mono-data text-[10px] px-3 py-1 rounded-full bg-[#2B2210] text-[#FDD663] border border-[#FDD663]/30 uppercase tracking-widest">
+                    LABS CHECK // FORMATIVE_DIAGNOSTIC
                   </span>
-                  <span className="font-mono-data text-xs text-[#9A9DA3]">
+                  <span className="font-mono-data text-xs text-[#9AA0A6]">
                     MOE Four Learns: Learn to Inquire
                   </span>
                 </div>
@@ -562,7 +559,7 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
                   {currentQuizQuestion.question}
                 </h2>
                 {currentQuizQuestion.contextNote && (
-                  <p className="font-body-md text-xs sm:text-sm text-on-surface-variant text-[#9A9DA3] mt-1.5">
+                  <p className="font-body-md text-xs sm:text-sm text-[#9AA0A6] mt-1.5">
                     {currentQuizQuestion.contextNote}
                   </p>
                 )}
@@ -583,19 +580,19 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
                         setSelectedOptionId(option.id);
                         setIsQuizSubmitted(true);
                       }}
-                      className={`w-full p-md rounded-lg border text-left transition-all duration-150 flex flex-col gap-2 ${
+                      className={`w-full p-4 rounded-2xl border text-left transition-all duration-150 flex flex-col gap-2 ${
                         showResult && isCorrect
-                          ? 'bg-[#50d8e9]/10 border-[#50d8e9] text-white shadow-[0_0_12px_rgba(80,216,233,0.2)]'
+                          ? 'bg-[#13281C] border-[#6DD58C]/50 text-white'
                           : showResult && !isCorrect
-                          ? 'bg-[#ffb689]/10 border-[#ffb689] text-white shadow-[0_0_12px_rgba(255,182,137,0.2)]'
+                          ? 'bg-[#2E1717] border-[#FFB4AB]/50 text-white'
                           : isSelected
-                          ? 'bg-[#151617] border-[#5E6BFF] text-white'
-                          : 'bg-[#151617] border-[#1B1C1E] hover:border-[#454655] text-on-surface'
+                          ? 'bg-[#162238] border-[#A8C7FA]/50 text-white'
+                          : 'bg-[#131314] border-white/[0.07] hover:border-white/[0.16] text-[#E3E3E3]'
                       }`}
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <span className="font-mono-data text-xs px-2 py-0.5 rounded bg-[#101112] border border-[#232426] text-[#9A9DA3] font-semibold">
+                          <span className="font-mono-data text-xs px-2.5 py-0.5 rounded-full bg-[#1E1F22] border border-white/[0.08] text-[#9AA0A6] font-semibold">
                             {optTag}
                           </span>
                           <span className="font-body-md text-sm font-medium text-white">
@@ -605,20 +602,20 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
 
                         {/* Instant Telemetry Feedback */}
                         {showResult && (
-                          <span className={`font-mono-data text-[11px] px-2.5 py-0.5 rounded uppercase tracking-wider font-semibold flex items-center gap-1 ${
+                          <span className={`font-mono-data text-[11px] px-3 py-0.5 rounded-full uppercase tracking-wider font-semibold flex items-center gap-1 ${
                             isCorrect
-                              ? 'bg-[#50d8e9]/20 text-[#50d8e9] border border-[#50d8e9]/40'
-                              : 'bg-[#ffb689]/20 text-[#ffb689] border border-[#ffb689]/40'
+                              ? 'bg-[#6DD58C]/20 text-[#6DD58C] border border-[#6DD58C]/40'
+                              : 'bg-[#FFB4AB]/20 text-[#FFB4AB] border border-[#FFB4AB]/40'
                           }`}>
                             {isCorrect ? (
                               <>
-                                <CheckCircle2 className="size-3 text-[#50d8e9]" />
-                                <span>TARGET_MET // #50d8e9</span>
+                                <CheckCircle2 className="size-3 text-[#6DD58C]" />
+                                <span>TARGET_MET</span>
                               </>
                             ) : (
                               <>
-                                <XCircle className="size-3 text-[#ffb689]" />
-                                <span>WARN // #ffb689</span>
+                                <XCircle className="size-3 text-[#FFB4AB]" />
+                                <span>REVIEW_NEEDED</span>
                               </>
                             )}
                           </span>
@@ -629,8 +626,8 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
                       {showResult && (
                         <div className={`mt-2 pt-2 border-t font-body-md text-xs leading-relaxed ${
                           isCorrect
-                            ? 'border-[#50d8e9]/20 text-[#a3eeff]'
-                            : 'border-[#ffb689]/20 text-[#ffccaa]'
+                            ? 'border-[#6DD58C]/20 text-[#C4EDD0]'
+                            : 'border-[#FFB4AB]/20 text-[#FFDAD6]'
                         }`}>
                           <span className="font-mono-data font-bold uppercase mr-1">
                             {isCorrect ? 'VALIDATION NOTE:' : 'DIAGNOSTIC ADVISORY:'}
@@ -649,34 +646,34 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
           {slideIndex === 5 && (
             <div className="max-w-3xl w-full mx-auto space-y-6 my-auto">
               {/* Document Header Bar */}
-              <div className="border-b border-[#1B1C1E] pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div className="border-b border-white/[0.08] pb-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div>
-                  <div className="font-mono-data text-[10px] text-secondary uppercase tracking-widest flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-secondary shadow-[0_0_8px_#50d8e9]" />
-                    EXECUTIVE AUDIT REPORT // MOE MASTERPLAN 2030
+                  <div className="font-mono-data text-[10px] text-[#6DD58C] uppercase tracking-widest flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#6DD58C]" />
+                    GRADUATED EXPERIMENT // MOE MASTERPLAN 2030
                   </div>
                   <h2 className="font-h2 text-xl sm:text-2xl font-display font-medium text-white tracking-tight mt-1">
                     {currentModule.badgeName} Verified
                   </h2>
                 </div>
-                <div className="font-mono-data text-right text-xs text-[#9A9DA3]">
+                <div className="font-mono-data text-right text-xs text-[#9AA0A6]">
                   <div>DOC_ID: REP-MOE-2026-M0{activeModuleId}.pdf</div>
-                  <div className="text-secondary font-semibold">STATUS: CRITERIA_MET</div>
+                  <div className="text-[#6DD58C] font-semibold">STATUS: CRITERIA_MET</div>
                 </div>
               </div>
 
               {/* Telemetry Scorecard Card: 94.0% Human Creative Intent */}
-              <div className="bg-[#151617] border border-[#1B1C1E] rounded-lg p-lg relative shadow-md">
+              <div className="bg-[#131314] border border-white/[0.08] rounded-3xl p-6 relative">
                 <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
                   {/* Left Score: 94.0% in font-h2 */}
-                  <div className="sm:col-span-5 text-center sm:text-left sm:border-r sm:border-[#1B1C1E] sm:pr-6">
-                    <div className="font-mono-data text-[10px] uppercase tracking-widest text-[#9A9DA3]">
+                  <div className="sm:col-span-5 text-center sm:text-left sm:border-r sm:border-white/[0.08] sm:pr-6">
+                    <div className="font-mono-data text-[10px] uppercase tracking-widest text-[#9AA0A6]">
                       AUTHENTIC HUMAN INTENT
                     </div>
-                    <div className="font-h2 text-4xl sm:text-5xl font-display font-bold text-white tracking-tight mt-1">
+                    <div className="font-h2 text-4xl sm:text-5xl font-display font-medium text-white tracking-tight mt-1">
                       94.0%
                     </div>
-                    <div className="font-mono-data text-xs text-secondary mt-1 flex items-center justify-center sm:justify-start gap-1">
+                    <div className="font-mono-data text-xs text-[#6DD58C] mt-1.5 flex items-center justify-center sm:justify-start gap-1">
                       <Check className="size-3.5" />
                       <span>Anti-Offloading Audit: PASS</span>
                     </div>
@@ -684,32 +681,32 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
 
                   {/* Right Metrics Grid */}
                   <div className="sm:col-span-7 grid grid-cols-2 gap-3">
-                    <div className="bg-[#101112] p-sm rounded border border-[#232426]">
-                      <div className="font-mono-data text-[10px] text-[#9A9DA3]">SYNTACTIC_RIGOR</div>
+                    <div className="bg-[#1E1F22] p-3 rounded-2xl border border-white/[0.07]">
+                      <div className="font-mono-data text-[10px] text-[#9AA0A6]">SYNTACTIC_RIGOR</div>
                       <div className="font-mono-data text-sm font-semibold text-white mt-0.5">96.2%</div>
-                      <div className="h-1 bg-[#151617] rounded-full overflow-hidden mt-1.5">
-                        <div className="h-full bg-secondary rounded-full" style={{ width: '96.2%' }} />
+                      <div className="h-1 bg-[#131314] rounded-full overflow-hidden mt-1.5">
+                        <div className="h-full bg-[#6DD58C] rounded-full" style={{ width: '96.2%' }} />
                       </div>
                     </div>
-                    <div className="bg-[#101112] p-sm rounded border border-[#232426]">
-                      <div className="font-mono-data text-[10px] text-[#9A9DA3]">ITERATION_DEPTH</div>
+                    <div className="bg-[#1E1F22] p-3 rounded-2xl border border-white/[0.07]">
+                      <div className="font-mono-data text-[10px] text-[#9AA0A6]">ITERATION_DEPTH</div>
                       <div className="font-mono-data text-sm font-semibold text-white mt-0.5">8 CYCLES // PASS</div>
-                      <div className="h-1 bg-[#151617] rounded-full overflow-hidden mt-1.5">
-                        <div className="h-full bg-primary rounded-full" style={{ width: '88%' }} />
+                      <div className="h-1 bg-[#131314] rounded-full overflow-hidden mt-1.5">
+                        <div className="h-full bg-[#A8C7FA] rounded-full" style={{ width: '88%' }} />
                       </div>
                     </div>
-                    <div className="bg-[#101112] p-sm rounded border border-[#232426]">
-                      <div className="font-mono-data text-[10px] text-[#9A9DA3]">PORT_443_SAFE</div>
-                      <div className="font-mono-data text-sm font-semibold text-secondary mt-0.5">VERIFIED_PLD</div>
-                      <div className="h-1 bg-[#151617] rounded-full overflow-hidden mt-1.5">
-                        <div className="h-full bg-secondary rounded-full" style={{ width: '100%' }} />
+                    <div className="bg-[#1E1F22] p-3 rounded-2xl border border-white/[0.07]">
+                      <div className="font-mono-data text-[10px] text-[#9AA0A6]">PORT_443_SAFE</div>
+                      <div className="font-mono-data text-sm font-semibold text-[#6DD58C] mt-0.5">VERIFIED_PLD</div>
+                      <div className="h-1 bg-[#131314] rounded-full overflow-hidden mt-1.5">
+                        <div className="h-full bg-[#6DD58C] rounded-full" style={{ width: '100%' }} />
                       </div>
                     </div>
-                    <div className="bg-[#101112] p-sm rounded border border-[#232426]">
-                      <div className="font-mono-data text-[10px] text-[#9A9DA3]">CURRICULUM_DELTA</div>
+                    <div className="bg-[#1E1F22] p-3 rounded-2xl border border-white/[0.07]">
+                      <div className="font-mono-data text-[10px] text-[#9AA0A6]">CURRICULUM_DELTA</div>
                       <div className="font-mono-data text-sm font-semibold text-white mt-0.5">+34.2% GROWTH</div>
-                      <div className="h-1 bg-[#151617] rounded-full overflow-hidden mt-1.5">
-                        <div className="h-full bg-primary rounded-full" style={{ width: '92%' }} />
+                      <div className="h-1 bg-[#131314] rounded-full overflow-hidden mt-1.5">
+                        <div className="h-full bg-[#A8C7FA] rounded-full" style={{ width: '92%' }} />
                       </div>
                     </div>
                   </div>
@@ -717,27 +714,27 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
               </div>
 
               {/* Module Key Takeaways formatted as Clinical Decision Log */}
-              <div className="bg-[#151617] border border-[#1B1C1E] rounded-lg p-md">
-                <div className="font-mono-data text-[10px] text-[#9A9DA3] uppercase tracking-widest mb-2.5">
+              <div className="bg-[#131314] border border-white/[0.08] rounded-3xl p-5">
+                <div className="font-mono-data text-[10px] text-[#9AA0A6] uppercase tracking-widest mb-2.5">
                   VERIFIED OUTCOMES // DECISION_LOG
                 </div>
                 <div className="space-y-2">
                   {lessonData.keyTakeaways.map((takeaway, i) => (
-                    <div key={i} className="flex items-start gap-2.5 font-body-md text-xs text-on-surface">
-                      <span className="font-mono-data text-[10px] text-secondary bg-secondary/10 px-1 rounded shrink-0 mt-0.5 font-semibold">
-                        [PASS]
+                    <div key={i} className="flex items-start gap-2.5 font-body-md text-xs text-[#E3E3E3]">
+                      <span className="font-mono-data text-[10px] text-[#6DD58C] bg-[#13281C] px-2 py-0.5 rounded-full shrink-0 mt-0.5 font-semibold">
+                        PASS
                       </span>
-                      <span className="leading-snug text-[#d1d0d4]">{takeaway}</span>
+                      <span className="leading-snug text-[#C4C7C5]">{takeaway}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Actions Bar: Verify & Export PDF trigger in #5E6BFF */}
+              {/* Actions Bar: Verify & Export PDF trigger in Google Labs Sky Blue #A8C7FA */}
               <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
                 <button
                   onClick={onOpenCertificateModal}
-                  className="bg-[#5E6BFF] hover:bg-[#4a57f5] text-white px-5 py-2.5 rounded font-label-sm font-semibold flex items-center gap-2 shadow-[0_0_12px_rgba(94,107,255,0.35)] transition-all active:scale-[0.98]"
+                  className="bg-[#A8C7FA] hover:bg-[#BBD4FB] text-[#062E6F] px-5 py-2.5 rounded-full font-label-sm font-semibold flex items-center gap-2 transition-all active:scale-[0.98]"
                 >
                   <Award className="size-4" />
                   <span>Verify & Export PDF</span>
@@ -746,7 +743,7 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
                 {activeModuleId < 6 ? (
                   <button
                     onClick={() => onSelectModule(activeModuleId + 1)}
-                    className="bg-[#151617] hover:bg-[#201f22] text-white border border-[#232426] hover:border-[#454655] px-4 py-2.5 rounded font-label-sm flex items-center gap-2 transition-all"
+                    className="bg-[#282A2E] hover:bg-[#33363B] text-white border border-white/[0.08] px-5 py-2.5 rounded-full font-label-sm flex items-center gap-2 transition-all"
                   >
                     <span>Next Module: M0{activeModuleId + 1}</span>
                     <ArrowRight className="size-3.5" />
@@ -754,7 +751,7 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
                 ) : (
                   <button
                     onClick={() => onSelectModule(1)}
-                    className="bg-[#151617] hover:bg-[#201f22] text-white border border-[#232426] hover:border-[#454655] px-4 py-2.5 rounded font-label-sm flex items-center gap-2 transition-all"
+                    className="bg-[#282A2E] hover:bg-[#33363B] text-white border border-white/[0.08] px-5 py-2.5 rounded-full font-label-sm flex items-center gap-2 transition-all"
                   >
                     <RotateCcw className="size-3.5" />
                     <span>Review from Module 1</span>
@@ -765,29 +762,29 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
           )}
 
           {/* Bottom Slide Controller Bar */}
-          <div className="pt-4 border-t border-[#1B1C1E] mt-6 flex items-center justify-between shrink-0">
+          <div className="pt-4 border-t border-white/[0.07] mt-6 flex items-center justify-between shrink-0">
             <button
               disabled={slideIndex === 0}
               onClick={handlePrev}
-              className={`px-3 py-1.5 rounded font-label-sm transition-all flex items-center gap-1.5 ${
+              className={`px-4 py-2 rounded-full font-label-sm transition-all flex items-center gap-1.5 ${
                 slideIndex > 0
-                  ? 'bg-[#151617] hover:bg-[#201f22] text-on-surface border border-[#232426]'
-                  : 'text-[#9A9DA3] opacity-30 cursor-not-allowed border border-transparent'
+                  ? 'bg-[#131314] hover:bg-[#282A2E] text-[#E3E3E3] border border-white/[0.08]'
+                  : 'text-[#9AA0A6] opacity-30 cursor-not-allowed border border-transparent'
               }`}
             >
               <ArrowLeft className="size-3.5" />
-              <span>PREV_STAGE</span>
+              <span>Previous</span>
             </button>
 
-            <div className="font-mono-data text-[11px] text-[#9A9DA3] hidden sm:block">
+            <div className="font-mono-data text-[11px] text-[#9AA0A6] hidden sm:block">
               Use Arrow Keys or Space to navigate stages
             </div>
 
             <button
               onClick={handleNext}
-              className="px-4 py-1.5 rounded bg-[#5E6BFF] hover:bg-[#4a57f5] text-white font-label-sm font-semibold flex items-center gap-1.5 shadow-[0_0_8px_rgba(94,107,255,0.3)] transition-all active:scale-[0.98]"
+              className="px-5 py-2 rounded-full bg-[#A8C7FA] hover:bg-[#BBD4FB] text-[#062E6F] font-label-sm font-semibold flex items-center gap-1.5 transition-all active:scale-[0.98]"
             >
-              <span>{slideIndex === 5 ? (activeModuleId < 6 ? 'NEXT_MODULE' : 'COMPLETE') : 'NEXT_STAGE'}</span>
+              <span>{slideIndex === 5 ? (activeModuleId < 6 ? 'Next Module' : 'Complete') : 'Next Stage'}</span>
               <ArrowRight className="size-3.5" />
             </button>
           </div>
@@ -795,24 +792,24 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
       </section>
 
       {/* 3. Right Configuration & Telemetry Panel */}
-      <aside className="w-80 shrink-0 bg-surface-container-low border-l border-outline-variant glass-panel flex flex-col justify-between p-md select-none overflow-y-auto">
+      <aside className="w-80 shrink-0 bg-[#1A1B1E] border-l border-white/[0.07] flex flex-col justify-between p-4 select-none overflow-y-auto">
         {slideIndex === 3 ? (
           /* Co-Design Stage (Stage 3): PARTS prompt recipe tokens, Curvature & Reflectivity levers, Solar toggle */
           <div className="space-y-4">
-            <div className="font-mono-data text-[10px] uppercase tracking-widest text-[#9A9DA3] border-b border-[#1B1C1E] pb-2">
+            <div className="font-mono-data text-[10px] uppercase tracking-widest text-[#9AA0A6] border-b border-white/[0.07] pb-2">
               CONFIGURATION // CO-DESIGN CONTROLS
             </div>
 
-            {/* PARTS Prompt Recipe Tokens (styled like Romer Data Sources checkbox list) */}
+            {/* PARTS Prompt Recipe Tokens */}
             <div className="space-y-3">
               <div className="text-xs font-semibold text-white flex items-center justify-between">
                 <span>PARTS Prompt Recipe Tokens</span>
-                <span className="font-mono-data text-[10px] text-secondary">{selectedTokens.length} active</span>
+                <span className="font-mono-data text-[10px] text-[#6DD58C]">{selectedTokens.length} active</span>
               </div>
 
               {/* Selected tokens summary */}
-              <div className="bg-[#101112] border border-[#1B1C1E] rounded p-sm space-y-1.5">
-                <div className="font-mono-data text-[10px] text-[#9A9DA3] uppercase">Active Prompt Tokens:</div>
+              <div className="bg-[#131314] border border-white/[0.07] rounded-2xl p-3 space-y-2">
+                <div className="font-mono-data text-[10px] text-[#9AA0A6] uppercase">Active Prompt Tokens:</div>
                 <div className="flex flex-wrap gap-1.5">
                   {selectedTokens.map((id) => {
                     const item = DEFAULT_INGREDIENTS.find((i) => i.id === id);
@@ -820,13 +817,13 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
                     return (
                       <span
                         key={item.id}
-                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#151617] text-white border border-[#232426] text-xs font-mono-data"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#1E1F22] text-white border border-white/[0.08] text-xs font-mono-data"
                       >
-                        <item.icon className="size-3 text-secondary" />
+                        <item.icon className="size-3 text-[#A8C7FA]" />
                         <span className="truncate max-w-[120px]">{item.label}</span>
                         <button
                           onClick={() => handleToggleToken(item.id)}
-                          className="text-[#9A9DA3] hover:text-white transition-colors ml-0.5"
+                          className="text-[#9AA0A6] hover:text-white transition-colors ml-0.5"
                           aria-label={`Remove token ${item.label}`}
                         >
                           <X className="size-3" />
@@ -837,27 +834,27 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
                 </div>
               </div>
 
-              {/* Available Tokens list as Romer Data Sources checkbox list */}
-              <div className="space-y-1">
-                <div className="font-mono-data text-[10px] text-[#9A9DA3] uppercase">Data Source Tokens:</div>
-                <div className="bg-[#101112] border border-[#1B1C1E] rounded divide-y divide-[#1B1C1E]">
+              {/* Available Tokens list */}
+              <div className="space-y-1.5">
+                <div className="font-mono-data text-[10px] text-[#9AA0A6] uppercase">Data Source Tokens:</div>
+                <div className="bg-[#131314] border border-white/[0.07] rounded-2xl overflow-hidden divide-y divide-white/[0.06]">
                   {DEFAULT_INGREDIENTS.map((item) => {
                     const isChecked = selectedTokens.includes(item.id);
                     return (
                       <div
                         key={item.id}
                         onClick={() => handleToggleToken(item.id)}
-                        className="p-2 flex items-center justify-between cursor-pointer hover:bg-[#151617] transition-colors"
+                        className="p-2.5 flex items-center justify-between cursor-pointer hover:bg-[#1E1F22] transition-colors"
                       >
                         <div className="flex items-center gap-2">
-                          <item.icon className={`size-3.5 ${isChecked ? 'text-secondary' : 'text-[#9A9DA3]'}`} />
-                          <span className="text-xs text-on-surface leading-none">{item.label}</span>
+                          <item.icon className={`size-3.5 ${isChecked ? 'text-[#6DD58C]' : 'text-[#9AA0A6]'}`} />
+                          <span className="text-xs text-[#E3E3E3] leading-none">{item.label}</span>
                         </div>
                         <input
                           type="checkbox"
                           checked={isChecked}
                           readOnly
-                          className="accent-[#50d8e9] size-3.5 rounded-sm cursor-pointer pointer-events-none"
+                          className="accent-[#A8C7FA] size-3.5 rounded-sm cursor-pointer pointer-events-none"
                         />
                       </div>
                     );
@@ -866,12 +863,12 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
               </div>
 
               {/* Parametric Levers */}
-              <div className="space-y-3 pt-2 border-t border-[#1B1C1E]">
+              <div className="space-y-3 pt-2 border-t border-white/[0.07]">
                 {/* Reflectivity swatch lever */}
-                <div className="bg-[#101112] border border-[#1B1C1E] rounded p-2.5">
+                <div className="bg-[#131314] border border-white/[0.07] rounded-2xl p-3">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs font-semibold text-white">Reflectivity Finish</span>
-                    <span className="font-mono-data text-[10px] text-[#9A9DA3]">Albedo Pigment</span>
+                    <span className="font-mono-data text-[10px] text-[#9AA0A6]">Albedo Pigment</span>
                   </div>
                   <div className="flex items-center justify-between gap-1">
                     {['#38bdf8', '#ffffff', '#10b981', '#f59e0b'].map((hex) => (
@@ -883,8 +880,8 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
                         }}
                         style={{ backgroundColor: hex }}
                         aria-label={`Select pigment ${hex}`}
-                        className={`size-6 rounded border transition-all ${
-                          canopyColor === hex ? 'border-[#50d8e9] scale-110 shadow-[0_0_8px_#50d8e9]' : 'border-transparent opacity-70 hover:opacity-100'
+                        className={`size-6 rounded-full border-2 transition-all ${
+                          canopyColor === hex ? 'border-white scale-110' : 'border-transparent opacity-70 hover:opacity-100'
                         }`}
                       />
                     ))}
@@ -892,10 +889,10 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
                 </div>
 
                 {/* Curvature ratio lever */}
-                <div className="bg-[#101112] border border-[#1B1C1E] rounded p-2.5">
+                <div className="bg-[#131314] border border-white/[0.07] rounded-2xl p-3">
                   <div className="flex items-center justify-between mb-1.5">
                     <span className="text-xs font-semibold text-white">Canopy Curvature</span>
-                    <span className="font-mono-data text-xs text-secondary">{curvature.toFixed(2)}</span>
+                    <span className="font-mono-data text-xs text-[#A8C7FA]">{curvature.toFixed(2)}</span>
                   </div>
                   <input
                     type="range"
@@ -904,19 +901,19 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
                     step="0.05"
                     value={curvature}
                     onChange={(e) => setCurvature(setCanopyCurvature(parseFloat(e.target.value)))}
-                    className="w-full accent-[#5E6BFF] cursor-pointer"
+                    className="w-full accent-[#A8C7FA] cursor-pointer"
                   />
-                  <div className="flex justify-between font-mono-data text-[9px] text-[#9A9DA3] mt-1">
+                  <div className="flex justify-between font-mono-data text-[9px] text-[#9AA0A6] mt-1">
                     <span>FLAT (0.00)</span>
                     <span>PARABOLIC (1.00)</span>
                   </div>
                 </div>
 
                 {/* 450W Solar Array Toggle */}
-                <div className="bg-[#070708] rounded p-2 border border-[#1B1C1E] flex items-center justify-between">
+                <div className="bg-[#131314] rounded-2xl p-3 border border-white/[0.07] flex items-center justify-between">
                   <div>
                     <div className="text-xs font-semibold text-white">450W Solar Array</div>
-                    <div className="font-mono-data text-[10px] text-[#9A9DA3]">Renewable micro-grid</div>
+                    <div className="font-mono-data text-[10px] text-[#9AA0A6]">Renewable micro-grid</div>
                   </div>
                   <button
                     onClick={() => {
@@ -924,11 +921,11 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
                       setHasSolar(result.hasSolar);
                     }}
                     className={`w-10 h-5 rounded-full p-0.5 transition-colors cursor-pointer ${
-                      hasSolar ? 'bg-[#50d8e9]' : 'bg-[#232426]'
+                      hasSolar ? 'bg-[#6DD58C]' : 'bg-[#282A2E]'
                     }`}
                   >
                     <div
-                      className={`size-4 rounded-full bg-black transform transition-transform duration-200 ${
+                      className={`size-4 rounded-full bg-[#131314] transform transition-transform duration-200 ${
                         hasSolar ? 'translate-x-5' : 'translate-x-0'
                       }`}
                     />
@@ -940,91 +937,91 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
         ) : (
           /* Concept / Quiz / Badge Slides: Module telemetry, active learning objectives, slide navigation */
           <div className="space-y-5">
-            <div className="font-mono-data text-[10px] uppercase tracking-widest text-[#9A9DA3] border-b border-[#1B1C1E] pb-2">
+            <div className="font-mono-data text-[10px] uppercase tracking-widest text-[#9AA0A6] border-b border-white/[0.07] pb-2">
               TELEMETRY // LIVE STREAM
             </div>
 
             {/* Module Telemetry Blocks */}
             <div className="space-y-2.5">
               {/* NODE_DENSITY */}
-              <div className="bg-[#101112] border border-[#1B1C1E] rounded p-sm">
-                <div className="flex items-center justify-between text-[#9A9DA3] text-[10px] font-mono-data">
+              <div className="bg-[#131314] border border-white/[0.07] rounded-2xl p-3">
+                <div className="flex items-center justify-between text-[#9AA0A6] text-[10px] font-mono-data">
                   <span>NODE_DENSITY</span>
-                  <span className="text-secondary font-semibold">OPTIMAL</span>
+                  <span className="text-[#6DD58C] font-semibold">OPTIMAL</span>
                 </div>
                 <div className="font-mono-data text-sm font-semibold text-white mt-1">
                   34.8 kPts/m³
                 </div>
-                <div className="h-1 bg-[#151617] rounded-full overflow-hidden mt-2">
-                  <div className="h-full bg-secondary rounded-full" style={{ width: '74%' }} />
+                <div className="h-1 bg-[#1E1F22] rounded-full overflow-hidden mt-2">
+                  <div className="h-full bg-[#6DD58C] rounded-full" style={{ width: '74%' }} />
                 </div>
               </div>
 
               {/* INTENT_SCORE */}
-              <div className="bg-[#101112] border border-[#1B1C1E] rounded p-sm">
-                <div className="flex items-center justify-between text-[#9A9DA3] text-[10px] font-mono-data">
+              <div className="bg-[#131314] border border-white/[0.07] rounded-2xl p-3">
+                <div className="flex items-center justify-between text-[#9AA0A6] text-[10px] font-mono-data">
                   <span>INTENT_SCORE</span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shadow-[0_0_8px_#50d8e9]" />
+                  <span className="w-2 h-2 rounded-full bg-[#6DD58C]" />
                 </div>
-                <div className="font-mono-data text-sm font-semibold text-secondary mt-1">
+                <div className="font-mono-data text-sm font-semibold text-[#6DD58C] mt-1">
                   0.942 // OPTIMAL
                 </div>
-                <div className="h-1 bg-[#151617] rounded-full overflow-hidden mt-2">
-                  <div className="h-full bg-secondary rounded-full" style={{ width: '94.2%' }} />
+                <div className="h-1 bg-[#1E1F22] rounded-full overflow-hidden mt-2">
+                  <div className="h-full bg-[#6DD58C] rounded-full" style={{ width: '94.2%' }} />
                 </div>
               </div>
 
               {/* SYNC_RATE */}
-              <div className="bg-[#101112] border border-[#1B1C1E] rounded p-sm">
-                <div className="flex items-center justify-between text-[#9A9DA3] text-[10px] font-mono-data">
+              <div className="bg-[#131314] border border-white/[0.07] rounded-2xl p-3">
+                <div className="flex items-center justify-between text-[#9AA0A6] text-[10px] font-mono-data">
                   <span>SYNC_RATE</span>
-                  <span className="text-primary font-semibold">99.2%</span>
+                  <span className="text-[#A8C7FA] font-semibold">99.2%</span>
                 </div>
                 <div className="font-mono-data text-sm font-semibold text-white mt-1">
                   0.992 // OK
                 </div>
-                <div className="h-1 bg-[#151617] rounded-full overflow-hidden mt-2">
-                  <div className="h-full bg-[#5E6BFF] rounded-full" style={{ width: '99.2%' }} />
+                <div className="h-1 bg-[#1E1F22] rounded-full overflow-hidden mt-2">
+                  <div className="h-full bg-[#A8C7FA] rounded-full" style={{ width: '99.2%' }} />
                 </div>
               </div>
             </div>
 
             {/* Active Learning Objectives Checklist */}
-            <div className="space-y-2 pt-2 border-t border-[#1B1C1E]">
-              <div className="font-mono-data text-[10px] uppercase tracking-widest text-[#9A9DA3]">
+            <div className="space-y-2 pt-2 border-t border-white/[0.07]">
+              <div className="font-mono-data text-[10px] uppercase tracking-widest text-[#9AA0A6]">
                 ACTIVE LEARNING OBJECTIVES
               </div>
-              <div className="space-y-1.5 text-xs text-on-surface">
+              <div className="space-y-1.5 text-xs text-[#E3E3E3]">
                 {[
                   'Spatial coordinate reasoning',
                   'Tropical passive shade geometry',
                   'Parametric material trade-offs',
                   'Anti-cognitive offloading audit',
                 ].map((obj, i) => (
-                  <div key={i} className="flex items-center gap-2 p-1.5 rounded bg-[#101112] border border-[#1B1C1E]">
-                    <Check className="size-3.5 text-secondary shrink-0" />
-                    <span className="truncate text-[#d1d0d4]">{obj}</span>
+                  <div key={i} className="flex items-center gap-2 p-2 rounded-xl bg-[#131314] border border-white/[0.07]">
+                    <Check className="size-3.5 text-[#6DD58C] shrink-0" />
+                    <span className="truncate text-[#C4C7C5]">{obj}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Slide Navigation Controls */}
-            <div className="space-y-2 pt-2 border-t border-[#1B1C1E]">
-              <div className="font-mono-data text-[10px] uppercase tracking-widest text-[#9A9DA3]">
+            <div className="space-y-2 pt-2 border-t border-white/[0.07]">
+              <div className="font-mono-data text-[10px] uppercase tracking-widest text-[#9AA0A6]">
                 STAGE NAVIGATION CONTROLS
               </div>
-              <div className="grid grid-cols-6 gap-1">
+              <div className="grid grid-cols-6 gap-1.5">
                 {[0, 1, 2, 3, 4, 5].map((idx) => {
                   const isActive = slideIndex === idx;
                   return (
                     <button
                       key={idx}
                       onClick={() => setSlideIndex(idx)}
-                      className={`py-1 rounded font-mono-data text-xs transition-all ${
+                      className={`py-1.5 rounded-full font-mono-data text-xs transition-all ${
                         isActive
-                          ? 'bg-[#5E6BFF] text-white font-bold shadow-[0_0_8px_rgba(94,107,255,0.4)]'
-                          : 'bg-[#101112] border border-[#1B1C1E] text-[#9A9DA3] hover:text-white hover:border-[#454655]'
+                          ? 'bg-[#A8C7FA] text-[#062E6F] font-bold'
+                          : 'bg-[#131314] border border-white/[0.08] text-[#9AA0A6] hover:text-white hover:bg-[#1E1F22]'
                       }`}
                     >
                       0{idx + 1}
@@ -1037,23 +1034,23 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
         )}
 
         {/* Footer Actions on Right Panel */}
-        <div className="pt-3 border-t border-[#1B1C1E] space-y-2 shrink-0">
+        <div className="pt-3 border-t border-white/[0.07] space-y-2 shrink-0">
           {slideIndex === 3 ? (
             <>
               <button
                 onClick={handleSimulateGeneration}
                 disabled={isGenerating}
-                className={`w-full py-2 px-3 rounded font-label-sm flex items-center justify-center gap-1.5 border border-[#232426] bg-[#151617] hover:bg-[#201f22] text-on-surface transition-all ${
-                  isGenerating ? 'apple-intelligence-border animate-pulse' : ''
+                className={`w-full py-2.5 px-4 rounded-full font-label-sm flex items-center justify-center gap-1.5 border border-white/[0.08] bg-[#282A2E] hover:bg-[#33363B] text-[#E3E3E3] transition-all ${
+                  isGenerating ? 'animate-pulse' : ''
                 }`}
               >
-                <Sparkles className="size-3.5 text-secondary" />
+                <Sparkles className="size-3.5 text-[#FDD663]" />
                 <span>{isGenerating ? 'Synthesizing...' : 'Regenerate'}</span>
               </button>
 
               <button
                 onClick={onLaunchCanvasModal}
-                className="w-full bg-[#5E6BFF] hover:bg-[#4a57f5] text-white py-2 px-3 rounded font-label-sm font-semibold flex items-center justify-center gap-1.5 shadow-[0_0_10px_rgba(94,107,255,0.3)] transition-all active:scale-[0.98]"
+                className="w-full bg-[#A8C7FA] hover:bg-[#BBD4FB] text-[#062E6F] py-2.5 px-4 rounded-full font-label-sm font-semibold flex items-center justify-center gap-1.5 transition-all active:scale-[0.98]"
               >
                 <ExternalLink className="size-3.5" />
                 <span>Try in Show3D Canvas</span>
@@ -1062,7 +1059,7 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
           ) : (
             <button
               onClick={handleNext}
-              className="w-full bg-[#5E6BFF] hover:bg-[#4a57f5] text-white py-2 px-3 rounded font-label-sm font-semibold flex items-center justify-center gap-1.5 shadow-[0_0_10px_rgba(94,107,255,0.3)] transition-all active:scale-[0.98]"
+              className="w-full bg-[#A8C7FA] hover:bg-[#BBD4FB] text-[#062E6F] py-2.5 px-4 rounded-full font-label-sm font-semibold flex items-center gap-1.5 transition-all active:scale-[0.98]"
             >
               <span>{slideIndex === 5 ? (activeModuleId < 6 ? 'Next Module' : 'Complete') : 'Advance Stage'}</span>
               <ArrowRight className="size-3.5" />

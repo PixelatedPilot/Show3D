@@ -46,9 +46,9 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen w-screen bg-[#070708] text-[#e5e2e3] overflow-hidden select-none font-sans">
+    <div className="flex flex-col h-screen w-screen bg-[#131314] text-[#E3E3E3] overflow-hidden select-none font-sans">
       
-      {/* 48px Romer Executive Top Navigation */}
+      {/* Google Labs Dark Mode Top Navigation */}
       <AppleTopNav
         activeMode={activeMode}
         onSwitchMode={handleSwitchMode}
