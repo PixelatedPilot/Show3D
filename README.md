@@ -75,19 +75,26 @@ Singapore secondary school teachers (Design & Technology, Computing, Art) do not
 ```
 src/
 ├── components/
-│   ├── canvas/
-│   │   └── ThreeCanvas.tsx            # Three.js 3D WebGL Scene with OrbitControls & Reactive Mesh
-│   ├── idea1-edu/
-│   │   └── EduSidebar.tsx             # 4-Step Self-Taught Student Challenge Sidebar
-│   └── layout/
-│       ├── TopHeader.tsx              # School branding, class status, and quick modal triggers
-│       ├── ModuleNavigator.tsx        # 6-Module Curriculum Pathway ribbon & inspector
-│       ├── TeacherModal.tsx           # Teacher Facilitation Hub (Live Roster, Syllabus, MOE Rubric)
-│       ├── SchoolLifecycleModal.tsx   # Slide 17 & 27 GTM Adoption Flywheel
-│       └── ShowcaseModal.tsx          # Student Project Certificate & Portfolio Card
+│   ├── facilitator/
+│   │   └── FacilitatorHub.tsx         # Live Classroom Telemetry & GeBIZ Procurement
+│   ├── landing/
+│   │   └── LandingView.tsx            # Executive Overview & Programme Value Proposition
+│   ├── layout/
+│   │   ├── AppleTopNav.tsx            # Apple HIG Segregated Role Switcher
+│   │   ├── CertificateModal.tsx       # Student Completion & Creative Intent Credential
+│   │   ├── PedagogyFrameworkModal.tsx # MOE Four Learns & D&T Framework
+│   │   ├── SchoolProcurementModal.tsx # Turnkey GeBIZ Procurement & Funding Guide
+│   │   ├── Show3DCanvasModal.tsx      # Show3D Spatial Engine Modal Trigger
+│   │   └── StudentSafetyModal.tsx     # Singapore PDPA & Port 443 Compliance
+│   └── student/
+│       └── StudentKeynoteDeck.tsx     # 16:9 Student Keynote Deck & Co-Design Stage
+├── data/
+│   └── moduleLessons.ts               # 6-Module Curriculum Content & Diagnostics
 ├── store/
-│   └── appStore.ts                    # Curriculum modules, 28-student roster, and pilot state
+│   └── appStore.ts                    # Roster Telemetry, Deliverables & Specifications
 ├── types/
-│   └── index.ts                       # TypeScript interfaces for education & 3D models
+│   └── index.ts                       # TypeScript interfaces for education & app state
+├── utils/
+│   └── workflowState.ts               # Pure Reducers for Keynote, Role, and Parametric State
 └── App.tsx                            # Root application orchestrator
 ```

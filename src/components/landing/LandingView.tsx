@@ -13,7 +13,17 @@ import {
   Layers,
   Award,
   Sun,
-  Printer
+  Printer,
+  Heart,
+  Compass,
+  Star,
+  Clock,
+  HelpCircle,
+  FileCheck,
+  ChevronDown,
+  ChevronUp,
+  Cpu,
+  GraduationCap
 } from 'lucide-react';
 
 export interface LandingViewProps {
@@ -40,52 +50,77 @@ export const LandingView: React.FC<LandingViewProps> = ({
   const [selectedFormat, setSelectedFormat] = useState<'holiday' | 'term'>('holiday');
   const [previewColor, setPreviewColor] = useState('#38bdf8');
   const [hasSolar, setHasSolar] = useState(true);
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+
+  const toggleFaq = (index: number) => {
+    setExpandedFaq(expandedFaq === index ? null : index);
+  };
 
   return (
     <div className="flex-1 overflow-y-auto bg-[#070708] text-[#e5e2e3] font-sans selection:bg-blue-600 selection:text-white">
       
       {/* ========================================================================= */}
-      {/* 1. HERO SECTION                                                           */}
+      {/* 1. HERO SECTION (Parent-Centric)                                          */}
       {/* ========================================================================= */}
-      <section className="relative pt-16 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto text-center">
+      <section className="relative pt-14 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto text-center">
         
         {/* Soft Ambient Light Gradient */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[300px] bg-gradient-to-tr from-blue-600/15 via-indigo-600/10 to-transparent blur-[120px] pointer-events-none -z-10" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[580px] h-[320px] bg-gradient-to-tr from-blue-600/15 via-indigo-600/10 to-transparent blur-[130px] pointer-events-none -z-10" />
 
-        {/* Eyebrow Pill */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/[0.08] text-xs text-slate-300 font-medium mb-8">
-          <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-          <span>Show3D AI Creator Programme · Singapore</span>
+        {/* Parent Reassurance Eyebrow Pill */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.05] border border-white/[0.08] text-xs text-slate-300 font-medium mb-7">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span>Singapore Holiday Camps & Weekend Enrichment · Ages 10–20</span>
         </div>
 
-        {/* Display Headline */}
+        {/* Parent-Oriented Display Headline */}
         <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white max-w-4xl mx-auto leading-[1.08] mb-6">
-          Give students a hands-on way to create in 3D with AI.
+          Turn your child’s screen time into real creative power.
         </h1>
 
-        {/* Subtitle */}
-        <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed font-normal mb-10">
-          A ready-to-run enrichment programme where students aged 10–20 turn ideas into 3D models, refine them with human judgment, and take home their own 3D-printed creation.
+        {/* Subtitle Addressing Parent Aspirations & Fears */}
+        <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal mb-8">
+          Instead of passively scrolling videos or playing games, your child masters spatial AI, engineers original 3D inventions with human judgment, and brings home their own physical 3D print.
         </p>
+
+        {/* Key Highlights Quick Bar */}
+        <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400 mb-10">
+          <div className="flex items-center gap-1.5">
+            <CheckCircle2 className="size-4 text-emerald-400" />
+            <span>No prior coding or CAD needed</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <CheckCircle2 className="size-4 text-blue-400" />
+            <span>Takes home a physical 3D print</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <CheckCircle2 className="size-4 text-indigo-400" />
+            <span>DSA & portfolio-ready certificate</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <ShieldCheck className="size-4 text-cyan-400" />
+            <span>100% child-safe & private</span>
+          </div>
+        </div>
 
         {/* Primary Action Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-3.5 mb-16">
           <button
             onClick={onStartLearning}
-            className="px-6 py-3.5 rounded-full bg-white hover:bg-slate-100 text-black font-semibold text-sm transition-all shadow-lg active:scale-95 flex items-center gap-2"
+            className="px-7 py-3.5 rounded-full bg-white hover:bg-slate-100 text-black font-semibold text-sm transition-all shadow-xl active:scale-95 flex items-center gap-2"
           >
             <BookOpen className="size-4" />
-            <span>Explore Student Classroom</span>
+            <span>Try an Interactive Lesson</span>
             <ArrowRight className="size-4" />
           </button>
 
-          <button
-            onClick={onOpenTeacherView}
+          <a
+            href="#curriculum"
             className="px-6 py-3.5 rounded-full bg-white/[0.08] hover:bg-white/[0.12] text-white border border-white/10 font-semibold text-sm transition-all flex items-center gap-2"
           >
-            <Users className="size-4 text-blue-400" />
-            <span>Instructor & Partner Hub</span>
-          </button>
+            <Calendar className="size-4 text-blue-400" />
+            <span>Camp Formats & Tiers</span>
+          </a>
 
           {onLaunchCanvasModal && (
             <button
@@ -93,7 +128,7 @@ export const LandingView: React.FC<LandingViewProps> = ({
               className="px-5 py-3.5 rounded-full bg-transparent hover:bg-white/[0.04] text-slate-300 hover:text-white border border-white/[0.08] font-medium text-sm transition-all flex items-center gap-2"
             >
               <Box className="size-4 text-indigo-400" />
-              <span>Try 3D Canvas</span>
+              <span>Explore 3D Canvas</span>
             </button>
           )}
         </div>
@@ -102,21 +137,22 @@ export const LandingView: React.FC<LandingViewProps> = ({
         <div className="relative rounded-3xl bg-[#101114] border border-white/[0.08] p-6 sm:p-8 max-w-4xl mx-auto shadow-2xl overflow-hidden text-left">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-white/[0.06] gap-4">
             <div>
-              <div className="text-xs uppercase tracking-widest text-blue-400 font-semibold">Interactive Preview</div>
-              <h3 className="text-lg font-bold text-white mt-0.5">Courtyard Tensile Canopy Prototype</h3>
+              <div className="text-xs uppercase tracking-widest text-blue-400 font-semibold">What Your Child Builds in Module 3</div>
+              <h3 className="text-lg font-bold text-white mt-0.5">Courtyard Tensile Pavilion Challenge</h3>
+              <p className="text-xs text-slate-400 mt-1">Students solve real tropical heat on campus by balancing architectural curvature and renewable solar wattage.</p>
             </div>
             
             {/* Interactive Swatches & Solar Toggle */}
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1.5">
-                <span className="text-xs text-slate-400">Color:</span>
+                <span className="text-xs text-slate-400">Canopy Color:</span>
                 {['#38bdf8', '#818cf8', '#34d399', '#fbbf24'].map((color) => (
                   <button
                     key={color}
                     onClick={() => setPreviewColor(color)}
                     style={{ backgroundColor: color }}
                     className={`w-5 h-5 rounded-full border transition-transform ${
-                      previewColor === color ? 'border-white scale-110' : 'border-transparent opacity-75'
+                      previewColor === color ? 'border-white scale-110 shadow-sm' : 'border-transparent opacity-75'
                     }`}
                     title={`Set color ${color}`}
                   />
@@ -196,16 +232,63 @@ export const LandingView: React.FC<LandingViewProps> = ({
       </section>
 
       {/* ========================================================================= */}
-      {/* 2. THE PROGRAMME & 5-STEP CREATIVE JOURNEY (Slide 22)                     */}
+      {/* 2. THE CORE SHIFT: ACTIVE CREATION VS PASSIVE CONSUMPTION                */}
+      {/* ========================================================================= */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-white/[0.08]">
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="text-xs uppercase tracking-widest text-emerald-400 font-semibold mb-2">Why It Matters</div>
+          <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white mb-4">
+            From passive screen consumer to active 3D inventor.
+          </h2>
+          <p className="text-base text-slate-300">
+            Most kids today spend hours consuming content generated by others. We teach them how modern generative AI and 3D spatial tools actually work — giving them the confidence to build original ideas.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-7 rounded-3xl bg-[#101114] border border-white/[0.08] space-y-3">
+            <div className="w-10 h-10 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center font-bold text-sm mb-4">
+              <Box className="size-5" />
+            </div>
+            <h3 className="text-lg font-bold text-white">Spatial & Engineering Intuition</h3>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Students grasp real coordinate geometry (X, Y, Z), curvature tension, and structural integrity. They don’t just draw pictures; they build functional 3D volumes.
+            </p>
+          </div>
+
+          <div className="p-7 rounded-3xl bg-[#101114] border border-white/[0.08] space-y-3">
+            <div className="w-10 h-10 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-bold text-sm mb-4">
+              <Cpu className="size-5" />
+            </div>
+            <h3 className="text-lg font-bold text-white">Human-in-the-Loop Judgment</h3>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              We teach anti-cognitive offloading: AI is a collaborator, not a shortcut. Students challenge AI outputs, spot structural flaws, and guide every parametric iteration with human purpose.
+            </p>
+          </div>
+
+          <div className="p-7 rounded-3xl bg-[#101114] border border-white/[0.08] space-y-3">
+            <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-sm mb-4">
+              <Printer className="size-5" />
+            </div>
+            <h3 className="text-lg font-bold text-white">Tangible Real-World Payoff</h3>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Nothing beats the pride of seeing digital designs become physical reality. Every graduate holds their custom 3D-printed model at graduation to show grandparents, parents, and friends.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 3. THE 5-STEP LEARNING JOURNEY & FLEXIBLE FORMATS                          */}
       {/* ========================================================================= */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-white/[0.08]" id="curriculum">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="text-xs uppercase tracking-widest text-blue-400 font-semibold mb-2">The Programme</div>
+          <div className="text-xs uppercase tracking-widest text-blue-400 font-semibold mb-2">The Learning Journey</div>
           <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white mb-4">
-            Two formats, one creative journey.
+            Structured steps. Zero frustration.
           </h2>
-          <p className="text-base text-slate-400">
-            Whether run as an intensive holiday camp or a weekend term-time series, every student completes the same structured 5-stage creative process.
+          <p className="text-base text-slate-300">
+            Our self-paced, mentor-guided curriculum breaks down complex 3D engineering into five achievable, rewarding milestones.
           </p>
 
           {/* Format Toggle Pill */}
@@ -218,7 +301,7 @@ export const LandingView: React.FC<LandingViewProps> = ({
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              Holiday Camp (5 Half-Days)
+              5-Day Holiday Camp (Half-Days)
             </button>
             <button
               onClick={() => setSelectedFormat('term')}
@@ -228,302 +311,226 @@ export const LandingView: React.FC<LandingViewProps> = ({
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              Term-Time (6 Weekend Sessions)
+              6-Week Weekend Masterclass
             </button>
+          </div>
+
+          <div className="mt-4 text-xs text-slate-400">
+            {selectedFormat === 'holiday' 
+              ? '📅 Runs during Singapore March, June, September & November/December school holidays (Mon–Fri, 9:00am–12:30pm or 1:30pm–5:00pm).'
+              : '📅 Runs during school terms (1 session per week on Saturdays or Sundays, 2.0 hours per session).'}
           </div>
         </div>
 
         {/* 5-Step Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-10">
           
           {/* Step 1 */}
           <div className="rounded-2xl bg-[#101114] border border-white/[0.08] p-5 flex flex-col justify-between hover:border-white/20 transition-all">
             <div>
-              <div className="text-xs font-mono font-bold text-blue-400">01</div>
-              <h3 className="text-base font-bold text-white mt-1 mb-2">Define a Need</h3>
+              <div className="text-xs font-mono font-bold text-blue-400">STEP 01</div>
+              <h3 className="text-base font-bold text-white mt-1 mb-2">Discover a Need</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                What generative AI is and isn't. Exploring 3D coordinates vs 2D images and setting a clear design goal.
+                Students investigate real environmental problems (such as Singapore’s 34°C afternoon courtyard heat) and define functional design constraints.
               </p>
             </div>
             <div className="mt-6 pt-3 border-t border-white/[0.06] text-[11px] text-slate-400">
-              Focus: Problem Brief
+              Outcome: Design Brief
             </div>
           </div>
 
           {/* Step 2 */}
           <div className="rounded-2xl bg-[#101114] border border-white/[0.08] p-5 flex flex-col justify-between hover:border-white/20 transition-all">
             <div>
-              <div className="text-xs font-mono font-bold text-blue-400">02</div>
-              <h3 className="text-base font-bold text-white mt-1 mb-2">Prompt a Model</h3>
+              <div className="text-xs font-mono font-bold text-blue-400">STEP 02</div>
+              <h3 className="text-base font-bold text-white mt-1 mb-2">Prompt with Purpose</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Prompt structures, iteration, and managing randomness. Learning to constrain AI outputs with intention.
+                They learn structured prompt engineering (Persona, Aim, Recipients, Theme, Structure) to guide spatial AI without random trial-and-error.
               </p>
             </div>
             <div className="mt-6 pt-3 border-t border-white/[0.06] text-[11px] text-slate-400">
-              Focus: Base 3D Meshes
+              Outcome: Initial 3D Meshes
             </div>
           </div>
 
           {/* Step 3 */}
           <div className="rounded-2xl bg-[#101114] border border-white/[0.08] p-5 flex flex-col justify-between hover:border-white/20 transition-all">
             <div>
-              <div className="text-xs font-mono font-bold text-blue-400">03</div>
-              <h3 className="text-base font-bold text-white mt-1 mb-2">Generate Concepts</h3>
+              <div className="text-xs font-mono font-bold text-blue-400">STEP 03</div>
+              <h3 className="text-base font-bold text-white mt-1 mb-2">Critique & Select</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Comparing output variations, understanding algorithm limits, spotting geometry flaws, and picking the best candidate.
+                Students compare AI candidate options, inspect polygon topologies, identify non-manifold errors, and select the optimal structural base.
               </p>
             </div>
             <div className="mt-6 pt-3 border-t border-white/[0.06] text-[11px] text-slate-400">
-              Focus: Candidate Selection
+              Outcome: Verified Geometry
             </div>
           </div>
 
           {/* Step 4 */}
           <div className="rounded-2xl bg-[#101114] border border-white/[0.08] p-5 flex flex-col justify-between hover:border-white/20 transition-all">
             <div>
-              <div className="text-xs font-mono font-bold text-blue-400">04</div>
-              <h3 className="text-base font-bold text-white mt-1 mb-2">Evaluate & Refine</h3>
+              <div className="text-xs font-mono font-bold text-blue-400">STEP 04</div>
+              <h3 className="text-base font-bold text-white mt-1 mb-2">Refine with Levers</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Human judgment vs AI output. Hands-on sculpting, scale adjustment, and preparing geometry for 3D printing.
+                Human craftsmanship takes over: custom UV tensile fabric swatches, 450W solar array toggles, curvature tensioning, and wall-thickness prep for 3D slicing.
               </p>
             </div>
             <div className="mt-6 pt-3 border-t border-white/[0.06] text-[11px] text-slate-400">
-              Focus: Print-Ready .STL
+              Outcome: Print-Ready 3D Asset
             </div>
           </div>
 
           {/* Step 5 */}
           <div className="rounded-2xl bg-[#101114] border border-blue-500/30 p-5 flex flex-col justify-between bg-gradient-to-b from-blue-950/20 to-[#101114] hover:border-blue-400 transition-all">
             <div>
-              <div className="text-xs font-mono font-bold text-blue-400">05</div>
+              <div className="text-xs font-mono font-bold text-blue-400">STEP 05</div>
               <h3 className="text-base font-bold text-white mt-1 mb-2">Showcase & Print</h3>
               <p className="text-xs text-slate-300 leading-relaxed">
-                Presenting to parents and peers. Reflecting on responsible AI use and holding the physical 3D-printed model.
+                The grand finale: students confidently present their design thinking to parents and take home their tangible 3D-printed creation!
               </p>
             </div>
-            <div className="mt-6 pt-3 border-t border-white/[0.06] text-[11px] text-blue-300 font-medium">
-              Takeaway: Physical Model
+            <div className="mt-6 pt-3 border-t border-white/[0.06] text-[11px] text-emerald-400 font-semibold flex items-center gap-1">
+              <Printer className="size-3" />
+              <span>Physical 3D Print Take-Home</span>
             </div>
           </div>
 
-        </div>
-
-        <div className="text-center text-xs text-slate-400 font-medium">
-          “Every showcase becomes marketing for the next cohort.”
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* 3. THREE AGE TIERS (Slide 23)                                             */}
-      {/* ========================================================================= */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-white/[0.08]" id="tiers">
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="text-xs uppercase tracking-widest text-blue-400 font-semibold mb-2">Targeted Learning</div>
-          <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white mb-4">
-            One programme, three age tiers.
-          </h2>
-          <p className="text-base text-slate-400">
-            Tailored challenges designed around student capabilities, attention spans, and milestone goals.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          
-          {/* Junior */}
-          <div className="rounded-3xl bg-[#101114] border border-white/[0.08] p-8 flex flex-col justify-between">
-            <div>
-              <div className="text-xs uppercase tracking-widest text-slate-400 font-semibold">Upper Primary · 10–12</div>
-              <h3 className="text-2xl font-bold text-white mt-2 mb-4">Junior</h3>
-              
-              <div className="space-y-4 text-xs text-slate-300 mb-6">
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Challenge</span>
-                  <p className="text-white text-sm font-medium">Design your own creature, toy, or school utility</p>
-                </div>
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Depth</span>
-                  <p className="text-slate-400">Playful prompting, guided spatial steps, and DSA portfolio foundation.</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-4 border-t border-white/[0.06] text-xs text-slate-400">
-              Payer: Parents · Holiday Enrichment
-            </div>
-          </div>
-
-          {/* Teen (Highlighted) */}
-          <div className="rounded-3xl bg-[#101114] border border-blue-500/40 p-8 flex flex-col justify-between relative shadow-xl shadow-blue-950/20">
-            <div className="absolute -top-3 right-6 px-3 py-0.5 rounded-full bg-blue-600 text-white text-[11px] font-bold">
-              Launch Focus
-            </div>
-
-            <div>
-              <div className="text-xs uppercase tracking-widest text-blue-400 font-semibold">Secondary · 13–16</div>
-              <h3 className="text-2xl font-bold text-white mt-2 mb-4">Teen</h3>
-              
-              <div className="space-y-4 text-xs text-slate-300 mb-6">
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-blue-300 block mb-1">Challenge</span>
-                  <p className="text-white text-sm font-medium">Design an object that improves your school or neighbourhood</p>
-                </div>
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-blue-300 block mb-1">Depth</span>
-                  <p className="text-slate-300">AI concepts, design thinking, multi-prompt iteration, and mesh slicing.</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-4 border-t border-white/[0.06] text-xs text-slate-300">
-              Payer: Parents · Future Skills & Portfolio
-            </div>
-          </div>
-
-          {/* Young Creator */}
-          <div className="rounded-3xl bg-[#101114] border border-white/[0.08] p-8 flex flex-col justify-between">
-            <div>
-              <div className="text-xs uppercase tracking-widest text-slate-400 font-semibold">ITE & Poly · 16–20</div>
-              <h3 className="text-2xl font-bold text-white mt-2 mb-4">Young Creator</h3>
-              
-              <div className="space-y-4 text-xs text-slate-300 mb-6">
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Challenge</span>
-                  <p className="text-white text-sm font-medium">A portfolio-grade project for your course or career</p>
-                </div>
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Depth</span>
-                  <p className="text-slate-400">Advanced 3D editing, pipeline integration into Blender/CAD, and presenting.</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-4 border-t border-white/[0.06] text-xs text-slate-400">
-              Payer: Students / Parents · Job-Ready Skills
-            </div>
-          </div>
-
-        </div>
-
-        <div className="text-center mt-6 text-xs text-slate-400">
-          International-school students join the tier that matches their age.
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 4. WHAT A FAMILY GETS & WHY CHOOSE IT (Slides 24 & 25)                     */}
+      {/* 4. WHAT YOUR FAMILY GETS (Tangible Deliverables)                           */}
       {/* ========================================================================= */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-white/[0.08]">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="text-xs uppercase tracking-widest text-blue-400 font-semibold mb-2">Tangible Value</div>
+          <div className="text-xs uppercase tracking-widest text-emerald-400 font-semibold mb-2">Tangible Value</div>
           <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white mb-4">
-            What a family gets.
+            Everything your child takes home.
           </h2>
-          <p className="text-base text-slate-400">
-            Clear deliverables that eliminate the fear of "just paying for screen time."
+          <p className="text-base text-slate-300">
+            We know parents dislike paying for unstructured screen time. Every Show3D programme guarantees six verifiable deliverables.
           </p>
         </div>
 
-        {/* 6-Card Deliverables Grid (Slide 24) */}
+        {/* 6-Card Deliverables Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
           
-          <div className="p-6 rounded-2xl bg-[#101114] border border-white/[0.08]">
-            <h4 className="text-base font-bold text-white mb-2">Instructor-Led Sessions</h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Small groups with structured daily challenges. Instructors facilitate problem-solving rather than passive lecturing.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-[#101114] border border-white/[0.08]">
-            <h4 className="text-base font-bold text-white mb-2">Show3D Platform Access</h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Full access during the camp, plus 30 days of post-camp access so students can continue building independently at home.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-[#101114] border border-white/[0.08]">
-            <h4 className="text-base font-bold text-white mb-2">Final Showcase</h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Students present their design process, prompt journey, and physical prototype directly to parents and peers.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-[#101114] border border-white/[0.08]">
-            <h4 className="text-base font-bold text-white mb-2">Certificate of Completion</h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Verified proof of completion and design thinking for student academic and DSA (Direct School Admission) portfolios.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-[#101114] border border-white/[0.08]">
-            <h4 className="text-base font-bold text-white mb-2">Their Own 3D Model</h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              A physical 3D-printed model to take home, keep, and display—turning digital imagination into real-world reality.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-blue-950/20 border border-blue-500/30">
-            <h4 className="text-base font-bold text-blue-300 mb-2">For Parents</h4>
+          <div className="p-6 rounded-2xl bg-[#101114] border border-emerald-500/30 bg-gradient-to-b from-emerald-950/10 to-[#101114] space-y-2">
+            <div className="size-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-3">
+              <Printer className="size-4" />
+            </div>
+            <h4 className="text-base font-bold text-white">Physical 3D-Printed Invention</h4>
             <p className="text-xs text-slate-300 leading-relaxed">
-              Visible, shareable proof of what their child learned. 85.7% of surveyed parents express high willingness to enrol.
+              A real, custom-engineered model 3D-printed in eco-friendly PLA filament. Ready to display on their study desk with pride.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-[#101114] border border-blue-500/30 bg-gradient-to-b from-blue-950/10 to-[#101114] space-y-2">
+            <div className="size-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center mb-3">
+              <Award className="size-4" />
+            </div>
+            <h4 className="text-base font-bold text-white">Verified DSA & School Portfolio Badge</h4>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Official Digital Certificate showing MOE 21st Century Competencies, design-thinking mastery, and 94% Human Creative Intent.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-[#101114] border border-white/[0.08] space-y-2">
+            <div className="size-8 rounded-lg bg-white/10 text-white flex items-center justify-center mb-3">
+              <Users className="size-4" />
+            </div>
+            <h4 className="text-base font-bold text-white">1:8 Dedicated Instructor Mentorship</h4>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Small group cohorts taught by passionate STEM educators. Every student gets personalized guidance — no one is left behind.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-[#101114] border border-white/[0.08] space-y-2">
+            <div className="size-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center mb-3">
+              <GraduationCap className="size-4" />
+            </div>
+            <h4 className="text-base font-bold text-white">Parent Showcase & Presentation</h4>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Parents are invited to the final session to watch their child pitch their design journey, explain their engineering choices, and demonstrate their prototype.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-[#101114] border border-white/[0.08] space-y-2">
+            <div className="size-8 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center mb-3">
+              <ShieldCheck className="size-4" />
+            </div>
+            <h4 className="text-base font-bold text-white">100% Child-Safe Digital Environment</h4>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Singapore PDPA compliant. School SSO login, zero tracking, strict automated safe-prompt filtering, and zero AI training on child work.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl bg-[#101114] border border-white/[0.08] space-y-2">
+            <div className="size-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center mb-3">
+              <Clock className="size-4" />
+            </div>
+            <h4 className="text-base font-bold text-white">30-Day Extended Home Studio Access</h4>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Your child retains full access for 30 days after camp to keep experimenting, building new models, and downloading .GLTF/.STL 3D files at home.
             </p>
           </div>
 
         </div>
 
-        {/* Competitive Comparison Table (Slide 25) */}
+        {/* Competitive Comparison Table */}
         <div className="rounded-3xl bg-[#101114] border border-white/[0.08] p-6 sm:p-8 overflow-x-auto">
           <div className="mb-6">
-            <div className="text-xs uppercase tracking-widest text-blue-400 font-semibold">Competitive Position</div>
+            <div className="text-xs uppercase tracking-widest text-blue-400 font-semibold">The Difference</div>
             <h3 className="text-xl font-bold text-white mt-1">
-              Why families choose Show3D AI Creator
+              How Show3D compares to other programmes
             </h3>
             <p className="text-xs text-slate-400 mt-1">
-              The only option that teaches AI and ends with something students made themselves.
+              Why parents choose Show3D AI Creator over traditional coding workshops or passive tuition.
             </p>
           </div>
 
           <table className="w-full text-left border-collapse text-xs">
             <thead>
               <tr className="border-b border-white/10 text-slate-400 font-mono">
-                <th className="py-3 px-4">What families buy today</th>
-                <th className="py-3 px-4">Learns AI</th>
-                <th className="py-3 px-4">Beginner-friendly</th>
-                <th className="py-3 px-4">Takes Home</th>
+                <th className="py-3 px-4">Programme Type</th>
+                <th className="py-3 px-4">Teaches Modern AI</th>
+                <th className="py-3 px-4">Beginner Friendly</th>
+                <th className="py-3 px-4">Original Human Judgment</th>
+                <th className="py-3 px-4">Takes Home Physical Artifact</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/[0.06] text-slate-300">
               <tr className="bg-blue-600/10 font-medium text-white">
                 <td className="py-3.5 px-4 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-blue-400" />
-                  <span>Show3D AI Creator</span>
+                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                  <span className="font-bold">Show3D AI Creator</span>
                 </td>
-                <td className="py-3.5 px-4 text-blue-300 font-bold">Yes</td>
-                <td className="py-3.5 px-4 text-blue-300 font-bold">Yes</td>
-                <td className="py-3.5 px-4 font-semibold text-white">Physical 3D model</td>
+                <td className="py-3.5 px-4 text-emerald-400 font-bold">Yes (Spatial 3D)</td>
+                <td className="py-3.5 px-4 text-emerald-400 font-bold">Yes (No CAD needed)</td>
+                <td className="py-3.5 px-4 text-emerald-400 font-bold">Yes (94% Intent Score)</td>
+                <td className="py-3.5 px-4 text-emerald-400 font-bold">Physical 3D Print</td>
               </tr>
               <tr>
-                <td className="py-3 px-4">Coding / robotics camp</td>
-                <td className="py-3 px-4 text-slate-400">Partly</td>
-                <td className="py-3 px-4 text-slate-400">Varies</td>
-                <td className="py-3 px-4">App or robot kit</td>
+                <td className="py-3 px-4">Coding / Robotics Camp</td>
+                <td className="py-3 px-4 text-slate-400">Rarely / Abstract</td>
+                <td className="py-3 px-4 text-slate-400">Moderate</td>
+                <td className="py-3 px-4 text-slate-400">Script copying</td>
+                <td className="py-3 px-4 text-slate-400">Digital code / screen only</td>
               </tr>
               <tr>
-                <td className="py-3 px-4">3D-printing workshop</td>
-                <td className="py-3 px-4 text-slate-400">No</td>
-                <td className="py-3 px-4 text-slate-400">Yes</td>
-                <td className="py-3 px-4">Printed object</td>
+                <td className="py-3 px-4">Traditional 3D Workshop</td>
+                <td className="py-3 px-4 text-slate-400">No AI</td>
+                <td className="py-3 px-4 text-rose-400">Steep CAD learning curve</td>
+                <td className="py-3 px-4 text-slate-400">Manual CAD</td>
+                <td className="py-3 px-4 text-slate-300">Pre-downloaded trinket</td>
               </tr>
               <tr>
-                <td className="py-3 px-4">General AI course</td>
-                <td className="py-3 px-4 text-slate-400">Yes</td>
-                <td className="py-3 px-4 text-slate-400">Varies</td>
-                <td className="py-3 px-4">Rarely</td>
-              </tr>
-              <tr>
-                <td className="py-3 px-4">Self-learning (Blender, free AI)</td>
-                <td className="py-3 px-4 text-slate-400">Partly</td>
-                <td className="py-3 px-4 text-rose-400 font-medium">No (Steep curve)</td>
-                <td className="py-3 px-4">Depends</td>
+                <td className="py-3 px-4">General AI / Prompt Course</td>
+                <td className="py-3 px-4 text-slate-300">Text & 2D images only</td>
+                <td className="py-3 px-4 text-slate-300">Yes</td>
+                <td className="py-3 px-4 text-rose-400">Passive prompt spamming</td>
+                <td className="py-3 px-4 text-slate-400">No physical output</td>
               </tr>
             </tbody>
           </table>
@@ -531,154 +538,244 @@ export const LandingView: React.FC<LandingViewProps> = ({
       </section>
 
       {/* ========================================================================= */}
-      {/* 5. FOR ENRICHMENT CENTRES & CAMP PROVIDERS (Slides 4, 5, 26)              */}
+      {/* 5. THREE AGE TIERS TAILORED FOR EVERY LEARNER                             */}
       {/* ========================================================================= */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-white/[0.08]" id="partners">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-white/[0.08]" id="tiers">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="text-xs uppercase tracking-widest text-blue-400 font-semibold mb-2">Partnership Model</div>
+          <div className="text-xs uppercase tracking-widest text-blue-400 font-semibold mb-2">Age-Appropriate Learning</div>
           <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white mb-4">
-            Built for holiday camp operators & centres.
+            Curriculum tailored for your child’s age.
           </h2>
-          <p className="text-base text-slate-400">
-            A turn-key package including student software licenses, lesson decks, and instructor training materials.
+          <p className="text-base text-slate-300">
+            From playful discovery in primary school to portfolio-grade capstones in secondary and polytechnic.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           
-          <div className="p-7 rounded-3xl bg-[#101114] border border-white/[0.08] space-y-3">
-            <div className="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-sm mb-4">
-              1
+          {/* Junior Tier */}
+          <div className="rounded-3xl bg-[#101114] border border-white/[0.08] p-8 flex flex-col justify-between hover:border-white/20 transition-all">
+            <div>
+              <div className="text-xs uppercase tracking-widest text-slate-400 font-semibold">Upper Primary · Ages 10–12</div>
+              <h3 className="text-2xl font-bold text-white mt-2 mb-3">Junior Creator</h3>
+              <p className="text-xs text-slate-400 mb-6">
+                Designed to spark excitement for STEM and build early spatial intuition before PSLE or secondary transition.
+              </p>
+              
+              <div className="space-y-3.5 text-xs text-slate-300 mb-6">
+                <div>
+                  <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Focus Project</span>
+                  <p className="text-white text-sm font-medium">Original Creature, Desk Mascot, or School Utility</p>
+                </div>
+                <div>
+                  <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Key Competency</span>
+                  <p className="text-slate-300">Playful prompt vocabulary, spatial orientation, early DSA portfolio artifacts.</p>
+                </div>
+              </div>
             </div>
-            <h3 className="text-lg font-bold text-white">Ready-to-Use Curriculum</h3>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              No curriculum prep overhead. Full instructor presentation decks, formative questions, and student challenge briefs are built directly into the platform.
-            </p>
-          </div>
 
-          <div className="p-7 rounded-3xl bg-[#101114] border border-white/[0.08] space-y-3">
-            <div className="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm mb-4">
-              2
+            <div className="pt-4 border-t border-white/[0.06] text-xs text-slate-400 flex items-center justify-between">
+              <span>Class Size: Max 8 students</span>
+              <span className="text-emerald-400 font-medium">Beginner Friendly</span>
             </div>
-            <h3 className="text-lg font-bold text-white">Prompt Quota Guardrails</h3>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Protects workshop margins. Each student has a set generation quota per session, preventing accidental prompt spamming while teaching deliberate prompt craft.
-            </p>
           </div>
 
-          <div className="p-7 rounded-3xl bg-[#101114] border border-white/[0.08] space-y-3">
-            <div className="w-9 h-9 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-sm mb-4">
-              3
+          {/* Teen Tier (Highlighted) */}
+          <div className="rounded-3xl bg-[#101114] border border-blue-500/40 p-8 flex flex-col justify-between relative shadow-xl shadow-blue-950/20 hover:border-blue-400 transition-all">
+            <div className="absolute -top-3 right-6 px-3 py-0.5 rounded-full bg-blue-600 text-white text-[11px] font-bold">
+              Most Popular
             </div>
-            <h3 className="text-lg font-bold text-white">Child Safety & Supervised Accounts</h3>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Automated safe-prompt filters block inappropriate content. Managed classroom logins require zero personal email addresses or social sign-ins.
-            </p>
+
+            <div>
+              <div className="text-xs uppercase tracking-widest text-blue-400 font-semibold">Secondary 1–4 · Ages 13–16</div>
+              <h3 className="text-2xl font-bold text-white mt-2 mb-3">Teen Innovator</h3>
+              <p className="text-xs text-slate-300 mb-6">
+                Aligned with MOE D&T (Design & Technology) and Computing. Gives students a powerful edge in school projects and DSA applications.
+              </p>
+              
+              <div className="space-y-3.5 text-xs text-slate-300 mb-6">
+                <div>
+                  <span className="text-[10px] uppercase font-bold text-blue-300 block mb-1">Focus Project</span>
+                  <p className="text-white text-sm font-medium">Smart Campus Heat Pavilion or Sustainable Urban Artifact</p>
+                </div>
+                <div>
+                  <span className="text-[10px] uppercase font-bold text-blue-300 block mb-1">Key Competency</span>
+                  <p className="text-slate-300">PARTS prompt scaffolding, parametric levers, mesh slicing, and human intentionality score.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-white/[0.06] text-xs text-slate-300 flex items-center justify-between">
+              <span>Class Size: Max 10 students</span>
+              <span className="text-blue-300 font-medium">MOE 21CC Aligned</span>
+            </div>
           </div>
 
-        </div>
+          {/* Young Creator Tier */}
+          <div className="rounded-3xl bg-[#101114] border border-white/[0.08] p-8 flex flex-col justify-between hover:border-white/20 transition-all">
+            <div>
+              <div className="text-xs uppercase tracking-widest text-slate-400 font-semibold">JC, ITE & Poly · Ages 16–20</div>
+              <h3 className="text-2xl font-bold text-white mt-2 mb-3">Young Specialist</h3>
+              <p className="text-xs text-slate-400 mb-6">
+                For youth pursuing architecture, industrial design, engineering, or game development. Industry-grade workflow foundations.
+              </p>
+              
+              <div className="space-y-3.5 text-xs text-slate-300 mb-6">
+                <div>
+                  <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Focus Project</span>
+                  <p className="text-white text-sm font-medium">Portfolio-Grade Architectural Capstone or Product Prototype</p>
+                </div>
+                <div>
+                  <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Key Competency</span>
+                  <p className="text-slate-300">Advanced 3D topology, CSG boolean modeling, export to Blender/CAD pipelines.</p>
+                </div>
+              </div>
+            </div>
 
-        {/* 4-8 Week Launch Banner */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-blue-950/40 via-indigo-950/30 to-[#101114] border border-blue-500/30 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div>
-            <div className="text-xs uppercase tracking-wider text-blue-400 font-semibold">Fast Time to Market</div>
-            <h4 className="text-xl font-bold text-white mt-1">Launch in 4–8 Weeks with Your Centre</h4>
-            <p className="text-xs text-slate-400 mt-1 max-w-xl">
-              Unlike public school procurement cycles (6–12+ months), enrichment providers can pilot directly in the upcoming June or December school holidays.
-            </p>
+            <div className="pt-4 border-t border-white/[0.06] text-xs text-slate-400 flex items-center justify-between">
+              <span>Class Size: Max 10 students</span>
+              <span className="text-indigo-400 font-medium">Career Portfolio</span>
+            </div>
           </div>
 
-          <button
-            onClick={onOpenTeacherView}
-            className="px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs transition-all shrink-0 shadow-lg"
-          >
-            Open Instructor Dashboard
-          </button>
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* 6. HOW FAMILIES FIND & BOOK IT (Slide 28)                                  */}
+      {/* 6. PARENT FAQS (Interactive Accordion)                                    */}
       {/* ========================================================================= */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-white/[0.08]">
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="text-xs uppercase tracking-widest text-blue-400 font-semibold mb-2">Customer Journey</div>
-          <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white mb-4">
-            How families find and book it.
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto border-t border-white/[0.08]">
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <div className="text-xs uppercase tracking-widest text-blue-400 font-semibold mb-2">Frequently Asked Questions</div>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-3">
+            Questions parents ask us most.
           </h2>
+          <p className="text-sm text-slate-400">
+            Everything you need to know about preparing your child for the programme.
+          </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-3 text-center">
-          <div className="p-4 rounded-2xl bg-[#101114] border border-white/[0.06]">
-            <div className="text-xs font-mono font-bold text-blue-400 mb-1">01</div>
-            <div className="text-sm font-bold text-white mb-1">Sees it</div>
-            <p className="text-[11px] text-slate-400">Social media, partner listings, newsletters</p>
+        <div className="space-y-3">
+          {[
+            {
+              q: "Does my child need prior coding, 3D modeling, or art experience?",
+              a: "None at all! Our curriculum is designed from the ground up for complete beginners. Our interactive micro-lessons and dedicated 1:8 mentors guide students step-by-step from zero to a finished, printable 3D model."
+            },
+            {
+              q: "What equipment or device does my child need to bring?",
+              a: "Show3D runs 100% in any standard web browser (Chrome, Safari, Edge) over secure Port 443. Students can use their school MOE Personal Learning Device (PLD iPad, Chromebook, or Windows laptop) or any home laptop. No heavy software installations required."
+            },
+            {
+              q: "How does my child receive their physical 3D print?",
+              a: "During the final module, students prepare their 3D geometry for slicing. Our high-precision 3D printer lab prints each custom design in durable, non-toxic PLA. The model is handed directly to your child at the final showcase presentation."
+            },
+            {
+              q: "How does this programme help with Direct School Admission (DSA) or school portfolios?",
+              a: "Students receive an official Digital Certificate with a verifiable credential ID (e.g., SHOW3D-TPSS-2026-0842) displaying MOE 21st Century Competencies and their verified Human Creative Intent score (94%+). This provides rigorous, concrete evidence of original problem-solving and spatial thinking."
+            },
+            {
+              q: "How is my child's privacy and online safety protected?",
+              a: "We adhere strictly to Singapore PDPA standards. Classes use school-managed or cohort SSO with zero personal emails or telephone numbers collected. Our platform features automated safe-prompt filters and enforces a strict policy: zero student prompts or 3D models are ever used to train AI models."
+            }
+          ].map((faq, idx) => (
+            <div 
+              key={idx}
+              className="rounded-2xl bg-[#101114] border border-white/[0.08] overflow-hidden transition-all"
+            >
+              <button
+                onClick={() => toggleFaq(idx)}
+                className="w-full py-4 px-6 text-left flex items-center justify-between text-sm font-semibold text-white hover:text-blue-300 transition-colors"
+              >
+                <span>{faq.q}</span>
+                {expandedFaq === idx ? (
+                  <ChevronUp className="size-4 text-blue-400 shrink-0 ml-4" />
+                ) : (
+                  <ChevronDown className="size-4 text-slate-500 shrink-0 ml-4" />
+                )}
+              </button>
+              {expandedFaq === idx && (
+                <div className="px-6 pb-4 pt-1 text-xs text-slate-300 leading-relaxed border-t border-white/[0.04]">
+                  {faq.a}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 7. DISCREET INSTITUTIONAL & SCHOOL PARTNER GATEWAY                         */}
+      {/* ========================================================================= */}
+      <section className="py-14 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-white/[0.08]" id="schools">
+        <div className="p-8 rounded-3xl bg-[#0c0d10] border border-white/[0.08] flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="space-y-1.5 text-left">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400 text-[10px] font-mono uppercase tracking-wider">
+              <span>Institutional Gateway</span>
+            </div>
+            <h3 className="text-xl font-bold text-white">
+              Are you a School Head, D&T Teacher, or Camp Provider?
+            </h3>
+            <p className="text-xs text-slate-400 max-w-xl">
+              Show3D is deployed as a turnkey "Vendor-Taught, Teacher-Facilitated" programme. We provide GeBIZ quotations, MOE EdTech Masterplan 2030 rubrics, and automated class telemetry.
+            </p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#101114] border border-white/[0.06]">
-            <div className="text-xs font-mono font-bold text-blue-400 mb-1">02</div>
-            <div className="text-sm font-bold text-white mb-1">Weighs it</div>
-            <p className="text-[11px] text-slate-400">Price, schedule, sample projects & reviews</p>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-[#101114] border border-white/[0.06]">
-            <div className="text-xs font-mono font-bold text-blue-400 mb-1">03</div>
-            <div className="text-sm font-bold text-white mb-1">Books it</div>
-            <p className="text-[11px] text-slate-400">Simple online registration & early-bird pricing</p>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-[#101114] border border-white/[0.06]">
-            <div className="text-xs font-mono font-bold text-blue-400 mb-1">04</div>
-            <div className="text-sm font-bold text-white mb-1">Attends</div>
-            <p className="text-[11px] text-slate-400">Small class size, daily hands-on challenges</p>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-[#101114] border border-white/[0.06]">
-            <div className="text-xs font-mono font-bold text-blue-400 mb-1">05</div>
-            <div className="text-sm font-bold text-white mb-1">Showcase</div>
-            <p className="text-[11px] text-slate-400">Parents see finished model & student pitch</p>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-blue-950/20 border border-blue-500/30">
-            <div className="text-xs font-mono font-bold text-blue-400 mb-1">06</div>
-            <div className="text-sm font-bold text-white mb-1">Rebooks</div>
-            <p className="text-[11px] text-blue-200">Next age tier, term class, and friend referral</p>
+          <div className="flex flex-wrap items-center gap-3 shrink-0">
+            <button
+              onClick={onOpenTeacherView}
+              className="px-5 py-2.5 rounded-full bg-white/[0.08] hover:bg-white/[0.12] text-white border border-white/10 text-xs font-semibold transition-all flex items-center gap-2"
+            >
+              <Users className="size-3.5 text-blue-400" />
+              <span>Instructor Command Hub</span>
+            </button>
+            
+            {onOpenProcurementModal && (
+              <button
+                onClick={onOpenProcurementModal}
+                className="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition-all flex items-center gap-2 shadow-sm"
+              >
+                <span>GeBIZ & Procurement Pack</span>
+                <ArrowRight className="size-3.5" />
+              </button>
+            )}
           </div>
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* 7. CLOSING CTA SECTION                                                    */}
+      {/* 8. CLOSING PARENT CTA SECTION                                             */}
       {/* ========================================================================= */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center border-t border-white/[0.08]">
         <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white mb-6">
-          Ready to empower the next generation of creators?
+          Give your child the skills to shape the 3D world.
         </h2>
-        <p className="text-base text-slate-400 max-w-xl mx-auto mb-10">
-          Experience the student learning deck or explore the instructor command hub.
+        <p className="text-base text-slate-300 max-w-xl mx-auto mb-10">
+          Try a live interactive lesson right now in your browser, or explore our holiday camp schedule and age tiers.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-4">
           <button
             onClick={onStartLearning}
-            className="px-7 py-3.5 rounded-full bg-white hover:bg-slate-100 text-black font-semibold text-sm transition-all shadow-xl active:scale-95 flex items-center gap-2"
+            className="px-8 py-3.5 rounded-full bg-white hover:bg-slate-100 text-black font-semibold text-sm transition-all shadow-xl active:scale-95 flex items-center gap-2"
           >
             <span>Launch Student Classroom</span>
             <ArrowRight className="size-4" />
           </button>
 
-          <button
-            onClick={onOpenTeacherView}
-            className="px-7 py-3.5 rounded-full bg-white/[0.08] hover:bg-white/[0.12] text-white border border-white/10 font-semibold text-sm transition-all flex items-center gap-2"
-          >
-            <Users className="size-4 text-blue-400" />
-            <span>Open Instructor Hub</span>
-          </button>
+          {onOpenSafetyModal && (
+            <button
+              onClick={onOpenSafetyModal}
+              className="px-6 py-3.5 rounded-full bg-white/[0.08] hover:bg-white/[0.12] text-white border border-white/10 font-semibold text-sm transition-all flex items-center gap-2"
+            >
+              <ShieldCheck className="size-4 text-emerald-400" />
+              <span>Parent Safety & PDPA</span>
+            </button>
+          )}
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* 8. CLEAN APPLE-STYLE FOOTER                                               */}
+      {/* 9. CLEAN APPLE-STYLE FOOTER                                               */}
       {/* ========================================================================= */}
       <footer className="border-t border-white/[0.08] bg-[#050507] py-12 px-4 sm:px-6 lg:px-8 text-xs text-slate-500">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
@@ -698,7 +795,7 @@ export const LandingView: React.FC<LandingViewProps> = ({
             )}
             {onOpenProcurementModal && (
               <button onClick={onOpenProcurementModal} className="hover:text-slate-300 transition-colors">
-                Partner Information
+                Procurement & Partners
               </button>
             )}
             {onOpenPedagogyModal && (
