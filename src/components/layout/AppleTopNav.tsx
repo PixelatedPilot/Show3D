@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, BookOpen, Users, Compass, FlaskConical } from 'lucide-react';
+import { ExternalLink, BookOpen, Users, Compass, FlaskConical, Box } from 'lucide-react';
 import { LEARNING_MODULES } from '../../store/appStore';
 
 export interface AppleTopNavProps {
@@ -58,80 +58,86 @@ export const AppleTopNav: React.FC<AppleTopNavProps> = ({
   const isFacilitatorActive = !isLandingView && activeMode === 'facilitator';
 
   return (
-    <header className="sticky top-0 z-50 w-full h-16 bg-[#131314]/90 backdrop-blur-xl border-b border-white/[0.08] px-4 sm:px-6 select-none text-xs font-sans transition-all">
+    <header className="sticky top-0 z-50 w-full h-16 bg-[#000000]/85 backdrop-blur-xl border-b border-white/[0.08] px-4 sm:px-6 select-none text-xs font-sans transition-all">
       <div className="max-w-[1400px] mx-auto h-full flex items-center justify-between gap-4">
         
-        {/* Left: Google Labs-Inspired Wordmark + Section Anchors */}
+        {/* Left: Apple HIG Wordmark + Section Anchors */}
         <div className="flex items-center gap-6 shrink-0">
           <button
             id="nav-brand-home"
             onClick={() => onToggleLandingView ? onToggleLandingView(true) : handleRoleSelect('student')}
             className="flex items-center gap-2.5 group transition-opacity hover:opacity-90"
-            title="Show3D Labs: Singapore's home for 3D AI experiments"
+            title="Show3D Academy: Spatial AI & 3D Creator Programme"
           >
-            <div className="w-8 h-8 rounded-full bg-[#1E1F22] border border-white/[0.12] flex items-center justify-center text-[#A8C7FA] group-hover:bg-[#282A2E] transition-colors">
-              <FlaskConical className="size-4" />
+            <div className="w-8 h-8 rounded-full bg-[#1C1C1E] border border-white/[0.12] flex items-center justify-center text-[#0A84FF] group-hover:bg-[#2C2C2E] transition-colors">
+              <Box className="size-4" />
             </div>
             <div className="flex items-baseline gap-1.5 text-left">
               <span className="font-display font-bold tracking-tight text-white text-base leading-none">
                 Show3D
               </span>
-              <span className="font-display font-normal text-[#9AA0A6] text-base leading-none">
-                Labs
+              <span className="font-display font-normal text-[#86868B] text-base leading-none">
+                Academy
               </span>
             </div>
           </button>
 
-          {/* Google Labs Top Anchor Links (visible on Landing View) */}
+          {/* Apple HIG Top Anchor Links (visible on Landing View) */}
           {isOverviewActive && (
-            <div className="hidden xl:flex items-center gap-5 text-xs font-medium text-[#9AA0A6] pl-2 border-l border-white/[0.08]">
-              <a href="#experiments" className="hover:text-white transition-colors">
-                Experiments
+            <div className="hidden xl:flex items-center gap-5 text-xs font-medium text-[#86868B] pl-2 border-l border-white/[0.08]">
+              <a href="#difference" className="hover:text-white transition-colors">
+                Philosophy
               </a>
-              <a href="#gravity-lab" className="hover:text-[#A8C7FA] transition-colors">
+              <a href="#curriculum" className="hover:text-white transition-colors">
+                Curriculum
+              </a>
+              <a href="#outcomes" className="hover:text-white transition-colors">
+                Outcomes
+              </a>
+              <a href="#gravity-lab" className="hover:text-[#64D2FF] transition-colors">
                 Physics Lab
               </a>
-              <a href="#about-labs" className="hover:text-white transition-colors">
-                About
+              <a href="#safety" className="hover:text-white transition-colors">
+                Safety &amp; PDPA
               </a>
-              <a href="#beyond-the-lab" className="hover:text-white transition-colors">
-                Beyond the Lab
+              <a href="#lineup" className="hover:text-white transition-colors">
+                Cohorts
               </a>
-              <a href="#stay-connected" className="hover:text-white transition-colors">
-                Stay connected
+              <a href="#faq" className="hover:text-white transition-colors">
+                FAQ
               </a>
             </div>
           )}
         </div>
 
-        {/* Center: Google Labs Dark Mode Pill Switcher */}
+        {/* Center: Apple HIG Segmented Control Switcher */}
         <nav 
-          className="inline-flex p-1 rounded-full bg-[#1E1F22] border border-white/[0.08]"
+          className="inline-flex p-1 rounded-full bg-[#1C1C1E] border border-white/[0.08]"
           aria-label="View Mode Switcher"
         >
           {onToggleLandingView && (
             <button
               id="nav-mode-overview"
               onClick={() => onToggleLandingView(true)}
-              className={`px-3 sm:px-4 py-1.5 min-h-[38px] rounded-full text-xs font-medium transition-all flex items-center gap-1.5 labs-pill-btn ${
+              className={`px-3 sm:px-4 py-1.5 min-h-[38px] rounded-full text-xs font-medium transition-all flex items-center gap-1.5 ${
                 isOverviewActive
-                  ? 'bg-[#E3E3E3] text-[#131314] font-semibold'
-                  : 'text-[#9AA0A6] hover:text-white'
+                  ? 'bg-white text-black font-semibold shadow-sm'
+                  : 'text-[#86868B] hover:text-white'
               }`}
             >
               <Compass className="size-3.5 shrink-0" />
-              <span className="hidden sm:inline">Labs Home</span>
-              <span className="sm:hidden">Labs</span>
+              <span className="hidden sm:inline">Overview</span>
+              <span className="sm:hidden">Home</span>
             </button>
           )}
 
           <button
             id="nav-mode-student"
             onClick={() => handleRoleSelect('student')}
-            className={`px-3 sm:px-4 py-1.5 min-h-[38px] rounded-full text-xs font-medium transition-all flex items-center gap-1.5 labs-pill-btn ${
+            className={`px-3 sm:px-4 py-1.5 min-h-[38px] rounded-full text-xs font-medium transition-all flex items-center gap-1.5 ${
               isStudentActive
-                ? 'bg-[#E3E3E3] text-[#131314] font-semibold'
-                : 'text-[#9AA0A6] hover:text-white'
+                ? 'bg-white text-black font-semibold shadow-sm'
+                : 'text-[#86868B] hover:text-white'
             }`}
           >
             <BookOpen className="size-3.5 shrink-0" />
@@ -142,15 +148,15 @@ export const AppleTopNav: React.FC<AppleTopNavProps> = ({
           <button
             id="nav-mode-facilitator"
             onClick={() => handleRoleSelect('facilitator')}
-            className={`px-3 sm:px-4 py-1.5 min-h-[38px] rounded-full text-xs font-medium transition-all flex items-center gap-1.5 labs-pill-btn ${
+            className={`px-3 sm:px-4 py-1.5 min-h-[38px] rounded-full text-xs font-medium transition-all flex items-center gap-1.5 ${
               isFacilitatorActive
-                ? 'bg-[#E3E3E3] text-[#131314] font-semibold'
-                : 'text-[#9AA0A6] hover:text-white'
+                ? 'bg-white text-black font-semibold shadow-sm'
+                : 'text-[#86868B] hover:text-white'
             }`}
           >
             <Users className="size-3.5 shrink-0" />
-            <span className="hidden sm:inline">Instructor Hub</span>
-            <span className="sm:hidden">Instructor</span>
+            <span className="hidden sm:inline">Facilitator Hub</span>
+            <span className="sm:hidden">Hub</span>
           </button>
         </nav>
 
