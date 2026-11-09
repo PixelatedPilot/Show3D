@@ -299,19 +299,19 @@ export const FallingPhysicsStage: React.FC<FallingPhysicsStageProps> = ({ onSele
   };
 
   return (
-    <div className="rounded-[32px] bg-[#1E1F22] border border-white/[0.08] p-5 sm:p-8 overflow-hidden transition-colors relative text-left">
+    <div className="rounded-[32px] bg-[#1C1C1E] border border-white/[0.08] p-5 sm:p-8 overflow-hidden transition-colors relative text-left">
       
-      {/* Top Header & Telemetry Controls */}
+      {/* Top Header & Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 mb-5 border-b border-white/[0.08]">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#162238] text-[#A8C7FA] text-[11px] font-mono mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0D2137] text-[#0A84FF] text-[11px] font-mono mb-2">
             <FlaskConical className="size-3.5" />
-            <span>INTERACTIVE PHYSICS LAB // ANTIGRAVITY</span>
+            <span>SPATIAL PHYSICS SANDBOX</span>
           </div>
           <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
             Tumble, Toss &amp; Shape Spatial Elements
           </h3>
-          <p className="text-xs sm:text-sm text-[#9AA0A6] mt-1">
+          <p className="text-xs sm:text-sm text-[#86868B] mt-1">
             Grab, drag, and fling 18 curriculum badges and prompt tokens with live gravity physics.
           </p>
         </div>
@@ -321,31 +321,31 @@ export const FallingPhysicsStage: React.FC<FallingPhysicsStageProps> = ({ onSele
           <button
             id="physics-zero-g-btn"
             onClick={handleToggleZeroG}
-            className={`px-3.5 py-2 min-h-[40px] rounded-full text-xs font-semibold flex items-center gap-1.5 transition-all labs-pill-btn ${
+            className={`px-4 py-2 min-h-[40px] rounded-full text-xs font-semibold flex items-center gap-1.5 transition-all ${
               isZeroG
-                ? 'bg-[#A8C7FA] text-[#062E6F] shadow-lg'
-                : 'bg-[#131314] text-[#E3E3E3] hover:text-white border border-white/[0.08]'
+                ? 'bg-[#0A84FF] text-white shadow-lg shadow-[#0A84FF]/25'
+                : 'bg-[#2C2C2E] text-[#F5F5F7] hover:text-white border border-white/[0.08]'
             }`}
             title="Toggle Zero-Gravity mode"
           >
             <Orbit className={`size-3.5 ${isZeroG ? 'animate-spin' : ''}`} />
-            <span>{isZeroG ? 'Zero-G: ACTIVE' : 'Defy Gravity'}</span>
+            <span>{isZeroG ? 'Zero-G: Active' : 'Defy Gravity'}</span>
           </button>
 
           <button
             id="physics-scatter-btn"
             onClick={handleScatter}
-            className="px-3.5 py-2 min-h-[40px] rounded-full bg-[#131314] hover:bg-[#282A2E] text-[#E3E3E3] border border-white/[0.08] text-xs font-medium flex items-center gap-1.5 labs-pill-btn transition-colors"
+            className="px-4 py-2 min-h-[40px] rounded-full bg-[#2C2C2E] hover:bg-[#3A3A3C] text-[#F5F5F7] border border-white/[0.08] text-xs font-medium flex items-center gap-1.5 transition-colors"
             title="Scatter pills with an impulse burst"
           >
-            <Sparkles className="size-3.5 text-[#FDD663]" />
+            <Sparkles className="size-3.5 text-[#FFD60A]" />
             <span>Scatter</span>
           </button>
 
           <button
             id="physics-reset-btn"
             onClick={handleResetDrop}
-            className="px-3.5 py-2 min-h-[40px] rounded-full bg-[#131314] hover:bg-[#282A2E] text-[#9AA0A6] hover:text-white border border-white/[0.08] text-xs font-medium flex items-center gap-1.5 labs-pill-btn transition-colors"
+            className="px-4 py-2 min-h-[40px] rounded-full bg-[#2C2C2E] hover:bg-[#3A3A3C] text-[#86868B] hover:text-white border border-white/[0.08] text-xs font-medium flex items-center gap-1.5 transition-colors"
             title="Re-drop all elements from above"
           >
             <RotateCcw className="size-3.5" />
@@ -358,15 +358,15 @@ export const FallingPhysicsStage: React.FC<FallingPhysicsStageProps> = ({ onSele
       <div
         ref={containerRef}
         id="physics-stage-arena"
-        className="relative w-full h-[380px] sm:h-[460px] rounded-[24px] bg-[#131314] border border-white/[0.06] overflow-hidden select-none cursor-grab active:cursor-grabbing"
+        className="relative w-full h-[380px] sm:h-[460px] rounded-[24px] bg-[#000000] border border-white/[0.08] overflow-hidden select-none cursor-grab active:cursor-grabbing"
         style={{ touchAction: 'none' }}
       >
         {/* Subtle Background Coordinate Grid for 3D Spatial Context */}
         <div className="absolute inset-0 dot-pattern opacity-40 pointer-events-none" />
 
-        {/* Live Status Telemetry Pill Overlay */}
-        <div className="absolute top-3 left-3 z-10 pointer-events-none flex items-center gap-2 px-3 py-1 rounded-full bg-[#1E1F22]/90 border border-white/[0.08] text-[10px] font-mono text-[#9AA0A6]">
-          <span className="w-2 h-2 rounded-full bg-[#6DD58C] animate-pulse" />
+        {/* Live Status Pill Overlay */}
+        <div className="absolute top-3 left-3 z-10 pointer-events-none flex items-center gap-2 px-3 py-1 rounded-full bg-[#1C1C1E]/90 border border-white/[0.08] text-[10px] font-mono text-[#86868B]">
+          <span className="w-2 h-2 rounded-full bg-[#30D158] animate-pulse" />
           <span>GRAVITY: {isZeroG ? '0.00 G (WEIGHTLESS)' : '9.81 m/s² (EARTH)'}</span>
           <span>·</span>
           <span>BODIES: {PILL_ITEMS.length}</span>
@@ -374,8 +374,8 @@ export const FallingPhysicsStage: React.FC<FallingPhysicsStageProps> = ({ onSele
 
         {/* Selected Pill Feedback Badge */}
         {selectedPill && (
-          <div className="absolute bottom-3 left-3 z-10 pointer-events-none flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1E1F22]/90 border border-[#A8C7FA]/40 text-[11px] font-mono text-[#A8C7FA]">
-            <CheckCircle2 className="size-3 text-[#6DD58C]" />
+          <div className="absolute bottom-3 left-3 z-10 pointer-events-none flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1C1C1E]/90 border border-[#0A84FF]/40 text-[11px] font-mono text-[#0A84FF]">
+            <CheckCircle2 className="size-3 text-[#30D158]" />
             <span>SELECTED: {selectedPill}</span>
           </div>
         )}
@@ -395,7 +395,7 @@ export const FallingPhysicsStage: React.FC<FallingPhysicsStageProps> = ({ onSele
               backgroundColor: pill.tintBg,
               borderColor: pill.accentHex,
             }}
-            className="absolute top-0 left-0 rounded-full border border-opacity-40 px-3.5 flex items-center justify-between text-xs font-semibold shadow-md will-change-transform transition-[border-color,background-color] hover:border-opacity-100 hover:shadow-[0_0_16px_-2px_rgba(168,199,250,0.4)] group"
+            className="absolute top-0 left-0 rounded-full border border-opacity-40 px-3.5 flex items-center justify-between text-xs font-semibold shadow-md will-change-transform transition-[border-color,background-color] hover:border-opacity-100 hover:shadow-[0_0_16px_-2px_rgba(10,132,255,0.4)] group"
           >
             <div className="flex items-center gap-2 truncate">
               <span
@@ -408,20 +408,20 @@ export const FallingPhysicsStage: React.FC<FallingPhysicsStageProps> = ({ onSele
             </div>
 
             {pill.moduleId && (
-              <ArrowUpRight className="size-3.5 text-[#9AA0A6] group-hover:text-white shrink-0 ml-1 transition-colors" />
+              <ArrowUpRight className="size-3.5 text-[#86868B] group-hover:text-white shrink-0 ml-1 transition-colors" />
             )}
           </div>
         ))}
       </div>
 
       {/* Bottom Hint Strip */}
-      <div className="pt-4 mt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] font-mono text-[#9AA0A6]">
+      <div className="pt-4 mt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] font-mono text-[#86868B]">
         <div className="flex items-center gap-2">
-          <span className="text-[#A8C7FA]">💡 Pro Tip:</span>
-          <span>Click and throw any badge across the screen, or tap a module badge to jump directly into that curriculum lesson.</span>
+          <span className="text-[#0A84FF]">Pro Tip:</span>
+          <span>Click and toss any badge across the arena, or tap a module badge to jump directly into that curriculum masterclass.</span>
         </div>
-        <span className="text-[#6DD58C]">
-          Sleep Optimization: 0% Idle CPU
+        <span className="text-[#30D158]">
+          60 FPS Rigid-Body Simulation
         </span>
       </div>
 

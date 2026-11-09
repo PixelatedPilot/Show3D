@@ -22,7 +22,18 @@ import {
   setCanopyCurvature,
   toggleSolarArray,
   setCanvasModalState,
-  generateVerifiedCertificate
+  generateVerifiedCertificate,
+  INITIAL_CANVAS_STUDIO_STATE,
+  setStudioArchetype,
+  setStudioShadingMode,
+  setStudioCameraPreset,
+  updateStudioParametricLevers,
+  addSpatialCritiquePin,
+  computeMeshDiagnostics,
+  computeSlicerMetrics,
+  getCameraCoordinatesForPreset,
+  generateAsciiSTL,
+  generateGLTFSceneSummary
 } from '../helpers/loadAppStore.ts';
 
 describe('E2E Workflow & Scenario Test Suite (Features 3, 4, 7, 10 & Tiers 3-4)', () => {
@@ -335,6 +346,69 @@ describe('E2E Workflow & Scenario Test Suite (Features 3, 4, 7, 10 & Tiers 3-4)'
       assert.equal(cert.isVerified, true);
       assert.ok(cert.demonstratedSkills.length >= 5);
       assert.ok(cert.antiCognitiveOffloadingAttestation.includes('without cognitive offloading'));
+    });
+  });
+
+  // =========================================================================
+  // TIER 3 & 4 Scenario 6: Interactive 3D Canvas Studio Foundation
+  // =========================================================================
+  describe('Tier 3 & 4 Scenario 6: Interactive 3D Canvas Studio State, Diagnostics & STL/GLTF Export', () => {
+    it('should switch 3D studio archetypes, shading modes, and camera presets with deterministic camera coordinates', () => {
+      let state = INITIAL_CANVAS_STUDIO_STATE;
+      assert.equal(state.archetype, 'pavilion');
+      assert.equal(state.shadingMode, 'pbr');
+
+      state = setStudioArchetype(state, 'desk_dock');
+      assert.equal(state.archetype, 'desk_dock');
+
+      state = setStudioShadingMode(state, 'stress_wall_thickness');
+      assert.equal(state.shadingMode, 'stress_wall_thickness');
+
+      state = setStudioCameraPreset(state, 'iso');
+      assert.equal(state.cameraPreset, 'iso');
+
+      const coords = getCameraCoordinatesForPreset('iso');
+      assert.equal(coords.position.length, 3);
+      assert.equal(coords.target.length, 3);
+    });
+
+    it('should detect thin-wall printability warnings (< 2.0mm) and compute slicer metrics and STL/GLTF exports', () => {
+      const thinState = updateStudioParametricLevers(INITIAL_CANVAS_STUDIO_STATE, {
+        ribThicknessMm: 1.4,
+        curvature: 0.75
+      });
+      const thinDiag = computeMeshDiagnostics(thinState);
+      assert.equal(thinDiag.stressLevel, 'thin_wall_alert', 'Wall thickness < 2.0mm must flag as thin_wall_alert');
+      assert.equal(thinDiag.isWatertightManifold, false);
+
+      const safeState = updateStudioParametricLevers(thinState, {
+        ribThicknessMm: 3.2
+      });
+      const safeDiag = computeMeshDiagnostics(safeState);
+      assert.equal(safeDiag.stressLevel, 'optimal', 'Wall thickness >= 2.8mm must pass optimal printability check');
+      assert.equal(safeDiag.isWatertightManifold, true);
+
+      const slicer = computeSlicerMetrics(safeState);
+      assert.ok(slicer.totalLayers > 100);
+      assert.ok(slicer.filamentMassGrams > 10);
+
+      const pinnedState = addSpatialCritiquePin(safeState, {
+        label: 'Teacher Critique',
+        author: 'Ms. Tan (D&T Lead)',
+        category: 'structural',
+        position: [1.2, 2.0, -0.5],
+        comment: 'Verified 3.2mm structural rib'
+      });
+      assert.equal(pinnedState.pins.length, safeState.pins.length + 1);
+
+      const stlText = generateAsciiSTL(pinnedState);
+      assert.ok(stlText.startsWith('solid show3d_pavilion'));
+      assert.ok(stlText.includes('endsolid show3d_pavilion'));
+
+      const gltfJson = generateGLTFSceneSummary(pinnedState);
+      const parsed = JSON.parse(gltfJson);
+      assert.equal(parsed.asset.version, '2.0');
+      assert.equal(parsed.scenes[0].extras.archetype, 'pavilion');
     });
   });
 });

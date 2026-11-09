@@ -11,6 +11,7 @@ const loader = jiti(import.meta.url);
 export const appStore = loader(path.join(projectRoot, 'src/store/appStore.ts'));
 export const moduleLessonsData = loader(path.join(projectRoot, 'src/data/moduleLessons.ts'));
 export const workflowState = loader(path.join(projectRoot, 'src/utils/workflowState.ts'));
+export const canvasStudioState = loader(path.join(projectRoot, 'src/utils/canvasStudioState.ts'));
 
 export const {
   LEARNING_MODULES,
@@ -42,3 +43,18 @@ export const {
   setCanvasModalState,
   generateVerifiedCertificate
 } = workflowState;
+
+export const {
+  INITIAL_CANVAS_STUDIO_STATE,
+  setStudioArchetype,
+  setStudioShadingMode,
+  setStudioCameraPreset,
+  updateStudioParametricLevers,
+  addSpatialCritiquePin,
+  removeSpatialCritiquePin,
+  computeMeshDiagnostics,
+  computeSlicerMetrics,
+  getCameraCoordinatesForPreset,
+  generateAsciiSTL,
+  generateGLTFSceneSummary
+} = canvasStudioState;

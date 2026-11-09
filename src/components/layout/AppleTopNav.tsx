@@ -160,12 +160,12 @@ export const AppleTopNav: React.FC<AppleTopNavProps> = ({
           </button>
         </nav>
 
-        {/* Right: Quick Module Filter (only visible in Student view) & 3D Canvas Launch */}
+        {/* Right: Quick Module Filter (only visible in Student view) & 3D Studio Launch */}
         <div className="flex items-center gap-2.5 shrink-0">
           {isStudentActive && (
-            <div className="hidden lg:flex items-center gap-1 bg-[#1E1F22] border border-white/[0.08] rounded-full p-1">
-              <span className="text-[10px] text-[#9AA0A6] px-2.5 uppercase tracking-wider font-mono">
-                Exp:
+            <div className="hidden lg:flex items-center gap-1 bg-[#1C1C1E] border border-white/[0.08] rounded-full p-1">
+              <span className="text-[10px] text-[#86868B] px-2.5 uppercase tracking-wider font-mono">
+                Module:
               </span>
               {LEARNING_MODULES.map((m) => {
                 const isActive = m.id === activeModuleId;
@@ -174,10 +174,10 @@ export const AppleTopNav: React.FC<AppleTopNavProps> = ({
                     key={m.id}
                     id={`nav-module-${m.id}`}
                     onClick={() => handleModuleSelect(m.id)}
-                    className={`px-2.5 py-1 rounded-full text-[11px] font-mono transition-all labs-pill-btn ${
+                    className={`px-2.5 py-1 rounded-full text-[11px] font-mono transition-all ${
                       isActive
-                        ? 'bg-[#A8C7FA] text-[#062E6F] font-bold'
-                        : 'text-[#9AA0A6] hover:text-white hover:bg-white/[0.06]'
+                        ? 'bg-[#0A84FF] text-white font-semibold shadow-sm'
+                        : 'text-[#86868B] hover:text-white hover:bg-white/[0.06]'
                     }`}
                     title={`${m.code}: ${m.title}`}
                   >
@@ -188,16 +188,16 @@ export const AppleTopNav: React.FC<AppleTopNavProps> = ({
             </div>
           )}
 
-          {/* Try Show3D Canvas Pill Button */}
+          {/* Open 3D Studio Pill Button */}
           <button
             id="nav-launch-canvas"
             onClick={handleCanvasTrigger}
-            className="bg-[#A8C7FA] hover:bg-[#D3E3FD] text-[#062E6F] rounded-full py-2 px-4 text-xs font-semibold flex items-center gap-1.5 transition-all labs-pill-btn"
-            title="Open interactive Show3D Canvas modal"
+            className="bg-[#0A84FF] hover:bg-[#0071E3] text-white rounded-full py-2 px-4 text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm shadow-[#0A84FF]/25"
+            title="Open interactive Show3D WebGL Studio"
           >
-            <span className="hidden sm:inline">Try 3D Canvas</span>
-            <span className="sm:hidden">Canvas</span>
-            <ExternalLink className="size-3.5" />
+            <Box className="size-3.5" />
+            <span className="hidden sm:inline">3D Studio</span>
+            <span className="sm:hidden">3D</span>
           </button>
         </div>
 
