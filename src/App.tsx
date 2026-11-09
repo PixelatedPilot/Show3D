@@ -15,7 +15,7 @@ import { PedagogyFrameworkModal } from './components/layout/PedagogyFrameworkMod
 export const App: React.FC = () => {
   const [activeMode, setActiveMode] = useState<AppMode>('student');
   const [eduState, setEduState] = useState<EduState>(initialEduState);
-  const [isLandingView, setIsLandingView] = useState(false);
+  const [isLandingView, setIsLandingView] = useState(true);
   
   // Modals
   const [isCertificateModalOpen, setIsCertificateModalOpen] = useState(false);

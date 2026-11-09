@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Sparkles, BookOpen, Users, Compass } from 'lucide-react';
 import { LEARNING_MODULES } from '../../store/appStore';
 
 export interface AppleTopNavProps {
@@ -58,102 +58,110 @@ export const AppleTopNav: React.FC<AppleTopNavProps> = ({
   const isFacilitatorActive = !isLandingView && activeMode === 'facilitator';
 
   return (
-    <header className="sticky top-0 z-50 w-full h-12 bg-surface bg-[#131314] border-b border-outline-variant border-[#232426] px-md px-4 select-none text-xs text-on-surface-variant font-sans">
-      <div className="max-w-7xl mx-auto h-full flex items-center justify-between">
+    <header className="sticky top-0 z-50 w-full h-14 bg-[#0a0a0c]/80 backdrop-blur-xl border-b border-white/[0.08] px-4 select-none text-xs font-sans transition-all">
+      <div className="max-w-7xl mx-auto h-full flex items-center justify-between gap-4">
         
-        {/* Left: Brand Identity & Geometric Monogram */}
-        <div className="flex items-center gap-3">
-          <div
-            className="flex items-center gap-2 group cursor-pointer"
+        {/* Left: Clean Brand Identity */}
+        <div className="flex items-center gap-3 shrink-0">
+          <button
             onClick={() => onToggleLandingView ? onToggleLandingView(true) : handleRoleSelect('student')}
-            title="SHOW3D Executive Overview"
+            className="flex items-center gap-2.5 group transition-opacity hover:opacity-90"
+            title="Show3D Programme Home"
           >
-            <div className="w-6 h-6 rounded-full border border-custom-text-muted border-[#9A9DA3]/60 flex items-center justify-center font-h4 font-bold text-xs text-on-surface text-[#e5e2e3] group-hover:border-primary group-hover:text-primary transition-colors">
+            <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center font-bold text-xs text-white shadow-sm">
               S
             </div>
-            <span className="font-h4 font-bold tracking-tighter text-on-surface text-[#e5e2e3] text-sm">
-              SHOW3D
-            </span>
-          </div>
-
-          <span className="hidden sm:inline-flex items-center text-[10px] font-mono px-1.5 py-0.5 rounded border border-[#232426] bg-[#0d0e0f] text-[#9A9DA3]">
-            SYS // SG_MOE_D&T
-          </span>
+            <div className="flex flex-col text-left">
+              <span className="font-bold tracking-tight text-white text-sm leading-none">
+                SHOW3D
+              </span>
+              <span className="text-[10px] text-slate-400 font-medium tracking-wide mt-0.5">
+                AI Creator Programme
+              </span>
+            </div>
+          </button>
         </div>
 
-        {/* Center: Horizontal Mode / View Tabs with Active Bottom Indicator Line */}
-        <nav className="h-full flex items-center gap-4 sm:gap-6 text-xs sm:text-[13px] font-medium" aria-label="Main Navigation">
+        {/* Center: Apple HIG Segmented Control Pill */}
+        <nav 
+          className="inline-flex p-1 rounded-full bg-white/[0.06] border border-white/[0.08] shadow-inner"
+          aria-label="View Mode Switcher"
+        >
           {onToggleLandingView && (
             <button
               onClick={() => onToggleLandingView(true)}
-              className={`pb-3 relative top-[6px] transition-colors border-b-2 ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all flex items-center gap-1.5 ${
                 isOverviewActive
-                  ? 'text-primary text-[#5E6BFF] border-primary border-[#5E6BFF] font-semibold'
-                  : 'text-on-surface-variant text-[#9A9DA3] hover:text-on-surface hover:text-[#e5e2e3] border-transparent'
+                  ? 'bg-white text-black shadow-sm font-semibold'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
-              Overview
+              <Compass className="size-3.5" />
+              <span>Overview</span>
             </button>
           )}
 
           <button
             onClick={() => handleRoleSelect('student')}
-            className={`pb-3 relative top-[6px] transition-colors border-b-2 ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all flex items-center gap-1.5 ${
               isStudentActive
-                ? 'text-primary text-[#5E6BFF] border-primary border-[#5E6BFF] font-semibold'
-                : 'text-on-surface-variant text-[#9A9DA3] hover:text-on-surface hover:text-[#e5e2e3] border-transparent'
+                ? 'bg-white text-black shadow-sm font-semibold'
+                : 'text-slate-400 hover:text-white'
             }`}
           >
-            Student Learning Mode
+            <BookOpen className="size-3.5" />
+            <span>Student Classroom</span>
           </button>
 
           <button
             onClick={() => handleRoleSelect('facilitator')}
-            className={`pb-3 relative top-[6px] transition-colors border-b-2 ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all flex items-center gap-1.5 ${
               isFacilitatorActive
-                ? 'text-primary text-[#5E6BFF] border-primary border-[#5E6BFF] font-semibold'
-                : 'text-on-surface-variant text-[#9A9DA3] hover:text-on-surface hover:text-[#e5e2e3] border-transparent'
+                ? 'bg-white text-black shadow-sm font-semibold'
+                : 'text-slate-400 hover:text-white'
             }`}
           >
-            Facilitator Mode
+            <Users className="size-3.5" />
+            <span>Instructor Hub</span>
           </button>
         </nav>
 
-        {/* Right: Module Quick-Select Segmented Bar & Canvas Trigger */}
-        <div className="flex items-center gap-2.5 sm:gap-3">
-          {/* Module numbers M01-M06 inside a crisp #101112 container */}
-          <div className="hidden lg:flex items-center gap-1 bg-[#101112] border border-[#1B1C1E] rounded p-xs p-1">
-            <span className="text-[10px] font-mono text-[#9A9DA3] px-1 uppercase tracking-wider">
-              Module:
-            </span>
-            {LEARNING_MODULES.map((m) => {
-              const isActive = !isLandingView && m.id === activeModuleId;
-              const moduleLabel = `M0${m.id}`;
-              return (
-                <button
-                  key={m.id}
-                  onClick={() => handleModuleSelect(m.id)}
-                  className={`px-2 py-0.5 rounded text-[11px] font-mono transition-all flex items-center justify-center ${
-                    isActive
-                      ? 'bg-[#191A1C] text-primary text-[#5E6BFF] font-bold shadow'
-                      : 'text-[#9A9DA3] hover:text-[#e5e2e3] hover:bg-[#151617]'
-                  }`}
-                  title={`${m.code}: ${m.title}`}
-                >
-                  {moduleLabel}
-                </button>
-              );
-            })}
-          </div>
+        {/* Right: Quick Module Filter (only visible in Student view) & 3D Canvas Launch */}
+        <div className="flex items-center gap-2.5 shrink-0">
+          {/* Module numbers M01-M06: only rendered when in Student view to eliminate noise */}
+          {isStudentActive && (
+            <div className="hidden lg:flex items-center gap-1 bg-white/[0.04] border border-white/[0.08] rounded-full p-1 animate-in fade-in duration-200">
+              <span className="text-[10px] text-slate-400 px-2 uppercase tracking-wider font-medium">
+                Module:
+              </span>
+              {LEARNING_MODULES.map((m) => {
+                const isActive = m.id === activeModuleId;
+                return (
+                  <button
+                    key={m.id}
+                    onClick={() => handleModuleSelect(m.id)}
+                    className={`px-2 py-0.5 rounded-full text-[11px] font-mono transition-all ${
+                      isActive
+                        ? 'bg-blue-600 text-white font-bold shadow-sm'
+                        : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
+                    }`}
+                    title={`${m.code}: ${m.title}`}
+                  >
+                    M0{m.id}
+                  </button>
+                );
+              })}
+            </div>
+          )}
 
-          {/* Try Show3D Canvas Button styled as Romer primary action */}
+          {/* Try Show3D Canvas Button */}
           <button
             onClick={handleCanvasTrigger}
-            className="bg-[#5E6BFF] hover:bg-[#4a57f5] text-[#F0F1F2] rounded py-1.5 px-3 font-label-sm text-xs font-medium flex items-center gap-1.5 transition-colors shadow-sm"
-            title="Open core Show3D WebGL CAD modeling engine in dedicated window"
+            className="bg-white/10 hover:bg-white/15 text-white border border-white/10 rounded-full py-1.5 px-3.5 text-xs font-medium flex items-center gap-1.5 transition-all shadow-sm active:scale-95"
+            title="Open interactive Show3D Canvas modal"
           >
-            <ExternalLink className="size-3 text-[#F0F1F2]" />
-            <span className="hidden sm:inline">Try Show3D Canvas</span>
+            <ExternalLink className="size-3 text-blue-400" />
+            <span className="hidden sm:inline">3D Canvas</span>
           </button>
         </div>
 

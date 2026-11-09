@@ -130,59 +130,59 @@ export const FacilitatorHub: React.FC<FacilitatorHubProps> = ({
           {/* Header */}
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="size-2 rounded-full bg-[#50d8e9] shadow-[0_0_8px_#50d8e9]" />
-              <span className="text-[10px] font-mono tracking-widest text-[#9A9DA3]/70 uppercase">
-                SYS // FACILITATOR_COMMAND
+              <span className="size-2 rounded-full bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.6)]" />
+              <span className="text-[10px] tracking-wider text-blue-400 uppercase font-semibold">
+                Instructor Command
               </span>
             </div>
-            <h1 className="text-lg font-bold text-[#e5e2e3] tracking-tight">
-              Facilitator Hub
+            <h1 className="text-lg font-bold text-white tracking-tight">
+              Instructor Hub
             </h1>
-            <p className="text-xs text-[#9A9DA3]">
-              Class 3-Faith · Tampines Secondary
+            <p className="text-xs text-slate-400">
+              Teen Cohort (Ages 13–16) · Holiday Camp
             </p>
           </div>
 
-          {/* View Switcher (Romer Report Types Pattern) */}
+          {/* View Switcher */}
           <div className="space-y-1.5 pt-1">
-            <div className="text-[10px] font-mono uppercase tracking-widest text-[#9A9DA3]/60 px-1">
-              REPORT VIEWS
+            <div className="text-[10px] uppercase tracking-wider text-slate-400 px-1 font-semibold">
+              VIEWS
             </div>
             
             <button
               onClick={() => setActiveTab('monitoring')}
-              className={`w-full p-2.5 rounded text-left transition-all flex items-start gap-2.5 border ${
+              className={`w-full p-2.5 rounded-xl text-left transition-all flex items-start gap-2.5 border ${
                 activeTab === 'monitoring'
-                  ? 'bg-[#191A1C] border-[#232426] text-white shadow-xs'
-                  : 'bg-transparent border-transparent text-[#9A9DA3] hover:text-white hover:bg-[#121314]'
+                  ? 'bg-white/[0.08] border-white/10 text-white shadow-sm'
+                  : 'bg-transparent border-transparent text-slate-400 hover:text-white hover:bg-white/[0.04]'
               }`}
             >
-              <span className="size-1.5 rounded-full bg-[#50d8e9] shadow-[0_0_8px_#50d8e9] mt-1.5 shrink-0" />
+              <span className="size-1.5 rounded-full bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.6)] mt-1.5 shrink-0" />
               <div className="flex-1 min-w-0">
-                <div className="text-xs font-semibold leading-tight text-[#e5e2e3]">
+                <div className="text-xs font-semibold leading-tight text-white">
                   Live Class Monitoring
                 </div>
-                <div className="text-[10px] font-mono text-[#9A9DA3]/70 mt-0.5">
-                  System Overview // 28_ACTV
+                <div className="text-[10px] text-slate-400 mt-0.5">
+                  28 Active Students
                 </div>
               </div>
             </button>
 
             <button
               onClick={() => setActiveTab('curriculum_procurement')}
-              className={`w-full p-2.5 rounded text-left transition-all flex items-start gap-2.5 border ${
+              className={`w-full p-2.5 rounded-xl text-left transition-all flex items-start gap-2.5 border ${
                 activeTab === 'curriculum_procurement'
-                  ? 'bg-[#191A1C] border-[#232426] text-white shadow-xs'
-                  : 'bg-transparent border-transparent text-[#9A9DA3] hover:text-white hover:bg-[#121314]'
+                  ? 'bg-white/[0.08] border-white/10 text-white shadow-sm'
+                  : 'bg-transparent border-transparent text-slate-400 hover:text-white hover:bg-white/[0.04]'
               }`}
             >
-              <FileText className="size-3.5 text-[#5E6BFF] mt-0.5 shrink-0" />
+              <FileText className="size-3.5 text-blue-400 mt-0.5 shrink-0" />
               <div className="flex-1 min-w-0">
-                <div className="text-xs font-semibold leading-tight text-[#e5e2e3]">
-                  Curriculum & GeBIZ Pack
+                <div className="text-xs font-semibold leading-tight text-white">
+                  Curriculum & Partner Kit
                 </div>
-                <div className="text-[10px] font-mono text-[#9A9DA3]/70 mt-0.5">
-                  Procurement & Ops // MOE_2030
+                <div className="text-[10px] text-slate-400 mt-0.5">
+                  Turnkey Lesson Materials
                 </div>
               </div>
             </button>

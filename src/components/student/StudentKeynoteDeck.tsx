@@ -187,8 +187,8 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
         <div className="space-y-4">
           {/* Header: Module Title + Subtitle */}
           <div className="border-b border-outline-variant pb-3">
-            <div className="font-mono-data text-[10px] text-[#9A9DA3] tracking-widest uppercase">
-              {currentModule.code} // {currentModule.moeLearn}
+            <div className="text-[11px] text-blue-400 font-semibold tracking-wide uppercase">
+              {currentModule.code}
             </div>
             <h3 className="font-h3 text-base sm:text-lg font-display font-semibold text-white tracking-tight mt-1">
               {currentModule.title}
@@ -198,10 +198,10 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
             </p>
           </div>
 
-          {/* Module stages list: Styled as Romer Report Types list */}
+          {/* Module stages list */}
           <div className="space-y-1">
-            <div className="font-mono-data text-[10px] uppercase tracking-widest text-[#9A9DA3] px-1 mb-1">
-              EXECUTIVE STAGES
+            <div className="text-[10px] uppercase tracking-widest text-[#9A9DA3] px-1 mb-1 font-semibold">
+              LESSON STAGES
             </div>
             {STAGES.map((stage) => {
               const isActive = slideIndex === stage.id;
@@ -229,8 +229,8 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
                     <div className={`font-label-sm truncate leading-tight ${isActive ? 'text-white font-medium' : 'text-[#c8c7cb]'}`}>
                       {stage.title}
                     </div>
-                    <div className="font-mono-data text-[10px] text-[#9A9DA3] truncate tracking-wider mt-0.5">
-                      {stage.subtitle}
+                    <div className="text-[11px] text-[#9A9DA3] truncate mt-0.5">
+                      Stage {stage.id + 1}
                     </div>
                   </div>
                 </button>
@@ -248,11 +248,11 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
             <ExternalLink className="size-3.5" />
             <span>Launch 3D Canvas</span>
           </button>
-          <div className="flex items-center justify-between font-mono-data text-[10px] text-[#9A9DA3] px-1">
-            <span>SG_MOE_D&T</span>
-            <span className="text-secondary flex items-center gap-1">
-              <span className="w-1 h-1 rounded-full bg-secondary" />
-              Port 443 Safe
+          <div className="flex items-center justify-between text-[11px] text-slate-500 px-1">
+            <span>Show3D Studio</span>
+            <span className="text-emerald-400 flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              Connected
             </span>
           </div>
         </div>
@@ -267,18 +267,12 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
         {/* Document/Stage Toolbar */}
         <div className="bg-[#151617] p-sm rounded border border-[#1B1C1E] flex items-center justify-between mb-4 shrink-0 shadow-sm">
           <div className="flex items-center gap-2 min-w-0">
-            <span className="font-mono-data text-xs text-white font-semibold tracking-wider truncate">
-              {slideIndex < 3
-                ? `MOD-0${activeModuleId}-SLIDE-0${slideIndex + 1}.deck`
-                : slideIndex === 3
-                ? `MOD-0${activeModuleId}-CODESIGN.deck`
-                : slideIndex === 4
-                ? `MOD-0${activeModuleId}-DIAGNOSTIC.deck`
-                : `REP-MOE-2026-M0${activeModuleId}-BADGE.pdf`}
+            <span className="text-xs text-white font-semibold tracking-tight truncate">
+              {currentModule.title}
             </span>
-            <span className="text-[#232426]">|</span>
-            <span className="font-mono-data text-[11px] text-[#9A9DA3] hidden sm:inline truncate">
-              {currentModule.code} // {currentModule.moeLearn}
+            <span className="text-white/20">/</span>
+            <span className="text-xs text-slate-400 hidden sm:inline truncate">
+              Stage {slideIndex + 1}: {STAGES[slideIndex]?.title}
             </span>
           </div>
 
@@ -331,16 +325,16 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
               <div className="border-b border-[#1B1C1E] pb-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                   <div className="inline-flex items-center gap-2">
-                    <span className="font-mono-data text-[10px] px-2 py-0.5 rounded bg-primary/10 border border-primary/20 text-primary uppercase tracking-widest">
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 font-semibold uppercase tracking-wider">
                       {currentConceptSlide.badge}
                     </span>
-                    <span className="font-mono-data text-[11px] text-[#9A9DA3]">
-                      STAGE 0{slideIndex + 1} // CONCEPT_STUDIO
+                    <span className="text-xs text-slate-400">
+                      Concept {slideIndex + 1} of 3
                     </span>
                   </div>
-                  <div className="flex items-center gap-2 font-mono-data text-xs text-secondary">
-                    <span className="w-1.5 h-1.5 rounded-full bg-secondary shadow-[0_0_8px_#50d8e9] animate-pulse" />
-                    <span>Status: OPTIMAL // MOE_DOMAIN</span>
+                  <div className="flex items-center gap-1.5 text-xs text-slate-400">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    <span>Self-Guided Study</span>
                   </div>
                 </div>
                 <h1 className="font-h1 text-2xl sm:text-3xl lg:text-4xl font-display font-medium text-white tracking-tight">
@@ -349,7 +343,7 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
 
                 {/* Plain-language abstract with cyan indicator dot */}
                 <div className="mt-3 flex items-start gap-2 text-on-surface font-body-lg text-sm sm:text-base">
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary mt-2 shrink-0 shadow-[0_0_8px_#50d8e9]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 shrink-0 shadow-[0_0_8px_rgba(96,165,250,0.5)]" />
                   <p className="leading-relaxed text-[#d1d0d4]">
                     {currentConceptSlide.subtitle}
                   </p>
@@ -370,52 +364,32 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
                 {/* Key Concept & Pro Tip Cards */}
                 <div className="lg:col-span-5 space-y-4">
                   {/* Key Concept Card */}
-                  <div className="p-4 rounded-lg bg-[#151617] border border-[#1B1C1E] shadow-sm">
-                    <div className="flex items-center justify-between text-[#9A9DA3] mb-1">
-                      <span className="font-label-sm uppercase tracking-wider text-[11px]">
-                        KEY CONCEPT // 21CC
+                  <div className="p-5 rounded-2xl bg-[#151617] border border-white/[0.08] shadow-sm">
+                    <div className="flex items-center justify-between text-slate-400 mb-1">
+                      <span className="text-[11px] font-semibold uppercase tracking-wider text-blue-400">
+                        KEY CONCEPT
                       </span>
-                      <Lightbulb className="size-3.5 text-secondary" />
+                      <Lightbulb className="size-4 text-blue-400" />
                     </div>
-                    <h3 className="font-h3 text-base font-semibold text-white mt-1">
+                    <h3 className="text-base font-semibold text-white mt-1">
                       {currentConceptSlide.keyConcept.term}
                     </h3>
-                    <p className="font-body-md text-xs text-[#9A9DA3] mt-2 leading-relaxed">
+                    <p className="text-xs text-slate-400 mt-2 leading-relaxed">
                       {currentConceptSlide.keyConcept.definition}
                     </p>
-                    {/* Telemetry progress bar */}
-                    <div className="mt-3.5 pt-2.5 border-t border-[#1B1C1E]">
-                      <div className="flex justify-between font-mono-data text-[10px] text-[#9A9DA3] mb-1">
-                        <span>CONCEPT_RETENTION</span>
-                        <span className="text-secondary font-semibold">94.8% // BENCHMARK</span>
-                      </div>
-                      <div className="h-1 bg-[#101112] rounded-full overflow-hidden">
-                        <div className="h-full bg-secondary rounded-full" style={{ width: '94.8%' }} />
-                      </div>
-                    </div>
                   </div>
 
                   {/* Pro Tip Card */}
-                  <div className="p-4 rounded-lg bg-[#151617] border border-[#1B1C1E] shadow-sm">
-                    <div className="flex items-center justify-between text-[#9A9DA3] mb-1">
-                      <span className="font-label-sm uppercase tracking-wider text-[11px]">
-                        STUDIO PROTOCOL // PRO_TIP
+                  <div className="p-5 rounded-2xl bg-[#151617] border border-white/[0.08] shadow-sm">
+                    <div className="flex items-center justify-between text-slate-400 mb-1">
+                      <span className="text-[11px] font-semibold uppercase tracking-wider text-amber-400">
+                        STUDIO TIP
                       </span>
-                      <Sparkles className="size-3.5 text-primary" />
+                      <Sparkles className="size-4 text-amber-400" />
                     </div>
-                    <p className="font-body-md text-xs text-on-surface leading-relaxed mt-1 text-[#e5e2e3]">
+                    <p className="text-xs text-slate-300 leading-relaxed mt-2">
                       {currentConceptSlide.proTip}
                     </p>
-                    {/* Telemetry progress bar */}
-                    <div className="mt-3.5 pt-2.5 border-t border-[#1B1C1E]">
-                      <div className="flex justify-between font-mono-data text-[10px] text-[#9A9DA3] mb-1">
-                        <span>SINGAPORE D&T SYLLABUS</span>
-                        <span className="text-primary font-semibold">VERIFIED_21CC</span>
-                      </div>
-                      <div className="h-1 bg-[#101112] rounded-full overflow-hidden">
-                        <div className="h-full bg-[#5E6BFF] rounded-full" style={{ width: '100%' }} />
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -428,12 +402,12 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
               {/* Header */}
               <div className="border-b border-[#1B1C1E] pb-3">
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="font-mono-data text-[10px] px-2 py-0.5 rounded bg-primary/10 border border-primary/20 text-primary uppercase tracking-widest">
-                    PARTS CO-DESIGN STUDIO // 03_ASSEMBLY
+                  <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 font-semibold uppercase tracking-wider">
+                    3D Co-Design Studio
                   </span>
-                  <span className="font-mono-data text-xs text-secondary flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-secondary shadow-[0_0_8px_#50d8e9]" />
-                    CO-CREATIVE_INTENT: 94.2%
+                  <span className="text-xs text-emerald-400 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    Creative Intent: 94%
                   </span>
                 </div>
                 <h2 className="font-h2 text-xl sm:text-2xl font-display font-medium text-white tracking-tight">
