@@ -1,0 +1,457 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  
+  /* Romer Obsidian & Surface Tokens */
+  --bg-canvas: #070708;
+  --bg-surface: #131314;
+  --bg-card: #101112;
+  --bg-elevated: #151617;
+  --border-hairline: #232426;
+  --border-hairline-subtle: #1B1C1E;
+  
+  /* Romer Accents & Telemetry Tokens */
+  --accent-primary: #5E6BFF;
+  --accent-primary-light: #bec2ff;
+  --accent-secondary: #50d8e9;
+  --accent-tertiary: #ffb689;
+  --accent-error: #ffb4ab;
+  --text-on-surface: #e5e2e3;
+  --text-muted: #9A9DA3;
+  
+  /* Backward Compatibility Aliases */
+  --apple-blue: #5E6BFF;
+  --apple-green: #50d8e9;
+  --apple-indigo: #5E6BFF;
+  --apple-orange: #ffb689;
+  --apple-pink: #ffb4ab;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-surface);
+  color: var(--text-on-surface);
+  overflow: hidden;
+  user-select: none;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: #5E6BFF;
+  color: #ffffff;
+}
+
+/* Material Symbols Outlined Alignment Utility */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1;
+  display: inline-block;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Romer Display Headline Variable Weight Helper */
+.font-romer-headline {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 520;
+  font-variation-settings: 'wght' 520;
+}
+
+/* ==========================================================================
+   Romer Ambient Surfaces, Glass & Card Panels
+   ========================================================================== */
+
+/* Canonical Romer Glass Panel & Backward Compatible Aliases */
+.romer-glass-panel,
+.spline-glass-panel,
+.glass-panel {
+  background: rgba(28, 27, 29, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid #232426;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Canonical Solid Obsidian Card & Apple Glass Card Adaptation */
+.romer-card,
+.apple-glass-card {
+  background: #101112;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid #232426;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+.apple-glass-card::before,
+.romer-card-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.12) 50%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Compact Glass Pills */
+.romer-pill,
+.glass-pill,
+.spline-glass-pill,
+.apple-glass-pill {
+  background: rgba(21, 22, 23, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid #232426;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Elevated Command Docks */
+.romer-dock,
+.glass-dock,
+.spline-glass-dock,
+.apple-glass-dock {
+  background: rgba(19, 19, 20, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid #232426;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+}
+
+.glass-card-hover {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-card-hover:hover {
+  background: #151617;
+  border-color: #35373b;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   Romer Textures, Grids & Shimmer Highlights
+   ========================================================================== */
+
+/* 16px Instrument Dot Pattern */
+.dot-pattern {
+  background-image: radial-gradient(#232426 1px, transparent 1px);
+  background-size: 16px 16px;
+  background-position: 0 0;
+}
+
+.dot-pattern-dense {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
+/* Ultra-Fine Coordinate Grids (60px & 80px) */
+.romer-grid-60,
+.spline-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.romer-grid-80 {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+.technical-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Shimmer Highlight Lines */
+.romer-shimmer-line,
+.shimmer-line {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.10) 50%, transparent 100%);
+}
+
+.has-shimmer-top,
+.romer-shimmer-top {
+  position: relative;
+}
+.has-shimmer-top::before,
+.romer-shimmer-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.12) 50%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   Structural Hairlines & Inner Depth
+   ========================================================================== */
+
+.thin-border {
+  border: 1px solid #232426;
+}
+.thin-border-t { border-top: 1px solid #232426; }
+.thin-border-b { border-bottom: 1px solid #232426; }
+.thin-border-l { border-left: 1px solid #232426; }
+.thin-border-r { border-right: 1px solid #232426; }
+.thin-border-subtle { border: 1px solid #1B1C1E; }
+
+.inner-glow {
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08), inset 0 0 24px 0 rgba(0, 0, 0, 0.5);
+}
+.inner-glow-primary {
+  box-shadow: inset 0 0 20px rgba(94, 107, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.inner-glow-cyan {
+  box-shadow: inset 0 0 20px rgba(80, 216, 233, 0.12), inset 0 1px 0 rgba(80, 216, 233, 0.2);
+}
+
+/* ==========================================================================
+   Corner Target Reticles
+   ========================================================================== */
+
+.reticle-tl {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+}
+
+.reticle-tr {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+}
+
+.reticle-bl {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+}
+
+.reticle-br {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+}
+
+.reticle-cyan.reticle-tl, .reticle-cyan.reticle-tr,
+.reticle-cyan.reticle-bl, .reticle-cyan.reticle-br {
+  border-color: #50d8e9;
+}
+
+.romer-reticle-box {
+  position: relative;
+}
+.romer-reticle-box::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 8px;
+  height: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+  z-index: 10;
+}
+.romer-reticle-box::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 8px;
+  height: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ==========================================================================
+   Telemetry Signals, Border Highlights & Glows
+   ========================================================================== */
+
+/* Romer AI Generating Border (Adapted from Apple Intelligence Border) */
+.apple-intelligence-border,
+.romer-active-border {
+  position: relative;
+}
+
+.apple-intelligence-border::before,
+.romer-active-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    90deg,
+    #232426 0%,
+    #5E6BFF 40%,
+    #50d8e9 60%,
+    #232426 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.9;
+  animation: romer-border-shimmer 2.5s ease-in-out infinite;
+}
+
+@keyframes romer-border-shimmer {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes apple-attention-pulse {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.01); }
+}
+
+.apple-attention-pulse {
+  animation: apple-attention-pulse 2s infinite ease-in-out;
+}
+
+@keyframes soft-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.75; }
+}
+
+.animate-soft-pulse {
+  animation: soft-pulse 2.5s infinite ease-in-out;
+}
+
+/* Status LEDs */
+.led-optimal {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background-color: #50d8e9;
+  box-shadow: 0 0 8px #50d8e9;
+}
+
+.led-warn {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background-color: #ffb689;
+  box-shadow: 0 0 8px #ffb689;
+}
+
+.led-primary {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background-color: #5E6BFF;
+  box-shadow: 0 0 8px #5E6BFF;
+}
+
+.laser-glow {
+  box-shadow: 0 0 8px currentColor;
+}
+
+/* Romer Glow Remappings */
+.spline-glow-blue {
+  box-shadow: 0 0 24px -4px rgba(94, 107, 255, 0.35);
+}
+
+.spline-glow-purple {
+  box-shadow: 0 0 24px -4px rgba(80, 216, 233, 0.3);
+}
+
+/* ==========================================================================
+   Romer Architectural Scrollbar & Layout Utilities
+   ========================================================================== */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #232426 transparent;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #232426;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #35373b;
+}
+
+/* iOS Safe Area & Mobile Bottom Sheet Utilities */
+.safe-pb {
+  padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
+}
+
+.safe-pt {
+  padding-top: max(8px, env(safe-area-inset-top, 8px));
+}
+
+@keyframes sheet-slide-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0.7;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-sheet-slide-up {
+  animation: sheet-slide-up 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
