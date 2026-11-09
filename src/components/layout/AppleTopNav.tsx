@@ -110,41 +110,44 @@ export const AppleTopNav: React.FC<AppleTopNavProps> = ({
             <button
               id="nav-mode-overview"
               onClick={() => onToggleLandingView(true)}
-              className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all flex items-center gap-1.5 labs-pill-btn ${
+              className={`px-3 sm:px-4 py-1.5 min-h-[38px] rounded-full text-xs font-medium transition-all flex items-center gap-1.5 labs-pill-btn ${
                 isOverviewActive
                   ? 'bg-[#E3E3E3] text-[#131314] font-semibold'
                   : 'text-[#9AA0A6] hover:text-white'
               }`}
             >
-              <Compass className="size-3.5" />
-              <span>Labs Home</span>
+              <Compass className="size-3.5 shrink-0" />
+              <span className="hidden sm:inline">Labs Home</span>
+              <span className="sm:hidden">Labs</span>
             </button>
           )}
 
           <button
             id="nav-mode-student"
             onClick={() => handleRoleSelect('student')}
-            className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all flex items-center gap-1.5 labs-pill-btn ${
+            className={`px-3 sm:px-4 py-1.5 min-h-[38px] rounded-full text-xs font-medium transition-all flex items-center gap-1.5 labs-pill-btn ${
               isStudentActive
                 ? 'bg-[#E3E3E3] text-[#131314] font-semibold'
                 : 'text-[#9AA0A6] hover:text-white'
             }`}
           >
-            <BookOpen className="size-3.5" />
-            <span>Student Lab</span>
+            <BookOpen className="size-3.5 shrink-0" />
+            <span className="hidden sm:inline">Student Lab</span>
+            <span className="sm:hidden">Student</span>
           </button>
 
           <button
             id="nav-mode-facilitator"
             onClick={() => handleRoleSelect('facilitator')}
-            className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all flex items-center gap-1.5 labs-pill-btn ${
+            className={`px-3 sm:px-4 py-1.5 min-h-[38px] rounded-full text-xs font-medium transition-all flex items-center gap-1.5 labs-pill-btn ${
               isFacilitatorActive
                 ? 'bg-[#E3E3E3] text-[#131314] font-semibold'
                 : 'text-[#9AA0A6] hover:text-white'
             }`}
           >
-            <Users className="size-3.5" />
-            <span>Instructor Hub</span>
+            <Users className="size-3.5 shrink-0" />
+            <span className="hidden sm:inline">Instructor Hub</span>
+            <span className="sm:hidden">Instructor</span>
           </button>
         </nav>
 

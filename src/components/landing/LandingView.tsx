@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   ArrowRight, 
   ArrowUpRight,
@@ -25,8 +25,10 @@ import {
   FlaskConical,
   Sliders,
   Terminal,
-  Eye
+  Eye,
+  Check
 } from 'lucide-react';
+import { LEARNING_MODULES } from '../../store/appStore';
 
 export interface LandingViewProps {
   onStartLearning: () => void;
@@ -124,110 +126,71 @@ const FEATURED_EXPERIMENTS: FeaturedCarouselItem[] = [
   }
 ];
 
-interface ExperimentCardItem {
+export interface ExperimentCardItem {
   id: number;
   category: Exclude<LabCategory, 'All'>;
   code: string;
   title: string;
   subtitle: string;
-  description: string;
-  ctaText: string;
+  summary: string;
+  keySkill: string;
   badgeName: string;
   duration: string;
+  moeLearn: string;
+  studentChallenge: string;
+  learningObjectives: string[];
+  ctaText: string;
   accentHex: string;
   tintBg: string;
   spanWide?: boolean;
   visualKind: 'wireframe' | 'prompt' | 'synthesis' | 'materials' | 'ergonomics' | 'certificate';
 }
 
-const LAB_EXPERIMENT_CARDS: ExperimentCardItem[] = [
-  {
-    id: 1,
-    category: 'Create',
-    code: 'EXPERIMENT 01 · MODULE 1',
-    title: 'The 3D Dimension',
-    subtitle: '3D Space & Wireframe Skeletons',
-    description: 'Discover how computers construct real 3D volume using X, Y, Z coordinates and polygon wireframes rather than flat 2D pixels—and why true 3D models can be orbited 360° and 3D printed.',
-    ctaText: 'Try it now — The 3D Dimension',
-    badgeName: 'Spatial Scout',
-    duration: '60 min',
+const MODULE_VISUAL_CONFIG: Record<number, {
+  category: Exclude<LabCategory, 'All'>;
+  accentHex: string;
+  tintBg: string;
+  spanWide?: boolean;
+  visualKind: 'wireframe' | 'prompt' | 'synthesis' | 'materials' | 'ergonomics' | 'certificate';
+}> = {
+  1: { category: 'Create', accentHex: '#A8C7FA', tintBg: '#162238', spanWide: true, visualKind: 'wireframe' },
+  2: { category: 'Develop', accentHex: '#FDD663', tintBg: '#2B2210', visualKind: 'prompt' },
+  3: { category: 'Create', accentHex: '#6DD58C', tintBg: '#13281C', visualKind: 'synthesis' },
+  4: { category: 'Develop', accentHex: '#A8C7FA', tintBg: '#1F2430', visualKind: 'materials' },
+  5: { category: 'Explore', accentHex: '#FFB4AB', tintBg: '#2E1816', visualKind: 'ergonomics' },
+  6: { category: 'Learn', accentHex: '#6DD58C', tintBg: '#13281C', spanWide: true, visualKind: 'certificate' },
+};
+
+/**
+ * Adapt LEARNING_MODULES from appStore into enriched Google Labs experiment cards.
+ */
+const LAB_EXPERIMENT_CARDS: ExperimentCardItem[] = LEARNING_MODULES.map((m) => {
+  const cfg = MODULE_VISUAL_CONFIG[m.id] || {
+    category: 'Create' as const,
     accentHex: '#A8C7FA',
     tintBg: '#162238',
-    spanWide: true,
-    visualKind: 'wireframe'
-  },
-  {
-    id: 2,
-    category: 'Develop',
-    code: 'EXPERIMENT 02 · MODULE 2',
-    title: 'The Prompt Forge',
-    subtitle: 'Structured PARTS Prompt Recipes',
-    description: 'Learn how engineering prompt recipes (Persona, Aim, Recipients, Theme, Structure) prevent messy AI blobs and produce functional geometry with cable notches and structural ribs.',
-    ctaText: 'Try it now — The Prompt Forge',
-    badgeName: 'Prompt Architect',
-    duration: '60 min',
-    accentHex: '#FDD663',
-    tintBg: '#2B2210',
-    visualKind: 'prompt'
-  },
-  {
-    id: 3,
-    category: 'Create',
-    code: 'EXPERIMENT 03 · MODULE 3',
-    title: 'The 3D Synthesis',
-    subtitle: 'Generative 3D Mesh Co-Design',
-    description: 'Watch spatial AI synthesize your prompt recipe into an interactive 3D courtyard pavilion or desk invention, then refine curvature and solar arrays using parametric levers.',
-    ctaText: 'Try it now — The 3D Synthesis',
-    badgeName: '3D Creator',
-    duration: '90 min',
-    accentHex: '#6DD58C',
-    tintBg: '#13281C',
-    visualKind: 'synthesis'
-  },
-  {
-    id: 4,
-    category: 'Develop',
-    code: 'EXPERIMENT 04 · MODULE 4',
-    title: 'The Material Lab',
-    subtitle: 'Surface Shaders & Albedo Physics',
-    description: 'Bring 3D inventions to life by testing high-albedo solar fabrics, stealth matte polymers, and eco-friendly PLA filaments for real-world thermal performance and printability.',
-    ctaText: 'Try it now — The Material Lab',
-    badgeName: 'Material Alchemist',
-    duration: '60 min',
-    accentHex: '#A8C7FA',
-    tintBg: '#162238',
-    visualKind: 'materials'
-  },
-  {
-    id: 5,
-    category: 'Explore',
-    code: 'EXPERIMENT 05 · MODULE 5',
-    title: 'Ergonomics & Peer Lab',
-    subtitle: '60° Sightlines & Spatial Critique Pins',
-    description: 'Test functional 60° study viewing angles, check minimum 3mm wall thickness for physical 3D slicing, and exchange constructive 3D pin reviews with classmates.',
-    ctaText: 'Try it now — Ergonomics Lab',
-    badgeName: 'Design Collaborator',
-    duration: '60 min',
-    accentHex: '#FFB4AB',
-    tintBg: '#2E1717',
-    visualKind: 'ergonomics'
-  },
-  {
-    id: 6,
-    category: 'Learn',
-    code: 'EXPERIMENT 06 · MODULE 6',
-    title: 'Creator Showcase & Graduation',
-    subtitle: '94% Human Intent & DSA Portfolio',
-    description: 'Audit your Creator Ownership Scorecard to prove anti-cognitive offloading, pitch your physical 3D-printed invention to parents, and claim your verified MOE 21CC certificate.',
-    ctaText: 'Try it now — Creator Showcase',
-    badgeName: 'Certified Creator',
-    duration: '60 min',
-    accentHex: '#6DD58C',
-    tintBg: '#13281C',
-    spanWide: true,
-    visualKind: 'certificate'
-  }
-];
+    visualKind: 'wireframe' as const,
+  };
+  return {
+    id: m.id,
+    category: cfg.category,
+    code: `EXPERIMENT 0${m.id} · ${m.code.toUpperCase()}`,
+    title: m.title,
+    subtitle: m.keySkill,
+    summary: m.summary,
+    keySkill: m.keySkill,
+    badgeName: m.badgeName,
+    duration: m.duration,
+    moeLearn: m.moeLearn,
+    studentChallenge: m.studentChallenge,
+    learningObjectives: m.learningObjectives,
+    ctaText: `Try it now — ${m.title}`,
+    accentHex: cfg.accentHex,
+    tintBg: cfg.tintBg,
+    spanWide: cfg.spanWide,
+    visualKind: cfg.visualKind,
+  };
+});
 
 export const LandingView: React.FC<LandingViewProps> = ({
   onStartLearning,
@@ -240,6 +203,42 @@ export const LandingView: React.FC<LandingViewProps> = ({
 }) => {
   // Featured Hero Carousel State (replicating labs.google top showcase)
   const [activeSlideIdx, setActiveSlideIdx] = useState<number>(0);
+  const [isCarouselPaused, setIsCarouselPaused] = useState<boolean>(false);
+  const touchStartXRef = useRef<number | null>(null);
+  const touchEndXRef = useRef<number | null>(null);
+
+  // 6-second auto-advance timer matching Google Labs hero timer
+  useEffect(() => {
+    if (isCarouselPaused) return;
+    const interval = setInterval(() => {
+      setActiveSlideIdx((prev) => (prev === FEATURED_EXPERIMENTS.length - 1 ? 0 : prev + 1));
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [isCarouselPaused, activeSlideIdx]);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setIsCarouselPaused(true);
+    touchStartXRef.current = e.targetTouches[0].clientX;
+    touchEndXRef.current = null;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndXRef.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    setIsCarouselPaused(false);
+    if (touchStartXRef.current !== null && touchEndXRef.current !== null) {
+      const delta = touchStartXRef.current - touchEndXRef.current;
+      if (delta > 45) {
+        handleNextHero();
+      } else if (delta < -45) {
+        handlePrevHero();
+      }
+    }
+    touchStartXRef.current = null;
+    touchEndXRef.current = null;
+  };
   
   // Interactive 3D Pavilion Configurator State inside Hero
   const [previewColor, setPreviewColor] = useState<string>('#A8C7FA');
@@ -284,30 +283,30 @@ export const LandingView: React.FC<LandingViewProps> = ({
         {/* Asymmetric Editorial Header with Google Labs Inline Visual Punctuation */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-10">
           <div className="lg:col-span-8 text-left">
-            <h1 className="font-display text-4xl sm:text-6xl lg:text-[68px] font-bold tracking-[-0.035em] text-white leading-[1.04]">
+            <h1 className="font-display text-3xl sm:text-5xl lg:text-[68px] font-bold tracking-[-0.035em] text-white leading-[1.08] sm:leading-[1.04]">
               <span>Singapore’s home for </span>
               {/* Inline Visual Punctuation Capsule 1 (Google Labs signature inline type visual) */}
-              <span className="inline-flex items-center justify-center align-middle mx-1.5 px-3.5 py-1 rounded-full bg-[#162238] border border-[#A8C7FA]/30 text-[#A8C7FA] translate-y-[-4px]">
-                <Box className="size-6 sm:size-8 stroke-[2.2]" />
+              <span className="inline-flex items-center justify-center align-middle mx-1 px-3 sm:px-3.5 py-1 rounded-full bg-[#162238] border border-[#A8C7FA]/30 text-[#A8C7FA] -translate-y-0.5 sm:-translate-y-1">
+                <Box className="size-5 sm:size-8 stroke-[2.2]" />
               </span>
               <span>spatial AI experiments &amp; </span>
               {/* Inline Visual Punctuation Capsule 2 */}
-              <span className="inline-flex items-center justify-center align-middle mx-1.5 px-3.5 py-1 rounded-full bg-[#13281C] border border-[#6DD58C]/30 text-[#6DD58C] translate-y-[-4px]">
-                <Printer className="size-6 sm:size-8 stroke-[2.2]" />
+              <span className="inline-flex items-center justify-center align-middle mx-1 px-3 sm:px-3.5 py-1 rounded-full bg-[#13281C] border border-[#6DD58C]/30 text-[#6DD58C] -translate-y-0.5 sm:-translate-y-1">
+                <Printer className="size-5 sm:size-8 stroke-[2.2]" />
               </span>
               <span>3D invention.</span>
             </h1>
           </div>
 
           <div className="lg:col-span-4 text-left lg:pl-4 space-y-5">
-            <p className="text-base sm:text-lg text-[#9AA0A6] leading-relaxed font-normal">
-              Turn your child’s screen time into real engineering power. Ages 10–20 master spatial AI, shape original 3D prototypes with human judgment, and take home their own physical 3D print.
+            <p className="text-sm sm:text-base lg:text-lg text-[#9AA0A6] leading-relaxed font-normal">
+              Turn screen time into real engineering power. Ages 10–20 master spatial AI, shape original 3D prototypes with human judgment, and take home their own physical 3D print.
             </p>
             <div className="flex flex-wrap items-center gap-3">
               <button
                 id="hero-start-learning-btn"
                 onClick={onStartLearning}
-                className="px-6 py-3.5 rounded-full bg-[#A8C7FA] hover:bg-[#D3E3FD] text-[#062E6F] font-semibold text-sm flex items-center gap-2 labs-pill-btn"
+                className="px-6 py-3.5 min-h-[48px] rounded-full bg-[#A8C7FA] hover:bg-[#D3E3FD] text-[#062E6F] font-semibold text-sm flex items-center gap-2 labs-pill-btn"
               >
                 <span>Try an Interactive Lesson</span>
                 <ArrowRight className="size-4" />
@@ -315,7 +314,7 @@ export const LandingView: React.FC<LandingViewProps> = ({
               <a
                 href="#experiments"
                 id="hero-explore-experiments-link"
-                className="px-5 py-3.5 rounded-full bg-[#1E1F22] hover:bg-[#282A2E] text-[#E3E3E3] border border-white/[0.08] font-medium text-sm flex items-center gap-2 labs-pill-btn"
+                className="px-5 py-3.5 min-h-[48px] rounded-full bg-[#1E1F22] hover:bg-[#282A2E] text-[#E3E3E3] border border-white/[0.08] font-medium text-sm flex items-center gap-2 labs-pill-btn"
               >
                 <span>Explore 6 Lab Modules</span>
               </a>
@@ -324,11 +323,18 @@ export const LandingView: React.FC<LandingViewProps> = ({
         </div>
 
         {/* Google Labs Featured Experiment Stage Card (5-Slide Interactive Showcase) */}
-        <div className="rounded-[32px] bg-[#1E1F22] border border-white/[0.08] p-6 sm:p-8 lg:p-10 overflow-hidden transition-colors">
+        <div 
+          className="rounded-[32px] bg-[#1E1F22] border border-white/[0.08] p-5 sm:p-8 lg:p-10 overflow-hidden transition-colors"
+          onMouseEnter={() => setIsCarouselPaused(true)}
+          onMouseLeave={() => setIsCarouselPaused(false)}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           
           {/* Top Selector Pills Bar (Replicating Google Flow Music / Stitch / Dreambeans / CC / Playground) */}
-          <div className="flex flex-wrap items-center justify-between gap-4 pb-6 mb-8 border-b border-white/[0.08]">
-            <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 mb-8 border-b border-white/[0.08]">
+            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar snap-x snap-mandatory py-1 px-1 -mx-1 sm:mx-0 sm:px-0">
               {FEATURED_EXPERIMENTS.map((exp, idx) => {
                 const isSelected = idx === activeSlideIdx;
                 return (
@@ -336,14 +342,14 @@ export const LandingView: React.FC<LandingViewProps> = ({
                     key={exp.id}
                     id={`featured-tab-${exp.id}`}
                     onClick={() => setActiveSlideIdx(idx)}
-                    className={`px-4 py-2 rounded-full text-xs font-medium transition-all flex items-center gap-2 shrink-0 labs-pill-btn ${
+                    className={`snap-start shrink-0 px-4 py-2 min-h-[40px] rounded-full text-xs font-medium transition-all flex items-center gap-2 labs-pill-btn ${
                       isSelected
                         ? 'bg-[#E3E3E3] text-[#131314] font-semibold'
                         : 'bg-[#131314]/60 text-[#9AA0A6] hover:text-white hover:bg-[#282A2E] border border-white/[0.06]'
                     }`}
                   >
                     <span
-                      className="w-2 h-2 rounded-full"
+                      className="w-2 h-2 rounded-full shrink-0"
                       style={{ backgroundColor: isSelected ? '#131314' : exp.accentHex }}
                     />
                     <span>{exp.name}</span>
@@ -352,28 +358,40 @@ export const LandingView: React.FC<LandingViewProps> = ({
               })}
             </div>
 
-            {/* Prev / Next Carousel Controls */}
-            <div className="flex items-center gap-2 shrink-0">
-              <span className="text-xs font-mono text-[#9AA0A6] mr-1">
+            {/* Prev / Next Carousel Controls + Counter */}
+            <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0">
+              <span className="text-xs font-mono text-[#9AA0A6]">
                 0{activeSlideIdx + 1} / 0{FEATURED_EXPERIMENTS.length}
               </span>
-              <button
-                id="featured-prev-btn"
-                onClick={handlePrevHero}
-                aria-label="Previous featured experiment"
-                className="w-9 h-9 rounded-full bg-[#131314] hover:bg-[#282A2E] border border-white/[0.08] flex items-center justify-center text-[#E3E3E3] labs-pill-btn"
-              >
-                <ChevronLeft className="size-4" />
-              </button>
-              <button
-                id="featured-next-btn"
-                onClick={handleNextHero}
-                aria-label="Next featured experiment"
-                className="w-9 h-9 rounded-full bg-[#131314] hover:bg-[#282A2E] border border-white/[0.08] flex items-center justify-center text-[#E3E3E3] labs-pill-btn"
-              >
-                <ChevronRight className="size-4" />
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  id="featured-prev-btn"
+                  onClick={handlePrevHero}
+                  aria-label="Previous featured experiment"
+                  className="w-10 h-10 rounded-full bg-[#131314] hover:bg-[#282A2E] border border-white/[0.08] flex items-center justify-center text-[#E3E3E3] labs-pill-btn"
+                >
+                  <ChevronLeft className="size-4" />
+                </button>
+                <button
+                  id="featured-next-btn"
+                  onClick={handleNextHero}
+                  aria-label="Next featured experiment"
+                  className="w-10 h-10 rounded-full bg-[#131314] hover:bg-[#282A2E] border border-white/[0.08] flex items-center justify-center text-[#E3E3E3] labs-pill-btn"
+                >
+                  <ChevronRight className="size-4" />
+                </button>
+              </div>
             </div>
+          </div>
+
+          {/* Synchronized 6-Second Timer Progress Bar */}
+          <div className="w-full h-1 bg-white/[0.06] rounded-full overflow-hidden -mt-5 mb-8" aria-hidden="true">
+            <div
+              key={activeSlideIdx}
+              className={`h-full bg-[#A8C7FA] rounded-full labs-timer-bar ${
+                isCarouselPaused ? 'labs-timer-bar-paused' : ''
+              }`}
+            />
           </div>
 
           {/* Main Split Showcase Content */}
@@ -626,9 +644,9 @@ export const LandingView: React.FC<LandingViewProps> = ({
             </h2>
           </div>
 
-          {/* Exact Google Labs Category Filter Pills */}
+          {/* Exact Google Labs Category Filter Pills (Mobile Horizontal Scroll-Snap) */}
           <div
-            className="inline-flex flex-wrap items-center gap-1.5 p-1.5 rounded-full bg-[#1E1F22] border border-white/[0.08] self-start md:self-auto"
+            className="w-full md:w-auto flex items-center gap-2 overflow-x-auto no-scrollbar snap-x snap-mandatory py-1 px-1 -mx-1 sm:mx-0 sm:px-0 sm:flex-wrap"
             role="tablist"
             aria-label="Experiment categories"
           >
@@ -641,10 +659,10 @@ export const LandingView: React.FC<LandingViewProps> = ({
                   role="tab"
                   aria-selected={isActive}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2 rounded-full text-xs font-semibold transition-all labs-pill-btn ${
+                  className={`snap-start shrink-0 px-4 py-2 min-h-[44px] rounded-full text-xs font-semibold transition-all labs-pill-btn ${
                     isActive
-                      ? 'bg-[#E3E3E3] text-[#131314]'
-                      : 'text-[#9AA0A6] hover:text-white hover:bg-white/[0.05]'
+                      ? 'bg-[#E3E3E3] text-[#131314] shadow'
+                      : 'text-[#9AA0A6] hover:text-white hover:bg-white/[0.05] bg-[#1E1F22] border border-white/[0.06]'
                   }`}
                 >
                   {cat}
@@ -654,30 +672,36 @@ export const LandingView: React.FC<LandingViewProps> = ({
           </div>
         </div>
 
-        {/* Asymmetric Google Labs Experiment Cards Grid */}
+        {/* Asymmetric Google Labs Experiment Bento Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
-          {filteredExperiments.map((exp) => {
+          {filteredExperiments.map((exp, idx) => {
             const colSpanClass =
               activeCategory === 'All' && exp.spanWide
-                ? 'lg:col-span-7'
+                ? 'col-span-12 lg:col-span-7'
                 : activeCategory === 'All'
-                ? 'lg:col-span-5'
-                : 'lg:col-span-6';
+                ? 'col-span-12 lg:col-span-5'
+                : 'col-span-12 lg:col-span-6';
 
             return (
               <div
                 key={exp.id}
-                className={`${colSpanClass} labs-card labs-card-interactive p-6 sm:p-8 flex flex-col justify-between text-left group`}
+                style={{ '--stagger-index': idx } as React.CSSProperties}
+                className={`${colSpanClass} labs-card labs-card-interactive labs-card-waterfall p-5 sm:p-8 flex flex-col justify-between text-left group`}
               >
                 <div className="space-y-5">
                   {/* Top Metadata Pill Row */}
-                  <div className="flex items-center justify-between gap-2">
-                    <span
-                      className="px-3 py-1 rounded-full text-[11px] font-mono font-medium"
-                      style={{ backgroundColor: exp.tintBg, color: exp.accentHex }}
-                    >
-                      {exp.code}
-                    </span>
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <span
+                        className="px-3 py-1 rounded-full text-[11px] font-mono font-medium"
+                        style={{ backgroundColor: exp.tintBg, color: exp.accentHex }}
+                      >
+                        {exp.code}
+                      </span>
+                      <span className="hidden sm:inline-block px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-white/[0.05] text-[#C4C7C5] border border-white/[0.06]">
+                        {exp.moeLearn}
+                      </span>
+                    </div>
                     <span className="text-xs font-mono text-[#9AA0A6] flex items-center gap-1.5">
                       <Clock className="size-3.5" />
                       <span>{exp.duration}</span>
@@ -686,11 +710,11 @@ export const LandingView: React.FC<LandingViewProps> = ({
 
                   {/* Custom Tonal Visual Plate inside each Experiment Card */}
                   <div
-                    className="h-40 rounded-2xl border border-white/[0.06] flex items-center justify-center p-4 overflow-hidden relative"
+                    className="h-36 sm:h-44 rounded-2xl border border-white/[0.06] flex items-center justify-center p-4 overflow-hidden relative"
                     style={{ backgroundColor: exp.tintBg }}
                   >
                     {exp.visualKind === 'wireframe' && (
-                      <svg viewBox="0 0 240 110" className="w-48 h-28">
+                      <svg viewBox="0 0 240 110" className="w-48 h-28" preserveAspectRatio="xMidYMid meet">
                         <polygon points="120,12 190,42 190,88 120,104 50,88 50,42" fill="none" stroke="#A8C7FA" strokeWidth="1.5" />
                         <line x1="120" y1="12" x2="120" y2="104" stroke="#A8C7FA" strokeWidth="1" strokeDasharray="3 3" />
                         <line x1="50" y1="42" x2="190" y2="42" stroke="#A8C7FA" strokeWidth="1" strokeDasharray="3 3" />
@@ -703,28 +727,28 @@ export const LandingView: React.FC<LandingViewProps> = ({
                     {exp.visualKind === 'prompt' && (
                       <div className="flex flex-wrap items-center justify-center gap-2 max-w-xs">
                         {['P: Eco-Architect', 'A: Shade Canopy', 'R: Courtyard', 'T: Tensile PTFE', 'S: 3mm Ribs'].map((chip) => (
-                          <span key={chip} className="px-3 py-1.5 rounded-full bg-[#131314]/80 border border-[#FDD663]/40 text-[#FDD663] font-mono text-xs">
+                          <span key={chip} className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-[#131314]/80 border border-[#FDD663]/40 text-[#FDD663] font-mono text-[11px] sm:text-xs">
                             {chip}
                           </span>
                         ))}
                       </div>
                     )}
                     {exp.visualKind === 'synthesis' && (
-                      <svg viewBox="0 0 240 110" className="w-48 h-28">
+                      <svg viewBox="0 0 240 110" className="w-48 h-28" preserveAspectRatio="xMidYMid meet">
                         <ellipse cx="120" cy="88" rx="75" ry="14" fill="#131314" stroke="#6DD58C" strokeWidth="1" />
                         <path d="M 120 20 Q 175 38 190 70 Q 150 85 120 72 Q 90 85 50 70 Q 65 38 120 20 Z" fill="#6DD58C" fillOpacity="0.3" stroke="#6DD58C" strokeWidth="1.75" />
                         <line x1="120" y1="20" x2="120" y2="88" stroke="#FFFFFF" strokeWidth="2" />
                       </svg>
                     )}
                     {exp.visualKind === 'materials' && (
-                      <div className="flex items-center gap-4">
-                        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFFFFF] to-[#9AA0A6] border border-white/30 shadow-inner" title="Solar White 0.85 Albedo" />
-                        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#A8C7FA] to-[#162238] border border-[#A8C7FA]/50" title="Anodized Sky Aluminum" />
-                        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#6DD58C] to-[#13281C] border border-[#6DD58C]/50" title="Biophilic PLA Filament" />
+                      <div className="flex items-center gap-3 sm:gap-4">
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-[#FFFFFF] to-[#9AA0A6] border border-white/30 shadow-inner" title="Solar White 0.85 Albedo" />
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-[#A8C7FA] to-[#162238] border border-[#A8C7FA]/50" title="Anodized Sky Aluminum" />
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-[#6DD58C] to-[#13281C] border border-[#6DD58C]/50" title="Biophilic PLA Filament" />
                       </div>
                     )}
                     {exp.visualKind === 'ergonomics' && (
-                      <svg viewBox="0 0 240 110" className="w-48 h-28">
+                      <svg viewBox="0 0 240 110" className="w-48 h-28" preserveAspectRatio="xMidYMid meet">
                         <line x1="45" y1="90" x2="195" y2="90" stroke="#9AA0A6" strokeWidth="2" />
                         <line x1="95" y1="90" x2="155" y2="22" stroke="#FFB4AB" strokeWidth="3" strokeLinecap="round" />
                         <path d="M 125 90 A 30 30 0 0 0 112 65" fill="none" stroke="#FDD663" strokeWidth="1.5" strokeDasharray="2 2" />
@@ -733,12 +757,12 @@ export const LandingView: React.FC<LandingViewProps> = ({
                       </svg>
                     )}
                     {exp.visualKind === 'certificate' && (
-                      <div className="flex items-center gap-4 px-4 py-3 rounded-2xl bg-[#131314]/85 border border-[#6DD58C]/30">
-                        <Award className="size-9 text-[#6DD58C] shrink-0" />
+                      <div className="flex items-center gap-3 sm:gap-4 px-3 sm:px-4 py-2.5 sm:py-3 rounded-2xl bg-[#131314]/85 border border-[#6DD58C]/30">
+                        <Award className="size-8 sm:size-9 text-[#6DD58C] shrink-0" />
                         <div>
                           <div className="text-[10px] font-mono uppercase text-[#6DD58C]">MOE 21CC VERIFIED</div>
-                          <div className="text-sm font-bold text-white">94.0% Human Creative Intent</div>
-                          <div className="text-[11px] font-mono text-[#9AA0A6]">Physical PLA Print + DSA Record</div>
+                          <div className="text-xs sm:text-sm font-bold text-white">94.0% Human Creative Intent</div>
+                          <div className="text-[10px] sm:text-[11px] font-mono text-[#9AA0A6]">Physical PLA Print + DSA Record</div>
                         </div>
                       </div>
                     )}
@@ -750,22 +774,47 @@ export const LandingView: React.FC<LandingViewProps> = ({
 
                   {/* Title & Copy */}
                   <div className="space-y-2">
-                    <div className="text-xs font-medium text-[#9AA0A6]">{exp.subtitle}</div>
-                    <h3 className="font-display text-2xl font-bold text-white tracking-tight">
+                    <div className="text-xs font-medium text-[#A8C7FA] font-mono">{exp.subtitle}</div>
+                    <h3 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">
                       {exp.title}
                     </h3>
-                    <p className="text-sm text-[#9AA0A6] leading-relaxed">
-                      {exp.description}
+                    <p className="text-xs sm:text-sm text-[#9AA0A6] leading-relaxed">
+                      {exp.summary}
                     </p>
+                  </div>
+
+                  {/* Hands-On Student Challenge */}
+                  <div className="p-3 sm:p-3.5 rounded-xl bg-[#131314]/80 border border-white/[0.06] text-xs">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-[#A8C7FA] block mb-1">
+                      Hands-On Challenge:
+                    </span>
+                    <span className="text-[#E3E3E3] leading-relaxed">
+                      {exp.studentChallenge}
+                    </span>
+                  </div>
+
+                  {/* 3 Learning Objectives Takeaways */}
+                  <div className="space-y-1.5 pt-1">
+                    <div className="text-[10px] font-mono uppercase tracking-wider text-[#9AA0A6]">
+                      Learning Takeaways:
+                    </div>
+                    <ul className="space-y-1">
+                      {exp.learningObjectives.map((obj, oIdx) => (
+                        <li key={oIdx} className="flex items-start gap-2 text-xs text-[#9AA0A6]">
+                          <CheckCircle2 className="size-3.5 text-[#6DD58C] shrink-0 mt-0.5" />
+                          <span className="text-[#C4C7C5]">{obj}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
 
                 {/* Card Footer: Google Labs "Try it now — [Experiment]" Link */}
-                <div className="pt-6 mt-6 border-t border-white/[0.06] flex items-center justify-between">
+                <div className="pt-5 mt-5 border-t border-white/[0.06] flex items-center justify-between">
                   <button
                     id={`experiment-card-btn-${exp.id}`}
                     onClick={() => onSelectModule(exp.id)}
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-white group-hover:text-[#A8C7FA] transition-colors"
+                    className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-white group-hover:text-[#A8C7FA] transition-colors min-h-[44px]"
                   >
                     <span>{exp.ctaText}</span>
                     <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -1135,12 +1184,12 @@ export const LandingView: React.FC<LandingViewProps> = ({
                     other: 'Generic attendance slip'
                   }
                 ].map((row, idx) => (
-                  <div key={idx} className="p-3 rounded-2xl bg-[#131314] border border-white/[0.06] flex items-center justify-between gap-2 text-xs">
+                  <div key={idx} className="p-3 sm:p-3.5 rounded-2xl bg-[#131314] border border-white/[0.06] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
                     <div>
                       <div className="font-medium text-white">{row.feature}</div>
                       <div className="text-[11px] text-[#9AA0A6]">Typical camp: {row.other}</div>
                     </div>
-                    <span className="px-2.5 py-1 rounded-full bg-[#13281C] text-[#6DD58C] font-mono text-[11px] font-semibold shrink-0">
+                    <span className="self-start sm:self-auto px-2.5 py-1 rounded-full bg-[#13281C] text-[#6DD58C] font-mono text-[11px] font-semibold shrink-0">
                       {row.show3d}
                     </span>
                   </div>
@@ -1211,7 +1260,7 @@ export const LandingView: React.FC<LandingViewProps> = ({
                   <button
                     id={`faq-toggle-${idx}`}
                     onClick={() => toggleFaq(idx)}
-                    className="w-full py-5 px-6 text-left flex items-center justify-between text-sm sm:text-base font-semibold text-white hover:text-[#A8C7FA] transition-colors"
+                    className="w-full py-4 sm:py-5 px-5 sm:px-6 min-h-[48px] text-left flex items-center justify-between text-sm sm:text-base font-semibold text-white hover:text-[#A8C7FA] transition-colors"
                   >
                     <span>{faq.q}</span>
                     {expandedFaq === idx ? (
@@ -1220,11 +1269,13 @@ export const LandingView: React.FC<LandingViewProps> = ({
                       <ChevronDown className="size-4 text-[#9AA0A6] shrink-0 ml-4" />
                     )}
                   </button>
-                  {expandedFaq === idx && (
-                    <div className="px-6 pb-5 pt-1 text-xs sm:text-sm text-[#9AA0A6] leading-relaxed border-t border-white/[0.06]">
-                      {faq.a}
+                  <div className={`labs-accordion-grid ${expandedFaq === idx ? 'open' : ''}`}>
+                    <div className="labs-accordion-content">
+                      <div className="px-5 sm:px-6 pb-5 pt-1 text-xs sm:text-sm text-[#9AA0A6] leading-relaxed border-t border-white/[0.06]">
+                        {faq.a}
+                      </div>
                     </div>
-                  )}
+                  </div>
                 </div>
               ))}
             </div>

@@ -90,27 +90,40 @@ p, li, blockquote {
   background: #1E1F22;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 28px;
-  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.32s cubic-bezier(0.2, 0.0, 0, 1.0), 
+              background-color 0.32s cubic-bezier(0.2, 0.0, 0, 1.0), 
+              border-color 0.32s cubic-bezier(0.2, 0.0, 0, 1.0),
+              box-shadow 0.32s cubic-bezier(0.2, 0.0, 0, 1.0);
 }
 
-.labs-card:hover {
-  background: #232529;
-  border-color: rgba(255, 255, 255, 0.16);
+@media (hover: hover) {
+  .labs-card:hover {
+    background: #232529;
+    border-color: rgba(255, 255, 255, 0.16);
+  }
+
+  .labs-card-interactive:hover {
+    transform: translateY(-4px);
+    background: #24262B;
+    border-color: rgba(168, 199, 250, 0.35);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+  }
 }
 
-.labs-card-interactive:hover {
-  transform: translateY(-3px);
-  background: #24262B;
-  border-color: rgba(255, 255, 255, 0.18);
+.labs-card-interactive:active {
+  transform: scale(0.99);
 }
 
 .labs-pill-btn {
   border-radius: 9999px;
-  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s ease, color 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.2, 0.0, 0, 1.0), 
+              background-color 0.2s cubic-bezier(0.2, 0.0, 0, 1.0), 
+              color 0.2s ease,
+              border-color 0.2s ease;
 }
 
 .labs-pill-btn:active {
-  transform: translateY(1px) scale(0.98);
+  transform: scale(0.96);
 }
 
 /* Canonical Glass Panel & Backward Compatible Aliases */
@@ -478,3 +491,75 @@ p, li, blockquote {
 .animate-sheet-slide-up {
   animation: sheet-slide-up 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* ==========================================================================
+   Google Labs Signature Animations & Mobile Helpers
+   ========================================================================== */
+
+/* No Scrollbar Utility for Horizontal Scroll-Snap Strips */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* 6-Second Carousel Timer Progress Bar (Hardware Accelerated ScaleX) */
+@keyframes labsProgressBarAnim {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.labs-timer-bar {
+  transform-origin: left center;
+  animation: labsProgressBarAnim 6s linear infinite;
+  will-change: transform;
+}
+
+.labs-timer-bar-paused {
+  animation-play-state: paused;
+}
+
+/* Staggered Waterfall Card Entrance */
+@keyframes labsFadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.labs-card-waterfall {
+  animation: labsFadeSlideUp 0.42s cubic-bezier(0.2, 0.0, 0, 1.0) both;
+  animation-delay: calc(var(--stagger-index, 0) * 45ms);
+}
+
+/* Smooth CSS Grid Row Accordion Expansion (Zero Jitter) */
+.labs-accordion-grid {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.32s cubic-bezier(0.2, 0.0, 0, 1.0);
+}
+
+.labs-accordion-grid.open {
+  grid-template-rows: 1fr;
+}
+
+.labs-accordion-content {
+  overflow: hidden;
+}
+
+/* Mobile Touch Target Standards */
+.touch-target-48 {
+  min-height: 48px;
+  min-width: 48px;
+}
+
