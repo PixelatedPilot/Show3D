@@ -88,6 +88,9 @@ export const AppleTopNav: React.FC<AppleTopNavProps> = ({
               <a href="#experiments" className="hover:text-white transition-colors">
                 Experiments
               </a>
+              <a href="#gravity-lab" className="hover:text-[#A8C7FA] transition-colors">
+                Physics Lab
+              </a>
               <a href="#about-labs" className="hover:text-white transition-colors">
                 About
               </a>

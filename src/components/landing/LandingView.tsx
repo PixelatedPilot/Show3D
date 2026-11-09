@@ -26,9 +26,11 @@ import {
   Sliders,
   Terminal,
   Eye,
-  Check
+  Check,
+  Orbit
 } from 'lucide-react';
 import { LEARNING_MODULES } from '../../store/appStore';
+import { FallingPhysicsStage } from './FallingPhysicsStage';
 
 export interface LandingViewProps {
   onStartLearning: () => void;
@@ -317,6 +319,14 @@ export const LandingView: React.FC<LandingViewProps> = ({
                 className="px-5 py-3.5 min-h-[48px] rounded-full bg-[#1E1F22] hover:bg-[#282A2E] text-[#E3E3E3] border border-white/[0.08] font-medium text-sm flex items-center gap-2 labs-pill-btn"
               >
                 <span>Explore 6 Lab Modules</span>
+              </a>
+              <a
+                href="#gravity-lab"
+                id="hero-gravity-lab-link"
+                className="px-5 py-3.5 min-h-[48px] rounded-full bg-[#162238] hover:bg-[#1E2D4A] text-[#A8C7FA] border border-[#A8C7FA]/30 font-medium text-sm flex items-center gap-2 labs-pill-btn"
+              >
+                <Orbit className="size-4" />
+                <span>Defy Gravity</span>
               </a>
             </div>
           </div>
@@ -956,6 +966,13 @@ export const LandingView: React.FC<LandingViewProps> = ({
       </section>
 
       {/* ========================================================================= */}
+      {/* SHOW3D GRAVITY & PHYSICS LAB (MATTER.JS INTERACTIVE FALLING ELEMENTS)     */}
+      {/* ========================================================================= */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-[1380px] mx-auto border-t border-white/[0.08]" id="gravity-lab">
+        <FallingPhysicsStage onSelectModule={onSelectModule} />
+      </section>
+
+      {/* ========================================================================= */}
       {/* 4. "LIFE BEYOND THE LAB" — GRADUATED TANGIBLE OUTCOMES & AGE TIERS        */}
       {/* ========================================================================= */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-[1380px] mx-auto border-t border-white/[0.08]" id="beyond-the-lab">
@@ -1405,6 +1422,12 @@ export const LandingView: React.FC<LandingViewProps> = ({
                   Show3D WebGL Canvas
                 </button>
               )}
+              <a
+                href="#gravity-lab"
+                className="px-3.5 py-1.5 rounded-full bg-[#1E1F22] hover:bg-[#282A2E] text-[#A8C7FA] border border-white/[0.08] transition-colors"
+              >
+                Gravity Physics Lab
+              </a>
             </div>
           </div>
 
