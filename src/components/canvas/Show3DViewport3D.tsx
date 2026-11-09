@@ -25,6 +25,8 @@ export interface Show3DViewport3DProps {
   selectedPinId?: string | null;
   compact?: boolean;
   onExpandFullStudio?: () => void;
+  smoothCamera?: boolean;
+  transparentHero?: boolean;
 }
 
 interface ProjectedPinCoord {
@@ -42,6 +44,8 @@ export const Show3DViewport3D: React.FC<Show3DViewport3DProps> = ({
   selectedPinId,
   compact = false,
   onExpandFullStudio,
+  smoothCamera = false,
+  transparentHero = false,
 }) => {
   const mountRef = useRef<HTMLDivElement | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
@@ -51,6 +55,8 @@ export const Show3DViewport3D: React.FC<Show3DViewport3DProps> = ({
   const modelGroupRef = useRef<THREE.Group | null>(null);
   const helpersGroupRef = useRef<THREE.Group | null>(null);
   const animIdRef = useRef<number | null>(null);
+  const targetCamPosRef = useRef<THREE.Vector3 | null>(null);
+  const targetLookAtRef = useRef<THREE.Vector3 | null>(null);
 
   const [projectedPins, setProjectedPins] = useState<ProjectedPinCoord[]>([]);
   const [webglSupported, setWebglSupported] = useState<boolean>(true);
@@ -164,7 +170,7 @@ export const Show3DViewport3D: React.FC<Show3DViewport3DProps> = ({
   );
 
   // Rebuild 3D geometry whenever studioState parameters change
-  useEffect(() => {
+  const rebuildSceneGeometry = useCallback(() => {
     const modelGroup = modelGroupRef.current;
     const helpersGroup = helpersGroupRef.current;
     if (!modelGroup || !helpersGroup) return;
@@ -396,6 +402,10 @@ export const Show3DViewport3D: React.FC<Show3DViewport3DProps> = ({
     updateProjectedPins();
   }, [studioState, createPrimaryMaterial, updateProjectedPins]);
 
+  useEffect(() => {
+    rebuildSceneGeometry();
+  }, [rebuildSceneGeometry]);
+
   // Update Camera Position when cameraPreset changes
   useEffect(() => {
     const camera = cameraRef.current;
@@ -403,11 +413,17 @@ export const Show3DViewport3D: React.FC<Show3DViewport3DProps> = ({
     if (!camera || !controls) return;
 
     const coords = getCameraCoordinatesForPreset(studioState.cameraPreset);
-    camera.position.set(...coords.position);
-    controls.target.set(...coords.target);
-    controls.update();
-    updateProjectedPins();
-  }, [studioState.cameraPreset, updateProjectedPins]);
+
+    if (smoothCamera) {
+      targetCamPosRef.current = new THREE.Vector3(...coords.position);
+      targetLookAtRef.current = new THREE.Vector3(...coords.target);
+    } else {
+      camera.position.set(...coords.position);
+      controls.target.set(...coords.target);
+      controls.update();
+      updateProjectedPins();
+    }
+  }, [studioState.cameraPreset, smoothCamera, updateProjectedPins]);
 
   // Update OrbitControls autoRotate
   useEffect(() => {
@@ -480,9 +496,22 @@ export const Show3DViewport3D: React.FC<Show3DViewport3DProps> = ({
     controls.dampingFactor = 0.06;
     controls.minDistance = 1.6;
     controls.maxDistance = 11;
+    controls.autoRotate = studioState.autoRotate;
+    controls.autoRotateSpeed = 1.6;
+
+    if (transparentHero) {
+      // In hero mode: disable wheel zoom and pan so scrolling anywhere on the screen scrolls the page naturally!
+      controls.enableZoom = false;
+      controls.enablePan = false;
+      renderer.domElement.style.touchAction = 'pan-y';
+    }
+
     controls.target.set(...initialCoords.target);
     controls.update();
     controlsRef.current = controls;
+
+    // Immediately build initial 3D geometry now that modelGroupRef is populated
+    rebuildSceneGeometry();
 
     controls.addEventListener('change', () => {
       updateProjectedPins();
@@ -490,6 +519,25 @@ export const Show3DViewport3D: React.FC<Show3DViewport3DProps> = ({
 
     const animate = () => {
       animIdRef.current = requestAnimationFrame(animate);
+
+      // Smooth camera interpolation if target active
+      if (targetCamPosRef.current) {
+        camera.position.lerp(targetCamPosRef.current, 0.08);
+        if (camera.position.distanceTo(targetCamPosRef.current) < 0.02) {
+          camera.position.copy(targetCamPosRef.current);
+          targetCamPosRef.current = null;
+        }
+        updateProjectedPins();
+      }
+
+      if (targetLookAtRef.current) {
+        controls.target.lerp(targetLookAtRef.current, 0.08);
+        if (controls.target.distanceTo(targetLookAtRef.current) < 0.02) {
+          controls.target.copy(targetLookAtRef.current);
+          targetLookAtRef.current = null;
+        }
+      }
+
       controls.update();
       renderer.render(scene, camera);
     };
@@ -547,7 +595,11 @@ export const Show3DViewport3D: React.FC<Show3DViewport3DProps> = ({
 
   return (
     <div
-      className={`relative w-full h-full rounded-[24px] bg-[#000000] border border-white/[0.08] overflow-hidden select-none flex flex-col justify-between ${
+      className={`relative w-full h-full rounded-[24px] overflow-hidden select-none flex flex-col justify-between ${
+        transparentHero
+          ? 'bg-transparent border-transparent'
+          : 'bg-[#000000] border border-white/[0.08]'
+      } ${
         studioState.transformTool === 'drop_pin'
           ? 'cursor-crosshair'
           : 'cursor-grab active:cursor-grabbing'
@@ -555,82 +607,86 @@ export const Show3DViewport3D: React.FC<Show3DViewport3DProps> = ({
       onClick={handleCanvasClick}
     >
       {/* Subtle Apple Spatial Grid Backdrop */}
-      <div className="absolute inset-0 dot-pattern opacity-30 pointer-events-none" />
+      {!transparentHero && (
+        <div className="absolute inset-0 dot-pattern opacity-30 pointer-events-none" />
+      )}
 
       {/* Top HUD Bar: Live Geometry Diagnostics & Shading Badge */}
-      <div className="relative z-10 flex flex-wrap items-center justify-between gap-2 px-4 py-3 border-b border-white/[0.06] bg-[#000000]/70 backdrop-blur-md pointer-events-none">
-        <div className="flex items-center gap-2.5">
-          <span className="w-2 h-2 rounded-full bg-[#30D158]" />
-          <span className="text-xs font-mono font-medium text-white">
-            {studioState.archetype === 'pavilion'
-              ? 'Courtyard Tensile Solar Pavilion'
-              : studioState.archetype === 'desk_dock'
-              ? '60° Ergonomic Tech Companion Dock'
-              : 'X-Y-Z Spatial Coordinate Primitives'}
-          </span>
-          <span className="hidden sm:inline-block px-2 py-0.5 rounded-full bg-[#1C1C1E] border border-white/[0.08] text-[10px] font-mono text-[#64D2FF] uppercase">
-            {studioState.shadingMode.replace(/_/g, ' ')}
-          </span>
-        </div>
+      {!transparentHero && (
+        <div className="relative z-10 flex flex-wrap items-center justify-between gap-2 px-4 py-3 border-b border-white/[0.06] bg-[#000000]/70 backdrop-blur-md pointer-events-none">
+          <div className="flex items-center gap-2.5">
+            <span className="w-2 h-2 rounded-full bg-[#30D158]" />
+            <span className="text-xs font-mono font-medium text-white">
+              {studioState.archetype === 'pavilion'
+                ? 'Courtyard Tensile Solar Pavilion'
+                : studioState.archetype === 'desk_dock'
+                ? '60° Ergonomic Tech Companion Dock'
+                : 'X-Y-Z Spatial Coordinate Primitives'}
+            </span>
+            <span className="hidden sm:inline-block px-2 py-0.5 rounded-full bg-[#1C1C1E] border border-white/[0.08] text-[10px] font-mono text-[#64D2FF] uppercase">
+              {studioState.shadingMode.replace(/_/g, ' ')}
+            </span>
+          </div>
 
-        <div className="flex items-center gap-3 text-[11px] font-mono">
-          <span className="text-[#86868B]">
-            <strong className="text-white">{diagnostics.vertexCount.toLocaleString()}</strong> verts
-          </span>
-          <span className="text-[#86868B] hidden md:inline">
-            <strong className="text-white">{diagnostics.triangleCount.toLocaleString()}</strong> tris
-          </span>
-          <span
-            className={`px-2.5 py-0.5 rounded-full flex items-center gap-1 font-semibold ${
-              diagnostics.stressLevel === 'thin_wall_alert'
-                ? 'bg-[#2E0C14] text-[#FF375F] border border-[#FF375F]/30'
-                : diagnostics.stressLevel === 'caution'
-                ? 'bg-[#2C2405] text-[#FFD60A] border border-[#FFD60A]/30'
-                : 'bg-[#0E2914] text-[#30D158] border border-[#30D158]/30'
-            }`}
-          >
-            {diagnostics.stressLevel === 'thin_wall_alert' ? (
-              <AlertTriangle className="size-3" />
-            ) : (
-              <CheckCircle2 className="size-3" />
-            )}
-            <span>Wall: {diagnostics.minWallThicknessMm.toFixed(1)}mm</span>
-          </span>
-
-          {onExpandFullStudio && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onExpandFullStudio();
-              }}
-              className="pointer-events-auto px-3 py-1 rounded-full bg-[#0A84FF] hover:bg-[#0071E3] text-white text-[11px] font-sans font-semibold flex items-center gap-1 transition-all shadow-sm"
+          <div className="flex items-center gap-3 text-[11px] font-mono">
+            <span className="text-[#86868B]">
+              <strong className="text-white">{diagnostics.vertexCount.toLocaleString()}</strong> verts
+            </span>
+            <span className="text-[#86868B] hidden md:inline">
+              <strong className="text-white">{diagnostics.triangleCount.toLocaleString()}</strong> tris
+            </span>
+            <span
+              className={`px-2.5 py-0.5 rounded-full flex items-center gap-1 font-semibold ${
+                diagnostics.stressLevel === 'thin_wall_alert'
+                  ? 'bg-[#2E0C14] text-[#FF375F] border border-[#FF375F]/30'
+                  : diagnostics.stressLevel === 'caution'
+                  ? 'bg-[#2C2405] text-[#FFD60A] border border-[#FFD60A]/30'
+                  : 'bg-[#0E2914] text-[#30D158] border border-[#30D158]/30'
+              }`}
             >
-              <Maximize2 className="size-3" />
-              <span>Full 3D Studio</span>
-            </button>
-          )}
+              {diagnostics.stressLevel === 'thin_wall_alert' ? (
+                <AlertTriangle className="size-3" />
+              ) : (
+                <CheckCircle2 className="size-3" />
+              )}
+              <span>Wall: {diagnostics.minWallThicknessMm.toFixed(1)}mm</span>
+            </span>
+
+            {onExpandFullStudio && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onExpandFullStudio();
+                }}
+                className="pointer-events-auto px-3 py-1 rounded-full bg-[#0A84FF] hover:bg-[#0071E3] text-white text-[11px] font-sans font-semibold flex items-center gap-1 transition-all shadow-sm"
+              >
+                <Maximize2 className="size-3" />
+                <span>Full 3D Studio</span>
+              </button>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Center WebGL Canvas Mount */}
       <div
         ref={mountRef}
         className="relative flex-1 w-full min-h-[280px]"
         aria-label="Interactive Three.js 3D Viewport"
-      >
-        {!webglSupported && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center space-y-2">
-            <Box className="size-8 text-[#0A84FF]" />
-            <div className="text-sm font-semibold text-white">
-              Show3D Spatial Geometry Engine Ready
-            </div>
-            <div className="text-xs text-[#86868B] max-w-md">
-              {diagnostics.vertexCount} vertices · {diagnostics.triangleCount} triangles · Watertight
-              Manifold Verified
-            </div>
+      />
+
+      {!webglSupported && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center space-y-2 pointer-events-none">
+          <Box className="size-8 text-[#0A84FF]" />
+          <div className="text-sm font-semibold text-white">
+            Show3D Spatial Geometry Engine Ready
           </div>
-        )}
-      </div>
+          <div className="text-xs text-[#86868B] max-w-md">
+            {diagnostics.vertexCount} vertices · {diagnostics.triangleCount} triangles · Watertight
+            Manifold Verified
+          </div>
+        </div>
+      )}
 
       {/* 3D Projected Spatial Critique Pins Overlay */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -663,7 +719,7 @@ export const Show3DViewport3D: React.FC<Show3DViewport3DProps> = ({
       </div>
 
       {/* Slicer Telemetry Banner when in 'slicer_layers' mode */}
-      {studioState.shadingMode === 'slicer_layers' && (
+      {studioState.shadingMode === 'slicer_layers' && !transparentHero && (
         <div className="relative z-10 mx-4 mb-2 px-4 py-2 rounded-2xl bg-[#0E2914]/90 border border-[#30D158]/40 flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-[#30D158] pointer-events-none">
           <div className="flex items-center gap-2">
             <Layers className="size-3.5" />
@@ -679,26 +735,28 @@ export const Show3DViewport3D: React.FC<Show3DViewport3DProps> = ({
       )}
 
       {/* Bottom Viewport Controls Hint Strip */}
-      <div className="relative z-10 flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 border-t border-white/[0.06] bg-[#000000]/75 backdrop-blur-md text-[11px] font-mono text-[#86868B] pointer-events-none">
-        <div className="flex items-center gap-3">
-          <span className="text-[#F5F5F7]">
-            {studioState.transformTool === 'drop_pin'
-              ? 'Click anywhere on 3D mesh to anchor a critique pin'
-              : 'Drag to Orbit 360° · Scroll to Zoom · Right-Drag to Pan'}
-          </span>
-        </div>
-        <div className="flex items-center gap-3">
-          {!compact && (
-            <span className="hidden sm:inline text-[#64D2FF]">
-              Albedo: {diagnostics.albedoReflectivity.toFixed(2)}
+      {!transparentHero && (
+        <div className="relative z-10 flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 border-t border-white/[0.06] bg-[#000000]/75 backdrop-blur-md text-[11px] font-mono text-[#86868B] pointer-events-none">
+          <div className="flex items-center gap-3">
+            <span className="text-[#F5F5F7]">
+              {studioState.transformTool === 'drop_pin'
+                ? 'Click anywhere on 3D mesh to anchor a critique pin'
+                : 'Drag to Orbit 360° · Scroll to Zoom · Right-Drag to Pan'}
             </span>
-          )}
-          <span className="text-[#30D158] flex items-center gap-1">
-            <Sparkles className="size-3" />
-            <span>{diagnostics.humanIntentScore.toFixed(0)}% Human Intent</span>
-          </span>
+          </div>
+          <div className="flex items-center gap-3">
+            {!compact && (
+              <span className="hidden sm:inline text-[#64D2FF]">
+                Albedo: {diagnostics.albedoReflectivity.toFixed(2)}
+              </span>
+            )}
+            <span className="text-[#30D158] flex items-center gap-1">
+              <Sparkles className="size-3" />
+              <span>{diagnostics.humanIntentScore.toFixed(0)}% Human Intent</span>
+            </span>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

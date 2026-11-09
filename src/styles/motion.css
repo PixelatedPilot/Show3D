@@ -1,0 +1,258 @@
+/**
+ * Show3D Apple-Style Motion System
+ * Powered by CSS Scroll-Driven Animations with Progressive Enhancement
+ * Baseline Widely Available with Firefox / Non-SDA Fallbacks & Reduced-Motion Accommodations
+ */
+
+/* ========================================================================= */
+/* 1. NATIVE SCROLL-DRIVEN ANIMATION KEYFRAMES & RULES                       */
+/* ========================================================================= */
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    /* Keyframe: Smooth upward drift and fade-in */
+    @keyframes s3d-fade-up {
+      from {
+        opacity: 0;
+        transform: translateY(48px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Keyframe: Stage grows from inset rounded card to full width */
+    @keyframes s3d-scale-in {
+      from {
+        transform: scale(0.92);
+        clip-path: inset(0 4% round 36px);
+        opacity: 0.8;
+      }
+      to {
+        transform: scale(1);
+        clip-path: inset(0 0% round 32px);
+        opacity: 1;
+      }
+    }
+
+    /* Keyframe: Media goes from blurred to ultra-sharp */
+    @keyframes s3d-blur-in {
+      from {
+        filter: blur(20px);
+        opacity: 0.35;
+        transform: scale(1.05);
+      }
+      to {
+        filter: blur(0px);
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Keyframe: 3D perspective slide-in from the left edge (Matter.js stage) */
+    @keyframes s3d-slide-persp {
+      from {
+        transform: perspective(1200px) translateX(-36%) rotateY(24deg);
+        opacity: 0;
+      }
+      to {
+        transform: perspective(1200px) translateX(0) rotateY(0deg);
+        opacity: 1;
+      }
+    }
+
+    /* Keyframe: Hero zoom-out drift on exit */
+    @keyframes s3d-hero-out {
+      from {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+      to {
+        transform: scale(0.85) translateY(-80px);
+        opacity: 0.2;
+      }
+    }
+
+    /* Keyframe: Word-by-word scroll text illumination */
+    @keyframes s3d-word-lit {
+      from {
+        color: #3A3A3C;
+        opacity: 0.45;
+      }
+      to {
+        color: var(--lit, #F5F5F7);
+        opacity: 1;
+      }
+    }
+
+    /* Keyframe: Specular chrome sheen sweep */
+    @keyframes s3d-chrome-sheen {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Attach timelines to data-reveal attributes */
+    [data-reveal="fade-up"] {
+      animation: s3d-fade-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+
+    [data-reveal="scale-in"] {
+      animation: s3d-scale-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 40%;
+    }
+
+    [data-reveal="blur-in"] {
+      animation: s3d-blur-in linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 40%;
+    }
+
+    [data-reveal="slide-persp"] {
+      animation: s3d-slide-persp linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 45%;
+    }
+
+    [data-reveal="hero-out"] {
+      animation: s3d-hero-out linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 85%;
+    }
+
+    .s3d-word {
+      animation: s3d-word-lit linear both;
+      animation-timeline: view();
+      animation-range: cover 25% cover 45%;
+    }
+
+    /* Staggered offsets using CSS variables */
+    [data-stagger] {
+      animation-range-start: calc(entry 0% + (var(--i, 0) * 4%));
+    }
+
+    .s3d-chrome-wordmark {
+      background-size: 200% 200%;
+      animation: s3d-chrome-sheen 8s ease-in-out infinite;
+    }
+  }
+}
+
+/* ========================================================================= */
+/* 2. CHROME TEXT GRADIENT DECORATION (Static fallback + motion enhanced)   */
+/* ========================================================================= */
+.s3d-chrome-wordmark {
+  background: linear-gradient(
+    135deg,
+    #555558 0%,
+    #E5E5EA 28%,
+    #FFFFFF 45%,
+    #8E8E93 60%,
+    #D1D1D6 75%,
+    #3A3A3C 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ========================================================================= */
+/* 3. FIREFOX & NON-SDA JAVASCRIPT FALLBACK (IntersectionObserver)           */
+/* ========================================================================= */
+.s3d-fallback [data-reveal] {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.s3d-fallback [data-reveal].is-inview {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.s3d-fallback .s3d-word {
+  color: #555558;
+  transition: color 0.5s ease-out;
+}
+
+.s3d-fallback .s3d-word.is-inview {
+  color: var(--lit, #F5F5F7);
+}
+
+/* ========================================================================= */
+/* 4. PHASE 2: @starting-style ENTRY TRANSITIONS FOR MODALS & DIALOGS       */
+/* ========================================================================= */
+@supports (transition-behavior: allow-discrete) {
+  .s3d-modal-backdrop {
+    transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                backdrop-filter 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                display 0.35s allow-discrete;
+  }
+
+  .s3d-modal-sheet {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                display 0.4s allow-discrete;
+  }
+
+  @starting-style {
+    .s3d-modal-backdrop[data-state="open"] {
+      opacity: 0;
+    }
+    .s3d-modal-sheet[data-state="open"] {
+      opacity: 0;
+      transform: scale(0.94) translateY(24px);
+    }
+  }
+}
+
+/* ========================================================================= */
+/* 5. PHASE 2: STUDENT LAB STAGGERED SLIDE ENTRANCE TRANSITIONS             */
+/* ========================================================================= */
+@keyframes s3d-deck-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.s3d-deck-card-enter {
+  animation: s3d-deck-slide-in 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--stagger, 0) * 50ms);
+}
+
+/* ========================================================================= */
+/* 6. REDUCED-MOTION ACCESSIBILITY OVERRIDES (Mandatory WCAG Compliance)     */
+/* ========================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  .s3d-word,
+  .s3d-chrome-wordmark,
+  .s3d-deck-card-enter,
+  .s3d-modal-sheet,
+  .s3d-modal-backdrop {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    clip-path: none !important;
+    color: inherit !important;
+  }
+}

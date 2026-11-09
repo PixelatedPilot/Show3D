@@ -14,9 +14,14 @@ export const SchoolProcurementModal: React.FC<SchoolProcurementModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl font-sans select-none text-[#F5F5F7]">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl s3d-modal-backdrop font-sans select-none text-[#F5F5F7]"
+      data-state="open"
+      onClick={onClose}
+    >
       <div
-        className="relative w-full max-w-2xl rounded-3xl border border-white/[0.1] bg-[#1C1C1E] shadow-2xl p-6 sm:p-7 space-y-5 max-h-[90vh] overflow-y-auto"
+        className="relative w-full max-w-2xl rounded-3xl border border-white/[0.1] bg-[#1C1C1E] shadow-2xl p-6 sm:p-7 space-y-5 max-h-[90vh] overflow-y-auto s3d-modal-sheet"
+        data-state="open"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}

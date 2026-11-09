@@ -155,11 +155,13 @@ export const Show3DCanvasModal: React.FC<Show3DCanvasModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 lg:p-6 bg-black/85 backdrop-blur-2xl animate-fade-in font-sans select-none text-[#F5F5F7]"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 lg:p-6 bg-black/85 backdrop-blur-2xl s3d-modal-backdrop font-sans select-none text-[#F5F5F7]"
+      data-state="open"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-[1440px] h-[92vh] rounded-[32px] border border-white/[0.1] bg-[#1C1C1E] shadow-2xl flex flex-col overflow-hidden"
+        className="relative w-full max-w-[1440px] h-[92vh] rounded-[32px] border border-white/[0.1] bg-[#1C1C1E] shadow-2xl flex flex-col overflow-hidden s3d-modal-sheet"
+        data-state="open"
         onClick={(e) => e.stopPropagation()}
       >
         {/* ================================================================= */}

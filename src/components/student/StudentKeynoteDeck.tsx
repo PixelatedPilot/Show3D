@@ -376,7 +376,10 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
         {/* ============================================================
             2. MAIN 16:9 KEYNOTE STAGE SURFACE
            ============================================================ */}
-        <main className="flex-1 bg-[#1C1C1E] border border-white/[0.08] rounded-[32px] p-6 sm:p-8 lg:p-10 shadow-[0_24px_60px_rgba(0,0,0,0.65)] flex flex-col justify-between">
+        <main
+          key={slideIndex}
+          className="flex-1 bg-[#1C1C1E] border border-white/[0.08] rounded-[32px] p-6 sm:p-8 lg:p-10 shadow-[0_24px_60px_rgba(0,0,0,0.65)] flex flex-col justify-between s3d-deck-card-enter"
+        >
           {/* ------------------------------------------------------------
               STAGES 0–2: VISUAL CONCEPT SLIDES (With Bespoke SVG Diagrams)
              ------------------------------------------------------------ */}

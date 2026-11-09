@@ -25,8 +25,14 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({
   });
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl select-none font-sans text-[#F5F5F7]">
-      <div className="w-full max-w-xl rounded-3xl overflow-hidden border border-white/[0.1] bg-[#1C1C1E] shadow-2xl flex flex-col relative">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl s3d-modal-backdrop select-none font-sans text-[#F5F5F7]"
+      data-state="open"
+    >
+      <div
+        className="w-full max-w-xl rounded-3xl overflow-hidden border border-white/[0.1] bg-[#1C1C1E] shadow-2xl flex flex-col relative s3d-modal-sheet"
+        data-state="open"
+      >
         {/* Apple Credential Header Bar */}
         <div className="px-6 py-4 border-b border-white/[0.08] flex items-center justify-between bg-[#000000]/60">
           <div className="flex items-center gap-2.5">
