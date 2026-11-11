@@ -25,8 +25,8 @@ export const StickySubNav: React.FC<StickySubNavProps> = ({
 
   return (
     <header
-      className={`sticky top-0 z-30 w-full backdrop-blur-[20px] bg-[#ffffff]/90 border-b border-[#d6d6d6] transition-transform duration-300 ease-out ${
-        isVisible ? 'translate-y-0 opacity-100 shadow-sm' : '-translate-y-full opacity-0 pointer-events-none'
+      className={`sticky top-0 z-30 w-full backdrop-blur-xl bg-[#000000]/85 border-b border-white/[0.08] transition-transform duration-300 ease-out ${
+        isVisible ? 'translate-y-0 opacity-100 shadow-lg' : '-translate-y-full opacity-0 pointer-events-none'
       }`}
       aria-label="Product local navigation"
     >
@@ -34,22 +34,22 @@ export const StickySubNav: React.FC<StickySubNavProps> = ({
         <div className="flex items-center gap-3">
           <a
             href="#hero"
-            className="font-display font-semibold text-[#1d1d1f] text-[19px] leading-[1.21] tracking-[0.228px] hover:text-[#0066cc] transition-colors"
+            className="font-display font-semibold text-white text-[19px] leading-[1.21] tracking-[0.228px] hover:text-[#0A84FF] transition-colors"
           >
             Show3D
           </a>
-          <span className="hidden sm:inline-block text-[#707070] text-[12px] font-normal tracking-[-0.12px]">
+          <span className="hidden sm:inline-block text-[#86868B] text-[12px] font-normal tracking-[-0.12px]">
             Spatial AI for Young Minds
           </span>
         </div>
 
         {/* Anchor Links */}
-        <nav className="hidden md:flex items-center gap-5 text-[#707070]" aria-label="Section links">
+        <nav className="hidden md:flex items-center gap-5 text-[#86868B]" aria-label="Section links">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-[12px] tracking-[-0.12px] hover:text-[#1d1d1f] transition-colors font-normal"
+              className="text-[12px] tracking-[-0.12px] hover:text-white transition-colors font-normal"
             >
               {link.label}
             </a>
@@ -59,14 +59,14 @@ export const StickySubNav: React.FC<StickySubNavProps> = ({
         {/* Right Action: Tuition + Apple Pricing Blue Pill */}
         <div className="flex items-center gap-3">
           <div className="hidden lg:flex flex-col text-right">
-            <span className="text-[10px] text-[#707070] font-mono uppercase tracking-wider">Tuition</span>
-            <span className="text-xs font-semibold text-[#1d1d1f]">{PRICING_DETAILS.priceString}</span>
+            <span className="text-[10px] text-[#86868B] font-mono uppercase tracking-wider">Tuition</span>
+            <span className="text-xs font-semibold text-white">{PRICING_DETAILS.priceString}</span>
           </div>
 
           <button
             id="subnav-book-seat-btn"
             onClick={onBookSeat}
-            className="px-4 py-1.5 rounded-full bg-[#0071e3] hover:bg-[#0066cc] text-white font-normal text-[12px] tracking-[-0.12px] flex items-center gap-1.5 transition-all shadow-sm active:scale-95"
+            className="px-4 py-1.5 rounded-full bg-[#0A84FF] hover:bg-[#0071E3] text-white font-medium text-[12px] tracking-[-0.12px] flex items-center gap-1.5 transition-all shadow-sm shadow-[#0A84FF]/25 active:scale-95"
           >
             <span>Book a Seat</span>
             <ArrowRight className="size-3" />

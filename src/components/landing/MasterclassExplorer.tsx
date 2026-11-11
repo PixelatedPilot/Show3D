@@ -74,41 +74,41 @@ export const MasterclassExplorer: React.FC<MasterclassExplorerProps> = ({
   return (
     <section
       id="masterclasses"
-      className="py-24 px-4 sm:px-6 lg:px-8 max-w-[1440px] mx-auto bg-[#ffffff]"
+      className="py-24 px-4 sm:px-6 lg:px-8 max-w-[1440px] mx-auto bg-[#000000]"
     >
       {/* 1. Section Header Lockup */}
       <div className="max-w-3xl text-left mb-12 space-y-3">
         <Reveal variant="fade-up">
-          <span className="text-[12px] font-semibold text-[#b64400] tracking-[-0.12px] uppercase block">
+          <span className="text-[12px] font-semibold text-[#0A84FF] tracking-[-0.12px] uppercase block">
             The 6-Stage Curriculum
           </span>
         </Reveal>
 
         <Reveal variant="fade-up" index={1}>
-          <h2 className="font-display text-3xl sm:text-5xl font-semibold tracking-tight text-[#1d1d1f] leading-tight">
+          <h2 className="font-display text-3xl sm:text-5xl font-semibold tracking-tight text-white leading-tight">
             Six masterclasses.
             <br />
-            <span className="text-[#707070]">One profound leap in capability.</span>
+            <span className="text-[#86868B]">One profound leap in capability.</span>
           </h2>
         </Reveal>
 
         <Reveal variant="fade-up" index={2}>
-          <p className="text-base text-[#707070] leading-[1.6]">
+          <p className="text-base text-[#86868B] leading-[1.6]">
             Click through each stage to inspect its real-time 3D geometry archetype, shader diagnostics, and student engineering challenge.
           </p>
         </Reveal>
       </div>
 
-      {/* 2. Apple Stage: Studio Mist rounded-[32px] container */}
+      {/* 2. Apple Stage: Dark Mode rounded-[32px] container */}
       <Reveal
         variant="scale-in"
-        className="rounded-[32px] bg-[#f5f5f7] border border-[#d6d6d6] shadow-[0_0_0_1px_rgba(230,230,232,0.6)] p-6 sm:p-8 lg:p-10"
+        className="rounded-[32px] bg-[#1C1C1E] border border-white/[0.08] shadow-2xl p-6 sm:p-8 lg:p-10"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left Column: Apple-Style Feature Pills with In-Place Accordion Expansion */}
           <div className="lg:col-span-5 space-y-3 text-left">
-            <div className="text-xs font-mono text-[#707070] uppercase tracking-wider mb-2 flex items-center justify-between">
+            <div className="text-xs font-mono text-[#86868B] uppercase tracking-wider mb-2 flex items-center justify-between">
               <span>Curriculum Modules</span>
               <span>Select Stage</span>
             </div>
@@ -121,8 +121,8 @@ export const MasterclassExplorer: React.FC<MasterclassExplorerProps> = ({
                   key={card.id}
                   className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
                     isSelected
-                      ? 'bg-[#ffffff] border-[#d6d6d6] shadow-[0_2px_8px_rgba(0,0,0,0.06)]'
-                      : 'bg-[#ffffff]/60 border-[#e6e6e8] hover:bg-[#ffffff]'
+                      ? 'bg-[#2C2C2E] border-white/[0.18] shadow-md'
+                      : 'bg-[#1C1C1E]/60 border-white/[0.08] hover:bg-[#2C2C2E]/60'
                   }`}
                 >
                   {/* Pill Header Button */}
@@ -139,26 +139,26 @@ export const MasterclassExplorer: React.FC<MasterclassExplorerProps> = ({
                           transform: isSelected ? 'scale(1.2)' : 'scale(1)',
                         }}
                       />
-                      <span className="text-xs sm:text-sm font-semibold text-[#1d1d1f] tracking-tight">
+                      <span className="text-xs sm:text-sm font-semibold text-white tracking-tight">
                         {card.title}
                       </span>
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <span className="text-[11px] font-mono text-[#707070]">
+                      <span className="text-[11px] font-mono text-[#86868B]">
                         0{card.id}
                       </span>
                       {isSelected ? (
-                        <ChevronUp className="size-4 text-[#707070]" />
+                        <ChevronUp className="size-4 text-[#86868B]" />
                       ) : (
-                        <ChevronDown className="size-4 text-[#86868b]" />
+                        <ChevronDown className="size-4 text-[#86868B]" />
                       )}
                     </div>
                   </button>
 
                   {/* Expanded Accordion Body (Only rendered when selected) */}
                   {isSelected && (
-                    <div className="px-5 pb-5 pt-1 space-y-4 border-t border-[#e6e6e8] text-xs animate-in fade-in duration-200">
+                    <div className="px-5 pb-5 pt-1 space-y-4 border-t border-white/[0.08] text-xs animate-in fade-in duration-200">
                       <div className="flex flex-wrap items-center justify-between gap-2 pt-2">
                         <span
                           className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-medium"
@@ -166,36 +166,36 @@ export const MasterclassExplorer: React.FC<MasterclassExplorerProps> = ({
                         >
                           {card.code}
                         </span>
-                        <span className="text-[11px] font-mono text-[#707070] flex items-center gap-1">
+                        <span className="text-[11px] font-mono text-[#86868B] flex items-center gap-1">
                           <Clock className="size-3" />
                           <span>{card.duration}</span>
                         </span>
                       </div>
 
-                      <p className="text-xs text-[#707070] leading-[1.6]">
+                      <p className="text-xs text-[#86868B] leading-[1.6]">
                         {card.summary}
                       </p>
 
                       {/* Hands-On Challenge Box */}
-                      <div className="p-3 rounded-xl bg-[#ffffff] border border-[#e6e6e8] shadow-sm">
-                        <span className="font-mono text-[10px] uppercase text-[#0066cc] block mb-1">
+                      <div className="p-3 rounded-xl bg-[#1C1C1E] border border-white/[0.08] shadow-sm">
+                        <span className="font-mono text-[10px] uppercase text-[#0A84FF] block mb-1">
                           Hands-On Challenge:
                         </span>
-                        <span className="text-[#1d1d1f] text-xs leading-relaxed">
+                        <span className="text-white text-xs leading-relaxed">
                           {card.studentChallenge}
                         </span>
                       </div>
 
                       {/* Learning Objectives */}
                       <div className="space-y-1.5">
-                        <div className="text-[10px] font-mono uppercase text-[#707070]">
+                        <div className="text-[10px] font-mono uppercase text-[#86868B]">
                           Key Takeaways:
                         </div>
                         <ul className="space-y-1">
                           {card.learningObjectives.map((obj, oIdx) => (
-                            <li key={oIdx} className="flex items-start gap-2 text-[11px] text-[#707070]">
+                            <li key={oIdx} className="flex items-start gap-2 text-[11px] text-[#86868B]">
                               <CheckCircle2 className="size-3 text-[#30D158] shrink-0 mt-0.5" />
-                              <span className="text-[#1d1d1f]">{obj}</span>
+                              <span className="text-white">{obj}</span>
                             </li>
                           ))}
                         </ul>
@@ -206,7 +206,7 @@ export const MasterclassExplorer: React.FC<MasterclassExplorerProps> = ({
                         <button
                           id={`explorer-try-btn-${card.id}`}
                           onClick={() => onSelectModule(card.id)}
-                          className="w-full py-2.5 rounded-full font-normal text-xs flex items-center justify-center gap-2 transition-all shadow-sm active:scale-95 bg-[#0071e3] hover:bg-[#0066cc] text-white"
+                          className="w-full py-2.5 rounded-full font-medium text-xs flex items-center justify-center gap-2 transition-all shadow-sm shadow-[#0A84FF]/25 active:scale-95 bg-[#0A84FF] hover:bg-[#0071E3] text-white"
                         >
                           <span>{card.ctaText}</span>
                           <ArrowUpRight className="size-3.5" />
@@ -223,7 +223,7 @@ export const MasterclassExplorer: React.FC<MasterclassExplorerProps> = ({
           <div className="lg:col-span-7 flex flex-col justify-between space-y-4">
             
             {/* 3D Canvas Box: High-contrast Dark CAD Viewport Screen */}
-            <div className="relative rounded-[24px] bg-[#000000] border border-[#d6d6d6] p-4 sm:p-6 overflow-hidden min-h-[380px] sm:min-h-[460px] flex flex-col justify-between shadow-md">
+            <div className="relative rounded-[24px] bg-[#000000] border border-white/[0.08] p-4 sm:p-6 overflow-hidden min-h-[380px] sm:min-h-[460px] flex flex-col justify-between shadow-md">
               
               {/* Telemetry Header */}
               <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-[#86868B] border-b border-white/[0.08] pb-3 z-10">
@@ -265,11 +265,11 @@ export const MasterclassExplorer: React.FC<MasterclassExplorerProps> = ({
               </div>
             </div>
 
-            {/* Interactive Parametric Levers Bar on Gallery White */}
-            <div className="p-4 rounded-2xl bg-[#ffffff] border border-[#d6d6d6] shadow-sm space-y-3 text-left">
+            {/* Interactive Parametric Levers Bar on Dark Surface */}
+            <div className="p-4 rounded-2xl bg-[#1C1C1E] border border-white/[0.08] shadow-sm space-y-3 text-left">
               <div className="flex items-center justify-between text-xs">
-                <span className="font-mono text-[11px] uppercase tracking-wider text-[#707070] flex items-center gap-1.5">
-                  <Sliders className="size-3.5 text-[#0066cc]" />
+                <span className="font-mono text-[11px] uppercase tracking-wider text-[#86868B] flex items-center gap-1.5">
+                  <Sliders className="size-3.5 text-[#0A84FF]" />
                   <span>Real-Time Parametric Geometry Controls</span>
                 </span>
                 <span className="font-mono text-[11px] text-[#30D158] font-semibold flex items-center gap-1">
@@ -281,7 +281,7 @@ export const MasterclassExplorer: React.FC<MasterclassExplorerProps> = ({
               <div className="flex flex-wrap items-center justify-between gap-4 pt-1">
                 {/* Tint Swatches */}
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-[#707070]">Material:</span>
+                  <span className="text-xs text-[#86868B]">Material:</span>
                   {[
                     { hex: '#30D158', name: 'Biophilic Mint' },
                     { hex: '#64D2FF', name: 'Sky Cyan' },
@@ -294,7 +294,7 @@ export const MasterclassExplorer: React.FC<MasterclassExplorerProps> = ({
                       style={{ backgroundColor: swatch.hex }}
                       className={`w-5 h-5 rounded-full border-2 transition-transform ${
                         canopyColor === swatch.hex
-                          ? 'border-[#1d1d1f] scale-110 shadow-sm'
+                          ? 'border-white scale-110 shadow-sm'
                           : 'border-transparent opacity-60 hover:opacity-100'
                       }`}
                       title={swatch.name}
@@ -308,8 +308,8 @@ export const MasterclassExplorer: React.FC<MasterclassExplorerProps> = ({
                   onClick={() => setHasSolar(!hasSolar)}
                   className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors flex items-center gap-1.5 ${
                     hasSolar
-                      ? 'bg-[#fff9e6] border-[#FFD60A]/40 text-[#966b00]'
-                      : 'bg-[#f5f5f7] border-[#d6d6d6] text-[#707070]'
+                      ? 'bg-[#2C2405] border-[#FFD60A]/40 text-[#FFD60A]'
+                      : 'bg-[#2C2C2E] border-white/[0.08] text-[#86868B]'
                   }`}
                 >
                   <Sun className="size-3.5" />
@@ -319,9 +319,9 @@ export const MasterclassExplorer: React.FC<MasterclassExplorerProps> = ({
 
               {/* Curvature Slider */}
               <div className="space-y-1 pt-1">
-                <div className="flex justify-between text-[11px] font-mono text-[#707070]">
+                <div className="flex justify-between text-[11px] font-mono text-[#86868B]">
                   <span>Canopy Parabolic Curvature</span>
-                  <span className="text-[#1d1d1f] font-semibold">{curvature.toFixed(2)} ratio</span>
+                  <span className="text-white font-semibold">{curvature.toFixed(2)} ratio</span>
                 </div>
                 <input
                   type="range"
@@ -330,7 +330,7 @@ export const MasterclassExplorer: React.FC<MasterclassExplorerProps> = ({
                   step="0.05"
                   value={curvature}
                   onChange={(e) => setCurvature(parseFloat(e.target.value))}
-                  className="w-full accent-[#0071e3] cursor-pointer h-1.5 bg-[#e6e6e8] rounded-lg"
+                  className="w-full accent-[#0A84FF] cursor-pointer h-1.5 bg-[#2C2C2E] rounded-lg"
                 />
               </div>
             </div>

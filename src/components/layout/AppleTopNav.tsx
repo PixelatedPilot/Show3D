@@ -58,11 +58,7 @@ export const AppleTopNav: React.FC<AppleTopNavProps> = ({
   const isFacilitatorActive = !isLandingView && activeMode === 'facilitator';
 
   return (
-    <header className={`sticky top-0 z-50 w-full h-16 backdrop-blur-[20px] px-4 sm:px-6 select-none text-xs font-sans transition-colors duration-200 ${
-      isOverviewActive 
-        ? 'bg-[#fafafc]/90 border-b border-[#e6e6e8] text-[#1d1d1f]' 
-        : 'bg-[#000000]/85 border-b border-white/[0.08] text-[#F5F5F7]'
-    }`}>
+    <header className="sticky top-0 z-50 w-full h-16 bg-[#000000]/85 backdrop-blur-xl border-b border-white/[0.08] px-4 sm:px-6 select-none text-xs font-sans transition-all text-[#F5F5F7]">
       <div className="max-w-[1400px] mx-auto h-full flex items-center justify-between gap-4">
         
         {/* Left: Apple HIG Wordmark + Section Anchors */}
@@ -73,17 +69,11 @@ export const AppleTopNav: React.FC<AppleTopNavProps> = ({
             className="flex items-center gap-2.5 group transition-opacity hover:opacity-90"
             title="Show3D Academy: Spatial AI & 3D Creator Programme"
           >
-            <div className={`w-8 h-8 rounded-full border flex items-center justify-center transition-colors ${
-              isOverviewActive
-                ? 'bg-white border-[#e6e6e8] text-[#0071e3] group-hover:bg-[#f5f5f7]'
-                : 'bg-[#1C1C1E] border-white/[0.12] text-[#0A84FF] group-hover:bg-[#2C2C2E]'
-            }`}>
+            <div className="w-8 h-8 rounded-full bg-[#1C1C1E] border border-white/[0.12] flex items-center justify-center text-[#0A84FF] group-hover:bg-[#2C2C2E] transition-colors">
               <Box className="size-4" />
             </div>
             <div className="flex items-baseline gap-1.5 text-left">
-              <span className={`font-display font-bold tracking-tight text-base leading-none ${
-                isOverviewActive ? 'text-[#1d1d1f]' : 'text-white'
-              }`}>
+              <span className="font-display font-bold tracking-tight text-white text-base leading-none">
                 Show3D
               </span>
               <span className="font-display font-normal text-[#86868b] text-base leading-none">
@@ -94,29 +84,29 @@ export const AppleTopNav: React.FC<AppleTopNavProps> = ({
 
           {/* Apple HIG Top Anchor Links (visible on Landing View) */}
           {isOverviewActive && (
-            <div className="hidden xl:flex items-center gap-5 text-xs font-medium text-[#707070] pl-2 border-l border-[#e6e6e8]">
-              <a href="#difference" className="hover:text-[#1d1d1f] transition-colors">
+            <div className="hidden xl:flex items-center gap-5 text-xs font-medium text-[#86868B] pl-2 border-l border-white/[0.08]">
+              <a href="#difference" className="hover:text-white transition-colors">
                 Philosophy
               </a>
-              <a href="#curriculum" className="hover:text-[#1d1d1f] transition-colors">
+              <a href="#curriculum" className="hover:text-white transition-colors">
                 Curriculum
               </a>
-              <a href="#product-showcase" className="hover:text-[#1d1d1f] transition-colors">
+              <a href="#product-showcase" className="hover:text-white transition-colors">
                 Workspaces
               </a>
-              <a href="#outcomes" className="hover:text-[#1d1d1f] transition-colors">
+              <a href="#outcomes" className="hover:text-white transition-colors">
                 Outcomes
               </a>
-              <a href="#gravity-lab" className="hover:text-[#0071e3] transition-colors">
+              <a href="#gravity-lab" className="hover:text-[#64D2FF] transition-colors">
                 Physics Lab
               </a>
-              <a href="#safety" className="hover:text-[#1d1d1f] transition-colors">
+              <a href="#safety" className="hover:text-white transition-colors">
                 Safety &amp; PDPA
               </a>
-              <a href="#lineup" className="hover:text-[#1d1d1f] transition-colors">
+              <a href="#lineup" className="hover:text-white transition-colors">
                 Cohorts
               </a>
-              <a href="#faq" className="hover:text-[#1d1d1f] transition-colors">
+              <a href="#faq" className="hover:text-white transition-colors">
                 FAQ
               </a>
             </div>
@@ -125,11 +115,7 @@ export const AppleTopNav: React.FC<AppleTopNavProps> = ({
 
         {/* Center: Apple HIG Segmented Control Switcher */}
         <nav 
-          className={`inline-flex p-1 rounded-full border transition-colors ${
-            isOverviewActive
-              ? 'bg-[#e6e6e8] border-[#d6d6d6]'
-              : 'bg-[#1C1C1E] border-white/[0.08]'
-          }`}
+          className="inline-flex p-1 rounded-full bg-[#1C1C1E] border border-white/[0.08]"
           aria-label="View Mode Switcher"
         >
           {onToggleLandingView && (
@@ -138,7 +124,7 @@ export const AppleTopNav: React.FC<AppleTopNavProps> = ({
               onClick={() => onToggleLandingView(true)}
               className={`px-3 sm:px-4 py-1.5 min-h-[38px] rounded-full text-xs font-medium transition-all flex items-center gap-1.5 ${
                 isOverviewActive
-                  ? 'bg-white text-[#1d1d1f] font-semibold shadow-sm'
+                  ? 'bg-white text-black font-semibold shadow-sm'
                   : 'text-[#86868B] hover:text-white'
               }`}
             >
@@ -154,8 +140,6 @@ export const AppleTopNav: React.FC<AppleTopNavProps> = ({
             className={`px-3 sm:px-4 py-1.5 min-h-[38px] rounded-full text-xs font-medium transition-all flex items-center gap-1.5 ${
               isStudentActive
                 ? 'bg-white text-black font-semibold shadow-sm'
-                : isOverviewActive
-                ? 'text-[#707070] hover:text-[#1d1d1f]'
                 : 'text-[#86868B] hover:text-white'
             }`}
           >
@@ -170,8 +154,6 @@ export const AppleTopNav: React.FC<AppleTopNavProps> = ({
             className={`px-3 sm:px-4 py-1.5 min-h-[38px] rounded-full text-xs font-medium transition-all flex items-center gap-1.5 ${
               isFacilitatorActive
                 ? 'bg-white text-black font-semibold shadow-sm'
-                : isOverviewActive
-                ? 'text-[#707070] hover:text-[#1d1d1f]'
                 : 'text-[#86868B] hover:text-white'
             }`}
           >

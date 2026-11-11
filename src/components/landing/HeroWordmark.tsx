@@ -121,7 +121,7 @@ export const HeroWordmark: React.FC<HeroWordmarkProps> = ({
     <section
       ref={trackRef}
       id="hero"
-      className="relative w-full h-[220vh] select-none bg-[#ffffff]"
+      className="relative w-full h-[220vh] select-none bg-[#000000]"
       aria-label="Show3D Hero Scrollytelling"
     >
       {/* Sticky Fullscreen Container */}
@@ -131,15 +131,15 @@ export const HeroWordmark: React.FC<HeroWordmarkProps> = ({
           className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-30"
           aria-hidden="true"
         >
-          <div className="w-[600px] sm:w-[900px] h-[400px] sm:h-[600px] rounded-full bg-gradient-to-tr from-[#0071e3]/15 via-[#64D2FF]/10 to-[#30D158]/10 blur-[130px]" />
+          <div className="w-[600px] sm:w-[900px] h-[400px] sm:h-[600px] rounded-full bg-gradient-to-tr from-[#0071e3]/20 via-[#64D2FF]/15 to-[#30D158]/10 blur-[130px]" />
         </div>
 
         {/* Top Kicker Stack: Bare #b64400 Launch Status Label + 21px Product Kicker */}
         <div className="relative z-30 text-center max-w-3xl mx-auto pt-2 sm:pt-3 space-y-1">
-          <div className="text-[12px] font-semibold text-[#b64400] tracking-[-0.12px] uppercase">
+          <div className="text-[12px] font-semibold text-[#FF9F0A] tracking-[-0.12px] uppercase">
             New · Singapore School Holiday &amp; Term Cohorts
           </div>
-          <div className="font-display text-[17px] sm:text-[21px] font-semibold tracking-[0.231px] text-[#1d1d1f]">
+          <div className="font-display text-[17px] sm:text-[21px] font-semibold tracking-[0.231px] text-white">
             Show3D Spatial AI Academy
           </div>
         </div>
@@ -157,7 +157,7 @@ export const HeroWordmark: React.FC<HeroWordmarkProps> = ({
             aria-hidden="true"
           >
             <span
-              className="s3d-silver-wordmark font-display font-black tracking-tighter leading-none drop-shadow-[0_15px_35px_rgba(0,0,0,0.12)]"
+              className="s3d-silver-wordmark font-display font-black tracking-tighter leading-none drop-shadow-[0_15px_35px_rgba(0,0,0,0.5)]"
               style={{
                 fontSize: 'clamp(140px, 28vw, 420px)',
                 letterSpacing: '-0.06em',
@@ -186,7 +186,7 @@ export const HeroWordmark: React.FC<HeroWordmarkProps> = ({
 
           {/* Floating Interactive Badge Indicator */}
           <div
-            className="relative z-30 mt-1 px-3.5 py-1 rounded-full bg-[#ffffff]/85 border border-[#e6e6e8] backdrop-blur-md text-[11px] font-mono text-[#707070] flex items-center gap-2 shadow-sm transition-opacity duration-200"
+            className="relative z-30 mt-1 px-3.5 py-1 rounded-full bg-[#1C1C1E]/85 border border-white/[0.12] backdrop-blur-md text-[11px] font-mono text-[#86868B] flex items-center gap-2 shadow-sm transition-opacity duration-200"
             style={{
               opacity: Math.max(0, 1 - scrollProgress * 3),
             }}
@@ -198,19 +198,19 @@ export const HeroWordmark: React.FC<HeroWordmarkProps> = ({
           {/* Gentle Scroll Prompt (Visible when at top) */}
           {promptOpacity > 0.05 && (
             <div
-              className="absolute bottom-1 sm:bottom-3 flex items-center gap-2 text-xs font-mono text-[#707070] transition-opacity duration-150 pointer-events-none"
+              className="absolute bottom-1 sm:bottom-3 flex items-center gap-2 text-xs font-mono text-[#86868B] transition-opacity duration-150 pointer-events-none"
               style={{ opacity: promptOpacity }}
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#0071e3] animate-ping" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0A84FF] animate-ping" />
               <span>Scroll down to explore</span>
-              <ChevronDown className="size-3.5 animate-bounce text-[#0071e3]" />
+              <ChevronDown className="size-3.5 animate-bounce text-[#0A84FF]" />
             </div>
           )}
         </div>
 
         {/* Bottom Stage: SF Pro Display 80px Headline + Floating Pricing Callout Capsule */}
         <div
-          className="relative z-30 pt-3 sm:pt-4 border-t border-[#e6e6e8] w-full transition-opacity duration-150"
+          className="relative z-30 pt-3 sm:pt-4 border-t border-white/[0.08] w-full transition-opacity duration-150"
           style={{
             opacity: scrollProgress >= 0.22 ? 1 : Math.max(0, scrollProgress * 4.5),
           }}
@@ -218,10 +218,10 @@ export const HeroWordmark: React.FC<HeroWordmarkProps> = ({
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-end">
             {/* Left: 80px Headline & Editorial Pitch */}
             <div className="lg:col-span-7 text-left space-y-2">
-              <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-[-1.2px] text-[#1d1d1f] leading-[1.05] min-h-[1.25em]">
+              <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-[-1.2px] text-white leading-[1.05] min-h-[1.25em]">
                 <span>{typedHeadline}</span>
                 {isTyping && (
-                  <span className="inline-block w-0.5 sm:w-1 h-[0.9em] bg-[#0071e3] ml-1.5 align-baseline animate-pulse shadow-[0_0_8px_#0071e3]" />
+                  <span className="inline-block w-0.5 sm:w-1 h-[0.9em] bg-[#0A84FF] ml-1.5 align-baseline animate-pulse shadow-[0_0_8px_#0A84FF]" />
                 )}
               </h1>
 
@@ -233,10 +233,10 @@ export const HeroWordmark: React.FC<HeroWordmarkProps> = ({
                   transform: `translateY(${actionsTranslateY}px)`,
                 }}
               >
-                <p className="text-sm sm:text-base font-semibold text-[#0071e3]">
+                <p className="text-sm sm:text-base font-semibold text-[#0A84FF]">
                   Your child won’t just use AI. They’ll command it.
                 </p>
-                <p className="text-xs sm:text-sm text-[#707070] max-w-[540px] font-normal leading-[1.6]">
+                <p className="text-xs sm:text-sm text-[#86868B] max-w-[540px] font-normal leading-[1.6]">
                   Turn screen time into tangible engineering capability. Students direct 3D geometry with human judgment, formulaic PARTS prompting, and bring home an original physical invention.
                 </p>
               </div>
@@ -250,13 +250,13 @@ export const HeroWordmark: React.FC<HeroWordmarkProps> = ({
                 transform: `translateY(${actionsTranslateY}px)`,
               }}
             >
-              {/* Floating Pricing Callout (28px radius, shadowless, 1px #e6e6e8 outline) */}
-              <div className="p-4 sm:p-5 rounded-[28px] bg-[#ffffff] border border-[#e6e6e8] shadow-[0_4px_20px_rgba(0,0,0,0.06)] text-left lg:text-right space-y-3 w-full sm:w-auto">
+              {/* Floating Pricing Callout (28px radius, dark card, subtle border) */}
+              <div className="p-4 sm:p-5 rounded-[28px] bg-[#1C1C1E] border border-white/[0.12] shadow-2xl text-left lg:text-right space-y-3 w-full sm:w-auto">
                 <div>
-                  <div className="text-[11px] font-mono text-[#707070] uppercase tracking-wider">
+                  <div className="text-[11px] font-mono text-[#86868B] uppercase tracking-wider">
                     {PRICING_DETAILS.cohortLimit}
                   </div>
-                  <div className="text-sm font-semibold text-[#1d1d1f] flex items-center lg:justify-end gap-2">
+                  <div className="text-sm font-semibold text-white flex items-center lg:justify-end gap-2">
                     <span className="text-[#30D158] font-mono font-bold">{PRICING_DETAILS.rateDetail}</span>
                   </div>
                 </div>
@@ -266,7 +266,7 @@ export const HeroWordmark: React.FC<HeroWordmarkProps> = ({
                   <button
                     id="hero-start-learning-btn"
                     onClick={onStartLearning}
-                    className="px-5 py-2.5 rounded-full bg-[#0071e3] hover:bg-[#0066cc] text-white font-normal text-xs sm:text-sm flex items-center gap-1.5 transition-all shadow-sm active:scale-95"
+                    className="px-5 py-2.5 rounded-full bg-[#0A84FF] hover:bg-[#0071E3] text-white font-medium text-xs sm:text-sm flex items-center gap-1.5 transition-all shadow-sm shadow-[#0A84FF]/25 active:scale-95"
                   >
                     <span>Try Interactive Lesson</span>
                     <ArrowRight className="size-3.5" />
@@ -274,14 +274,14 @@ export const HeroWordmark: React.FC<HeroWordmarkProps> = ({
 
                   <button
                     onClick={onExploreTracks}
-                    className="px-4 py-2.5 rounded-full bg-transparent hover:bg-black/5 text-[#1d1d1f] border border-[#86868b] text-xs sm:text-sm transition-all"
+                    className="px-4 py-2.5 rounded-full bg-transparent hover:bg-white/10 text-white border border-white/[0.2] text-xs sm:text-sm transition-all"
                   >
                     <span>Explore Tracks</span>
                   </button>
 
                   <button
                     onClick={onDefyGravity}
-                    className="px-3 py-2.5 rounded-full bg-[#f5f5f7] hover:bg-[#e6e6e8] text-[#0071e3] border border-[#d6d6d6] text-xs sm:text-sm flex items-center gap-1 transition-all"
+                    className="px-3 py-2.5 rounded-full bg-[#2C2C2E] hover:bg-[#3A3A3C] text-[#64D2FF] border border-white/[0.08] text-xs sm:text-sm flex items-center gap-1 transition-all"
                     title="Jump to Matter.js Physics Sandbox"
                   >
                     <Orbit className="size-3.5" />
