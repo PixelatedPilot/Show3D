@@ -299,19 +299,19 @@ export const FallingPhysicsStage: React.FC<FallingPhysicsStageProps> = ({ onSele
   };
 
   return (
-    <div className="rounded-[32px] bg-[#1C1C1E] border border-white/[0.08] p-5 sm:p-8 overflow-hidden transition-colors relative text-left">
+    <div className="rounded-[28px] bg-[#ffffff] border border-[#d6d6d6] shadow-[0_0_0_1px_rgba(230,230,232,0.6)] p-5 sm:p-8 overflow-hidden relative text-left">
       
       {/* Top Header & Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 mb-5 border-b border-white/[0.08]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 mb-5 border-b border-[#f0f0f2]">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0D2137] text-[#0A84FF] text-[11px] font-mono mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f5f5f7] text-[#0071e3] text-[11px] font-mono mb-2">
             <FlaskConical className="size-3.5" />
             <span>SPATIAL PHYSICS SANDBOX</span>
           </div>
-          <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
+          <h3 className="font-display text-2xl sm:text-3xl font-semibold text-[#1d1d1f] tracking-tight">
             Tumble, Toss &amp; Shape Spatial Elements
           </h3>
-          <p className="text-xs sm:text-sm text-[#86868B] mt-1">
+          <p className="text-xs sm:text-sm text-[#707070] mt-1">
             Grab, drag, and fling 18 curriculum badges and prompt tokens with live gravity physics.
           </p>
         </div>
@@ -323,8 +323,8 @@ export const FallingPhysicsStage: React.FC<FallingPhysicsStageProps> = ({ onSele
             onClick={handleToggleZeroG}
             className={`px-4 py-2 min-h-[40px] rounded-full text-xs font-semibold flex items-center gap-1.5 transition-all ${
               isZeroG
-                ? 'bg-[#0A84FF] text-white shadow-lg shadow-[#0A84FF]/25'
-                : 'bg-[#2C2C2E] text-[#F5F5F7] hover:text-white border border-white/[0.08]'
+                ? 'bg-[#0071e3] text-white shadow-sm'
+                : 'bg-[#f5f5f7] hover:bg-[#e8e8ed] text-[#1d1d1f] border border-[#d2d2d7]/50'
             }`}
             title="Toggle Zero-Gravity mode"
           >
@@ -335,17 +335,17 @@ export const FallingPhysicsStage: React.FC<FallingPhysicsStageProps> = ({ onSele
           <button
             id="physics-scatter-btn"
             onClick={handleScatter}
-            className="px-4 py-2 min-h-[40px] rounded-full bg-[#2C2C2E] hover:bg-[#3A3A3C] text-[#F5F5F7] border border-white/[0.08] text-xs font-medium flex items-center gap-1.5 transition-colors"
+            className="px-4 py-2 min-h-[40px] rounded-full bg-[#f5f5f7] hover:bg-[#e8e8ed] text-[#1d1d1f] border border-[#d2d2d7]/50 text-xs font-medium flex items-center gap-1.5 transition-colors"
             title="Scatter pills with an impulse burst"
           >
-            <Sparkles className="size-3.5 text-[#FFD60A]" />
+            <Sparkles className="size-3.5 text-[#b64400]" />
             <span>Scatter</span>
           </button>
 
           <button
             id="physics-reset-btn"
             onClick={handleResetDrop}
-            className="px-4 py-2 min-h-[40px] rounded-full bg-[#2C2C2E] hover:bg-[#3A3A3C] text-[#86868B] hover:text-white border border-white/[0.08] text-xs font-medium flex items-center gap-1.5 transition-colors"
+            className="px-4 py-2 min-h-[40px] rounded-full bg-[#f5f5f7] hover:bg-[#e8e8ed] text-[#707070] hover:text-[#1d1d1f] border border-[#d2d2d7]/50 text-xs font-medium flex items-center gap-1.5 transition-colors"
             title="Re-drop all elements from above"
           >
             <RotateCcw className="size-3.5" />
@@ -415,12 +415,12 @@ export const FallingPhysicsStage: React.FC<FallingPhysicsStageProps> = ({ onSele
       </div>
 
       {/* Bottom Hint Strip */}
-      <div className="pt-4 mt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] font-mono text-[#86868B]">
+      <div className="pt-4 mt-2 border-t border-[#f0f0f2] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] font-mono text-[#707070]">
         <div className="flex items-center gap-2">
-          <span className="text-[#0A84FF]">Pro Tip:</span>
+          <span className="text-[#0071e3] font-medium">Pro Tip:</span>
           <span>Click and toss any badge across the arena, or tap a module badge to jump directly into that curriculum masterclass.</span>
         </div>
-        <span className="text-[#30D158]">
+        <span className="text-[#1b7a37] font-medium">
           60 FPS Rigid-Body Simulation
         </span>
       </div>

@@ -135,12 +135,31 @@
       animation-range: cover 25% cover 45%;
     }
 
+    /* Keyframe: Word-by-word scroll text illumination for Light Gallery */
+    @keyframes s3d-word-lit-light {
+      from {
+        color: #d6d6d6;
+        opacity: 0.5;
+      }
+      to {
+        color: var(--lit, #1d1d1f);
+        opacity: 1;
+      }
+    }
+
+    .s3d-word-light {
+      animation: s3d-word-lit-light linear both;
+      animation-timeline: view();
+      animation-range: cover 25% cover 45%;
+    }
+
     /* Staggered offsets using CSS variables */
     [data-stagger] {
       animation-range-start: calc(entry 0% + (var(--i, 0) * 4%));
     }
 
-    .s3d-chrome-wordmark {
+    .s3d-chrome-wordmark,
+    .s3d-silver-wordmark {
       background-size: 200% 200%;
       animation: s3d-chrome-sheen 8s ease-in-out infinite;
     }
@@ -148,7 +167,7 @@
 }
 
 /* ========================================================================= */
-/* 2. CHROME TEXT GRADIENT DECORATION (Static fallback + motion enhanced)   */
+/* 2. CHROME & SILVER TEXT GRADIENT DECORATION                               */
 /* ========================================================================= */
 .s3d-chrome-wordmark {
   background: linear-gradient(
@@ -159,6 +178,22 @@
     #8E8E93 60%,
     #D1D1D6 75%,
     #3A3A3C 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.s3d-silver-wordmark {
+  background: linear-gradient(
+    135deg,
+    #1d1d1f 0%,
+    #3a3a3c 20%,
+    #8e8e93 42%,
+    #d1d1d6 58%,
+    #ffffff 72%,
+    #48484a 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -189,6 +224,15 @@
 
 .s3d-fallback .s3d-word.is-inview {
   color: var(--lit, #F5F5F7);
+}
+
+.s3d-fallback .s3d-word-light {
+  color: #86868b;
+  transition: color 0.5s ease-out;
+}
+
+.s3d-fallback .s3d-word-light.is-inview {
+  color: var(--lit, #1d1d1f);
 }
 
 /* ========================================================================= */

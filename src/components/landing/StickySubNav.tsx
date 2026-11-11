@@ -12,60 +12,61 @@ export const StickySubNav: React.FC<StickySubNavProps> = ({
   onBookSeat,
 }) => {
   const navLinks = [
-    { label: 'Highlights', href: '#highlights' },
     { label: 'Philosophy', href: '#philosophy' },
-    { label: 'Masterclasses', href: '#masterclasses' },
+    { label: 'Highlights', href: '#highlights' },
+    { label: 'Workspaces', href: '#product-showcase' },
+    { label: 'Curriculum', href: '#masterclasses' },
     { label: 'Outcomes', href: '#outcomes' },
-    { label: 'Defy Gravity', href: '#gravity-lab' },
-    { label: 'Safety', href: '#safety' },
-    { label: 'Lineup', href: '#lineup' },
+    { label: 'Physics Lab', href: '#gravity-lab' },
+    { label: 'Safety & PDPA', href: '#safety' },
+    { label: 'Cohorts', href: '#lineup' },
     { label: 'FAQ', href: '#faq' },
   ];
 
   return (
     <header
-      className={`sticky top-0 z-30 w-full backdrop-blur-xl bg-[#000000]/75 border-b border-white/[0.08] transition-transform duration-300 ease-out ${
-        isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
+      className={`sticky top-0 z-30 w-full backdrop-blur-[20px] bg-[#ffffff]/90 border-b border-[#d6d6d6] transition-transform duration-300 ease-out ${
+        isVisible ? 'translate-y-0 opacity-100 shadow-sm' : '-translate-y-full opacity-0 pointer-events-none'
       }`}
-      aria-label="Product navigation"
+      aria-label="Product local navigation"
     >
       <div className="max-w-[1380px] mx-auto px-4 sm:px-6 lg:px-8 h-12 flex items-center justify-between text-xs">
         <div className="flex items-center gap-3">
           <a
             href="#hero"
-            className="font-display font-bold text-white text-sm tracking-tight hover:text-[#0A84FF] transition-colors"
+            className="font-display font-semibold text-[#1d1d1f] text-[19px] leading-[1.21] tracking-[0.228px] hover:text-[#0066cc] transition-colors"
           >
             Show3D
           </a>
-          <span className="hidden sm:inline-block text-[#86868B] text-[11px] font-mono">
+          <span className="hidden sm:inline-block text-[#707070] text-[12px] font-normal tracking-[-0.12px]">
             Spatial AI for Young Minds
           </span>
         </div>
 
         {/* Anchor Links */}
-        <nav className="hidden md:flex items-center gap-5 text-[#86868B]" aria-label="Section links">
+        <nav className="hidden md:flex items-center gap-5 text-[#707070]" aria-label="Section links">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="hover:text-white transition-colors"
+              className="text-[12px] tracking-[-0.12px] hover:text-[#1d1d1f] transition-colors font-normal"
             >
               {link.label}
             </a>
           ))}
         </nav>
 
-        {/* Right Action: Pricing Pill */}
+        {/* Right Action: Tuition + Apple Pricing Blue Pill */}
         <div className="flex items-center gap-3">
           <div className="hidden lg:flex flex-col text-right">
-            <span className="text-[10px] text-[#86868B] font-mono">Introductory Tuition</span>
-            <span className="text-xs font-semibold text-white">{PRICING_DETAILS.priceString}</span>
+            <span className="text-[10px] text-[#707070] font-mono uppercase tracking-wider">Tuition</span>
+            <span className="text-xs font-semibold text-[#1d1d1f]">{PRICING_DETAILS.priceString}</span>
           </div>
 
           <button
             id="subnav-book-seat-btn"
             onClick={onBookSeat}
-            className="px-4 py-1.5 rounded-full bg-[#0A84FF] hover:bg-[#0071E3] text-white font-semibold text-xs flex items-center gap-1.5 transition-all shadow-sm shadow-[#0A84FF]/30 active:scale-95"
+            className="px-4 py-1.5 rounded-full bg-[#0071e3] hover:bg-[#0066cc] text-white font-normal text-[12px] tracking-[-0.12px] flex items-center gap-1.5 transition-all shadow-sm active:scale-95"
           >
             <span>Book a Seat</span>
             <ArrowRight className="size-3" />

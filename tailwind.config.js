@@ -160,6 +160,36 @@ export default {
           border: '#2E3035',
           'border-highlight': '#444746',
         },
+
+        // --- Apple Gallery White Showroom Tokens (DESIGN.md) ---
+        gallery: {
+          white: '#ffffff',
+          mist: '#f5f5f7',
+          frost: '#fafafc',
+          hairline: '#d6d6d6',
+          control: '#e6e6e8',
+          ink: '#1d1d1f',
+          slate: '#707070',
+          steel: '#86868b',
+          blue: '#0066cc',
+          pricing: '#0071e3',
+          orange: '#b64400',
+        },
+
+        // --- Things Editorial Showcase Tokens (DESIGN-2.md) ---
+        things: {
+          ink: '#303336',
+          paper: '#ffffff',
+          mist: '#f2f5f7',
+          fog: '#838b96',
+          ash: '#55606e',
+          smoke: '#44474b',
+          silver: '#9299a4',
+          pebble: '#8e9196',
+          hairline: '#dfe3e8',
+          blue: '#2576eb',
+          'sky-blue': '#5c9cf5',
+        },
       },
 
       borderRadius: {
@@ -180,6 +210,8 @@ export default {
         'apple-xl': '24px',
         'apple-2xl': '28px',
         'apple-pill': '9999px',
+        'things-card': '18px',
+        'things-heading': '12.8px',
       },
 
       fontFamily: {
@@ -284,6 +316,10 @@ export default {
         'spline-card': '0 4px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px #232426',
         'spline-dock': '0 12px 32px rgba(0, 0, 0, 0.7), 0 0 0 1px #232426',
         'spline-glow': '0 0 16px rgba(80, 216, 233, 0.3)',
+        // Apple Gallery & Things shadows
+        'apple-subtle': 'rgb(230, 230, 232) 0px 0px 0px 1px',
+        'apple-subtle-2': 'rgb(134, 134, 139) 0px 0px 0px 1px',
+        'things-card': 'rgba(0, 0, 0, 0.1) 0px 2px 8px 0px, rgba(0, 0, 0, 0.1) 0px 0px 2px 0px',
       },
     },
   },

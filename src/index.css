@@ -5,9 +5,39 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
+  color-scheme: dark light;
   
-  /* Apple HIG Dark Mode Surface Tokens */
+  /* =========================================================================
+     Apple Gallery White Showroom Tokens (DESIGN.md)
+     ========================================================================= */
+  --color-gallery-white: #ffffff;
+  --color-studio-mist: #f5f5f7;
+  --color-paper-frost: #fafafc;
+  --color-hairline-silver: #d6d6d6;
+  --color-control-gray: #e6e6e8;
+  --color-ink: #1d1d1f;
+  --color-slate: #707070;
+  --color-steel: #86868b;
+  --color-apple-blue: #0066cc;
+  --color-pricing-blue: #0071e3;
+  --color-launch-orange: #b64400;
+
+  /* =========================================================================
+     Things Editorial Tokens (DESIGN-2.md)
+     ========================================================================= */
+  --color-things-ink: #303336;
+  --color-things-mist: #f2f5f7;
+  --color-things-fog: #838b96;
+  --color-things-ash: #55606e;
+  --color-things-smoke: #44474b;
+  --color-things-hairline: #dfe3e8;
+  --color-signal-blue: #2576eb;
+  --color-sky-blue: #5c9cf5;
+  --shadow-things-card: rgba(0, 0, 0, 0.1) 0px 2px 8px 0px, rgba(0, 0, 0, 0.1) 0px 0px 2px 0px;
+
+  /* =========================================================================
+     Apple HIG Dark Mode Surface Tokens (Preserved for 3D Studio & Deck)
+     ========================================================================= */
   --bg-canvas: #000000;
   --bg-surface: #000000;
   --bg-card: #1C1C1E;
@@ -82,6 +112,155 @@ p, li, blockquote {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
   font-weight: 600;
   letter-spacing: -0.03em;
+}
+
+/* ==========================================================================
+   Apple Gallery White & Things Editorial System Utilities (DESIGN.md & DESIGN-2.md)
+   ========================================================================== */
+
+/* Apple Typography Hierarchy */
+.apple-hero-display {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Space Grotesk', sans-serif;
+  font-size: clamp(40px, 6.5vw, 80px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -1.2px;
+  color: #1d1d1f;
+}
+
+.apple-feature-heading {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Space Grotesk', sans-serif;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: 0px;
+  color: #1d1d1f;
+}
+
+.apple-product-kicker {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Space Grotesk', sans-serif;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.231px;
+  color: #1d1d1f;
+}
+
+.apple-launch-label {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.33;
+  letter-spacing: -0.12px;
+  color: #b64400;
+}
+
+.apple-body-copy {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'DM Sans', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
+  color: #707070;
+}
+
+/* Apple Gallery Feature Card (28px radius, shadowless, 1px subtle hairline) */
+.apple-gallery-card {
+  background: #ffffff;
+  border-radius: 28px;
+  border: 1px solid rgba(214, 214, 214, 0.7);
+  box-shadow: 0 0 0 1px rgba(230, 230, 232, 0.6);
+  transition: border-color 0.24s ease, transform 0.24s ease;
+}
+
+/* Apple Conversion Controls */
+.apple-pricing-pill {
+  background-color: #0071e3;
+  color: #ffffff;
+  border-radius: 9999px;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: -0.12px;
+  font-weight: 400;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.apple-pricing-pill:hover {
+  background-color: #0066cc;
+}
+
+.apple-pricing-pill:active {
+  transform: scale(0.97);
+}
+
+.apple-explore-pill {
+  background-color: transparent;
+  color: #1d1d1f;
+  border: 1px solid #86868b;
+  border-radius: 9999px;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: -0.12px;
+  font-weight: 400;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.apple-explore-pill:hover {
+  border-color: #1d1d1f;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* Things Editorial System (DESIGN-2.md) */
+.things-card {
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 2px rgba(0, 0, 0, 0.1);
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.32s ease;
+}
+
+.things-play-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  background-color: #4f91fb;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 2px 8px rgba(37, 118, 235, 0.3);
+}
+
+.things-play-btn:hover {
+  background-color: #2576eb;
+  transform: scale(1.05);
+}
+
+.things-play-btn:active {
+  transform: scale(0.95);
+}
+
+.things-link {
+  color: #2576eb;
+  font-size: 15px;
+  font-weight: 400;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s ease;
+}
+
+.things-link:hover {
+  color: #1a5fb8;
+}
+
+.things-body-measure {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #838b96;
+  max-width: 540px;
 }
 
 /* ==========================================================================
