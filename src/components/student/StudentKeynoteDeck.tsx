@@ -786,7 +786,7 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
 
               {/* Quiz Choices */}
               <div className="space-y-3">
-                {currentQuizQuestion.options.map((option) => {
+                {currentQuizQuestion.options.map((option, idx) => {
                   const isSelected = selectedOptionId === option.id;
                   const isCorrect = option.isCorrect;
                   const showResult = isQuizSubmitted && isSelected;
@@ -808,10 +808,10 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
                           : 'bg-[#000000]/60 border-white/[0.08] hover:border-white/[0.2] text-[#F5F5F7]'
                       }`}
                     >
-                      <div className="flex items-center justify-between gap-3">
-                        <div className="flex items-center gap-3.5">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-start gap-3.5">
                           <span
-                            className={`w-7 h-7 rounded-full text-xs font-mono font-bold flex items-center justify-center shrink-0 ${
+                            className={`px-2.5 py-1 min-w-[3.25rem] h-7 rounded-full text-xs font-mono font-bold flex items-center justify-center shrink-0 whitespace-nowrap ${
                               showResult && isCorrect
                                 ? 'bg-[#30D158] text-black'
                                 : showResult && !isCorrect
@@ -819,16 +819,16 @@ export const StudentKeynoteDeck: React.FC<StudentKeynoteDeckProps> = ({
                                 : 'bg-[#2C2C2E] text-[#F5F5F7]'
                             }`}
                           >
-                            {option.id.toUpperCase()}
+                            OPT {idx + 1}
                           </span>
-                          <span className="text-sm sm:text-base font-medium text-[#F5F5F7]">
+                          <span className="text-sm sm:text-base font-medium text-[#F5F5F7] pt-0.5 leading-snug">
                             {option.text}
                           </span>
                         </div>
 
                         {showResult && (
                           <span
-                            className={`px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5 shrink-0 ${
+                            className={`px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5 shrink-0 mt-0.5 ${
                               isCorrect
                                 ? 'bg-[#30D158]/20 text-[#30D158]'
                                 : 'bg-[#FFD60A]/20 text-[#FFD60A]'

@@ -181,14 +181,14 @@ export const FAQS: FaqItem[] = [
   },
   {
     question: 'What is the pricing and cohort schedule?',
-    answer: 'Pricing starts at $100 per child (introductory tier, subject to change based on cohort length and materials). We offer two flexible options: intensive 5-day Holiday Bootcamps (March, June, Sept, Nov/Dec) and paced 6-week Weekend Labs (2 hours/week). Every seat is guaranteed 1:8 mentorship, physical 3D printing filament, and 30 days of post-camp platform access.',
+    answer: 'Tuition is $399 per child for the 5-day holiday camp. We offer two flexible options: intensive 5-day Holiday Bootcamps (March, June, Sept, Nov/Dec) and paced 6-week Weekend Labs (2 hours/week). Every seat is guaranteed 1:8 mentorship, physical 3D printing filament, and post-camp platform access.',
     category: 'Tuition & Schedules',
   },
 ];
 
 export const PRICING_DETAILS = {
-  priceString: 'From $100',
-  rateDetail: '$100 per child (subject to change)',
-  cohortLimit: 'Strictly max 16 students per cohort',
+  priceString: 'From $399',
+  rateDetail: '$399 per child (5-day holiday camp)',
+  cohortLimit: 'Small cohorts (8–10 students per class)',
   mentorRatio: '1:8 dedicated mentor ratio',
 };

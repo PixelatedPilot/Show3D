@@ -614,8 +614,8 @@ export const LandingView: React.FC<LandingViewProps> = ({
 
                 <div className="space-y-2.5 pt-2">
                   {[
-                    { label: 'Introductory Rate', value: 'From $100 / child (subject to change)' },
-                    { label: 'Cohort Size', value: 'Strictly capped at 16 students' },
+                    { label: 'Tuition Rate', value: '$399 / child (5-day camp)' },
+                    { label: 'Cohort Size', value: 'Small cohorts (8–10 students)' },
                     { label: 'Instructor Ratio', value: '1:8 dedicated STEM mentorship' },
                     { label: 'Physical Deliverable', value: 'Custom 3D print in eco-PLA' },
                     { label: 'Credential', value: 'MOE 21CC & DSA Verified Certificate' },
